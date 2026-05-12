@@ -5,7 +5,11 @@ import { toast } from "sonner";
 
 export default function ProductCard({ product }) {
   const { addItem } = useCart();
-  const second = product.images[1] || product.images[0];
+
+  // Front: first variant's primary image. Back: second variant's image, or second image of first variant.
+  const variants = product.variants || [{ colour: "", images: product.images }];
+  const front = variants[0].images[0];
+  const back = variants[1]?.images?.[0] || variants[0].images[1] || front;
 
   const onSelect = (e) => {
     e.preventDefault();
@@ -19,14 +23,14 @@ export default function ProductCard({ product }) {
       <Link to={`/products/${product.id}`} className="block">
         <div className="relative aspect-[3/4] kq-swap bg-[hsl(var(--kq-bg-2))]">
           <img
-            src={product.images[0]}
+            src={front}
             alt={product.name}
             loading="lazy"
             style={{ objectPosition: product.pos || "center 25%" }}
             className="kq-swap-front"
           />
           <img
-            src={second}
+            src={back}
             alt={`${product.name} alternate`}
             loading="lazy"
             style={{ objectPosition: product.pos || "center 25%" }}

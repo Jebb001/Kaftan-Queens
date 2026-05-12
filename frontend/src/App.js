@@ -5,6 +5,7 @@ import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -17,6 +18,7 @@ function App() {
     <div className="App bg-[hsl(var(--kq-bg))] text-[hsl(var(--kq-ink))] min-h-screen">
       <BrowserRouter>
         <CartProvider>
+          <ScrollToTop />
           <Navbar />
           <CartDrawer />
           <Routes>

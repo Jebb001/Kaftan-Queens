@@ -10,9 +10,15 @@ export default function ProductDetail() {
   const { id } = useParams();
   const product = PRODUCTS.find((p) => p.id === id);
   const { addItem } = useCart();
-  const [colour, setColour] = useState(product?.colours?.[0] || "");
+  const variants = product?.variants || [];
+  const [colour, setColour] = useState(variants[0]?.colour || product?.colours?.[0] || "");
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
+
+  // Reset gallery when colour changes
+  React.useEffect(() => {
+    setActiveImg(0);
+  }, [colour]);
 
   if (!product) {
     return (
@@ -24,6 +30,9 @@ export default function ProductDetail() {
       </main>
     );
   }
+
+  const activeVariant = variants.find((v) => v.colour === colour) || variants[0];
+  const galleryImages = activeVariant?.images || product.images;
 
   const onAdd = () => {
     addItem(product, { size: colour || "One Size", qty });
@@ -47,10 +56,11 @@ export default function ProductDetail() {
         <div>
           <div className="relative aspect-[4/5] bg-[hsl(var(--kq-bg-2))] overflow-hidden">
             <img
-              src={product.images[activeImg]}
-              alt={product.name}
+              key={galleryImages[activeImg]}
+              src={galleryImages[activeImg]}
+              alt={`${product.name} — ${colour}`}
               style={{ objectPosition: product.pos || "center" }}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover kq-fade-up"
             />
             {product.badge && (
               <span className="absolute top-4 left-4 bg-[hsl(var(--kq-bg))] text-[hsl(var(--kq-ink))] text-[10px] tracking-[0.22em] uppercase px-3 py-1.5">
@@ -58,11 +68,11 @@ export default function ProductDetail() {
               </span>
             )}
           </div>
-          {product.images.length > 1 && (
+          {galleryImages.length > 1 && (
             <div className="grid grid-cols-5 gap-2 mt-3">
-              {product.images.map((src, i) => (
+              {galleryImages.map((src, i) => (
                 <button
-                  key={i}
+                  key={src}
                   onClick={() => setActiveImg(i)}
                   className={`aspect-[3/4] overflow-hidden border ${
                     activeImg === i ? "border-[hsl(var(--kq-accent-2))]" : "border-transparent"

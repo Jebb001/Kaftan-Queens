@@ -50,6 +50,172 @@ export const HERO_SLIDES = [
 
 const CDN = "https://kaftanqueens.co.uk/cdn/shop/files/";
 
+// Helper: flatten variants into a single images array for grid cards.
+function flat(variants) {
+  return variants.flatMap((v) => v.images);
+}
+
+const palmKaftanVariants = [
+  {
+    colour: "Pink",
+    images: [`${CDN}Palmpinkandgreenkaftan.heic?v=1761750123&width=1200`],
+  },
+  {
+    colour: "Green & Fuchsia",
+    images: [`${CDN}Palmbeigekaftan2.heic?v=1761750123&width=1200`],
+  },
+  {
+    colour: "Blue & Red",
+    images: [`${CDN}Palmblueandredkaftan.heic?v=1761750122&width=1200`],
+  },
+  {
+    colour: "Orange",
+    images: [`${CDN}Palm_peach_kaftan.heic?v=1761750299&width=1200`],
+  },
+];
+
+const palmDressVariants = [
+  {
+    colour: "Blue & Pink",
+    images: [`${CDN}Palmblueandpinkdress.heic?v=1761750246&width=1200`],
+  },
+  {
+    colour: "Blue Pattern",
+    images: [`${CDN}Palmbluedress3.heic?v=1762429162&width=1200`],
+  },
+  {
+    colour: "Fuchsia",
+    images: [
+      `${CDN}Palmfusiadress.heic?v=1762429162&width=1200`,
+      `${CDN}Palmpinkdress2.heic?v=1761750246&width=1200`,
+    ],
+  },
+  {
+    colour: "Orange",
+    images: [
+      `${CDN}Palmorangedress3.heic?v=1761750245&width=1200`,
+      `${CDN}Palmorangedress2.heic?v=1761750246&width=1200`,
+    ],
+  },
+  {
+    colour: "Yellow",
+    images: [`${CDN}Palmyellowdress3.heic?v=1761750245&width=1200`],
+  },
+];
+
+const kimonoVariants = [
+  { colour: "Pink", images: [`${CDN}Pinkkimono2.heic?v=1761750652&width=1200`] },
+  { colour: "Yellow", images: [`${CDN}Yellowkimono.heic?v=1761750652&width=1200`] },
+  { colour: "Fuchsia", images: [`${CDN}Fushiapinkkimono3.heic?v=1761750652&width=1200`] },
+];
+
+const hampiVariants = [
+  {
+    colour: "Navy Blue",
+    images: [
+      `${CDN}Hampi_Navy_Blue_Shirt_2.jpg?v=1763043582&width=1200`,
+      `${CDN}HampiNavyBlueShirt.jpg?v=1763043468&width=1200`,
+      `${CDN}HampiNavyBlueShirt2.jpg?v=1763043467&width=1200`,
+    ],
+  },
+  {
+    colour: "White",
+    images: [
+      `${CDN}HampiWhiteShirt.jpg?v=1763043467&width=1200`,
+      `${CDN}HampiWhiteShirt2.jpg?v=1763043467&width=1200`,
+      `${CDN}HampiWhiteShirt3.jpg?v=1763043466&width=1200`,
+    ],
+  },
+  {
+    colour: "Denim Blue",
+    images: [
+      `${CDN}HampiDenimBlueShirt3.jpg?v=1763043582&width=1200`,
+      `${CDN}HampiDenimBlueShirt2.jpg?v=1763043582&width=1200`,
+      `${CDN}HampiDenimBlueShirt.jpg?v=1763043466&width=1200`,
+    ],
+  },
+  {
+    colour: "Pink",
+    images: [
+      `${CDN}HampiPinkShirt.jpg?v=1763043466&width=1200`,
+      `${CDN}HampiPinkShirt2.jpg?v=1763043467&width=1200`,
+      `${CDN}HampiPinkShirt3.jpg?v=1763043466&width=1200`,
+    ],
+  },
+];
+
+const goaVariants = [
+  {
+    colour: "Pink Flower",
+    images: [
+      `${CDN}KeralaKortapinkflowerXL_6f8d6913-8162-4644-a49a-fefaa9bd45d0.jpg?v=1761750376&width=1200`,
+      `${CDN}KeralaKortapinkflowerXL2.jpg?v=1761750376&width=1200`,
+    ],
+  },
+  {
+    colour: "Blue Flower",
+    images: [`${CDN}KeralaKortablueflowerXL2_acb651af-f8a8-4eb8-ad74-b2be34f6d9ef.jpg?v=1761750377&width=1200`],
+  },
+  {
+    colour: "Blue Pattern",
+    images: [`${CDN}KeralaKortaBluepatternXL2_8cbf2f14-bd30-4b42-80b4-8c5b73a26a53.jpg?v=1761750377&width=1200`],
+  },
+  {
+    colour: "Lilac Flower",
+    images: [`${CDN}KeralaKortapurplefloweronwhiteXL2.jpg?v=1761750376&width=1200`],
+  },
+  {
+    colour: "White Flower on Denim",
+    images: [
+      `${CDN}KeralaKortawhiteflowerondenimXL2.jpg?v=1761750376&width=1200`,
+      `${CDN}KeralaKortawhiteflowerondenimXL3.jpg?v=1761750377&width=1200`,
+    ],
+  },
+];
+
+const keralaVariants = [
+  { colour: "Blue Flower", images: [`${CDN}Keralablueflowermen_scottonshirtL.heic?v=1761750458&width=1200`, `${CDN}Keralablueflowermen_scottonshirtL2.heic?v=1761750459&width=1200`] },
+  { colour: "Beige & Turquoise Flower", images: [`${CDN}Keralabeigewithturquoiseflowersmen_scottonshirtL.heic?v=1761750459&width=1200`] },
+  { colour: "Fuchsia Flower", images: [`${CDN}Keralafushiaflowermen_scottonshirtL2.heic?v=1761750459&width=1200`] },
+  { colour: "Pale Blue Block Print", images: [`${CDN}Keralapaleblueblockmen_scottonshirtL2.heic?v=1761750458&width=1200`] },
+  { colour: "Green Block Print", images: [`${CDN}Keralagreenblockmen_scottonshirtL_45730605-055a-4193-ada7-0de1cf062fef.heic?v=1761750459&width=1200`] },
+  { colour: "Navy Blue Block Print", images: [`${CDN}KeralanavyblockonwhitemenscottonshirtL3.heic?v=1761750459&width=1200`, `${CDN}KeralanavyblockonwhitemenscottonshirtL.heic?v=1761750459&width=1200`] },
+  { colour: "Pink Frangipani", images: [`${CDN}KeralapinkfrangipanimenscottonshirtL.heic?v=1761750458&width=1200`, `${CDN}KeralapinkfrangipanimenscottonshirtL2.heic?v=1761750459&width=1200`] },
+];
+
+const bagsVariants = [
+  { colour: "Black & Cream", images: [`${CDN}IndianBags1_b1392fe3-5266-4abb-bdc3-69b9910dc088.jpg?v=1761682331&width=1200`] },
+  { colour: "Cream & White", images: [`${CDN}indianbags2.jpg?v=1761682332&width=1200`] },
+  { colour: "Cream & Turquoise", images: [`${CDN}indianbags3.jpg?v=1761682332&width=1200`] },
+];
+
+const agondaVariants = [
+  { colour: "Autumnal", images: [`${CDN}Aginda_Scarf_Autumnal_d5919d8e-c6b7-4132-a0c2-717e7c6c1cb7.jpg?v=1762103326&width=1200`, `${CDN}AgondaScarfAutumnal2.jpg?v=1761929096&width=1200`] },
+  { colour: "Pink", images: [`${CDN}AgondaScarfPink2.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfPink.jpg?v=1761928928&width=1200`, `${CDN}AgondaScarfLightPink.jpg?v=1761929096&width=1200`] },
+  { colour: "Beige", images: [`${CDN}AgondaScarfBeige.jpg?v=1761929096&width=1200`] },
+  { colour: "Blue", images: [`${CDN}AgondaScarfBlue.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfBlue2.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfBlue3.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfBlue4.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfBlue5.jpg?v=1761929096&width=1200`] },
+  { colour: "Dark Blue", images: [`${CDN}AgondaScarfDarkBlue.jpg?v=1761929096&width=1200`] },
+  { colour: "Brown", images: [`${CDN}AgondaScarfBrown.jpg?v=1761929096&width=1200`] },
+  { colour: "Mint", images: [`${CDN}AgondaScarfMint.jpg?v=1761929096&width=1200`] },
+  { colour: "Plum", images: [`${CDN}AgondaScarfPlum.jpg?v=1761928929&width=1200`] },
+  { colour: "Yellow", images: [`${CDN}AgondaScarfYellow.jpg?v=1761928929&width=1200`] },
+];
+
+const mariposaVariants = [
+  { colour: "Blue", images: [`${CDN}MariposaScarfBlue.jpg?v=1761929703&width=1200`, `${CDN}MariposaScarfBlue2.jpg?v=1761930167&width=1200`, `${CDN}MariposaScarfBlue3.jpg?v=1761930167&width=1200`, `${CDN}MariposaScarfBlue4.jpg?v=1761929702&width=1200`] },
+  { colour: "Peach", images: [`${CDN}MariposaScarfPeach.jpg?v=1761929702&width=1200`, `${CDN}MariposaScarfPeach2.jpg?v=1761929702&width=1200`] },
+  { colour: "Purple", images: [`${CDN}MariposaScarfPurple.jpg?v=1761929701&width=1200`] },
+];
+
+const yakVariants = [
+  { colour: "Blue", images: [`${CDN}YakWoolMandalaScarfBlue3.jpg?v=1762462953&width=1200`, `${CDN}YakWoolMandalaScarfBlue.jpg?v=1762462953&width=1200`, `${CDN}YakWoolMandalaScarfBlue2.jpg?v=1761931001&width=1200`, `${CDN}YakWoolMandalaScarfBlue4.jpg?v=1762462953&width=1200`] },
+  { colour: "Multicolour", images: [`${CDN}MandalaYakwoolMulticolourpleasespecify2.jpg?v=1762462953&width=1200`] },
+  { colour: "Beige", images: [`${CDN}YakWoolMandalaScarfBeige.jpg?v=1762462953&width=1200`] },
+  { colour: "Purple", images: [`${CDN}YakWoolMandalaScarfPurple.jpg?v=1762462953&width=1200`] },
+  { colour: "Brown", images: [`${CDN}YakWoolMandalaScarfBrown.jpg?v=1762462953&width=1200`] },
+  { colour: "Black", images: [`${CDN}YakWoolMandalaScarfBlack.jpg?v=1761931001&width=1200`] },
+];
+
 export const PRODUCTS = [
   {
     id: "palm-kaftan",
@@ -63,13 +229,9 @@ export const PRODUCTS = [
     material: "Silk/Viscose",
     origin: "Hand-printed in Rajasthan, India",
     care: "Machine wash at 30°C. Warm iron on reverse. Do not tumble dry.",
-    colours: ["Pink", "Green & Fuchsia", "Blue & Red", "Orange"],
-    images: [
-      `${CDN}Palm_peach_kaftan.heic?v=1761750299&width=1200`,
-      `${CDN}Palmbeigekaftan2.heic?v=1761750123&width=1200`,
-      `${CDN}Palmblueandredkaftan.heic?v=1761750122&width=1200`,
-      `${CDN}Palmpinkandgreenkaftan.heic?v=1761750123&width=1200`,
-    ],
+    variants: palmKaftanVariants,
+    images: flat(palmKaftanVariants),
+    colours: palmKaftanVariants.map((v) => v.colour),
     pos: "center 30%",
   },
   {
@@ -84,15 +246,9 @@ export const PRODUCTS = [
     material: "Silk/Viscose",
     origin: "Hand-printed in Rajasthan, India",
     care: "Machine wash at 30°C. Warm iron on reverse. Do not tumble dry.",
-    colours: ["Blue & Pink", "Blue Pattern", "Fuchsia", "Orange", "Yellow"],
-    images: [
-      `${CDN}Palmblueandpinkdress.heic?v=1761750246&width=1200`,
-      `${CDN}Palmpinkdress2.heic?v=1761750246&width=1200`,
-      `${CDN}Palmorangedress3.heic?v=1761750245&width=1200`,
-      `${CDN}Palmyellowdress3.heic?v=1761750245&width=1200`,
-      `${CDN}Palmbluedress3.heic?v=1762429162&width=1200`,
-      `${CDN}Palmfusiadress.heic?v=1762429162&width=1200`,
-    ],
+    variants: palmDressVariants,
+    images: flat(palmDressVariants),
+    colours: palmDressVariants.map((v) => v.colour),
     pos: "center 30%",
   },
   {
@@ -107,12 +263,9 @@ export const PRODUCTS = [
     material: "Silk/Viscose Blend",
     origin: "Handmade in India",
     care: "Machine wash cold. Warm iron.",
-    colours: ["Pink", "Yellow", "Fuchsia"],
-    images: [
-      `${CDN}Pinkkimono2.heic?v=1761750652&width=1200`,
-      `${CDN}Fushiapinkkimono3.heic?v=1761750652&width=1200`,
-      `${CDN}Yellowkimono.heic?v=1761750652&width=1200`,
-    ],
+    variants: kimonoVariants,
+    images: flat(kimonoVariants),
+    colours: kimonoVariants.map((v) => v.colour),
     pos: "center 30%",
   },
   {
@@ -128,15 +281,9 @@ export const PRODUCTS = [
     origin: "Made in India",
     care: "Machine cool wash. Warm iron. Do not tumble dry.",
     sizing: "Arm length 53 cm · Chest 58 cm",
-    colours: ["Navy Blue", "White", "Denim Blue", "Pink"],
-    images: [
-      `${CDN}Hampi_Navy_Blue_Shirt_2.jpg?v=1763043582&width=1200`,
-      `${CDN}HampiDenimBlueShirt3.jpg?v=1763043582&width=1200`,
-      `${CDN}HampiPinkShirt.jpg?v=1763043466&width=1200`,
-      `${CDN}HampiWhiteShirt.jpg?v=1763043467&width=1200`,
-      `${CDN}HampiNavyBlueShirt.jpg?v=1763043468&width=1200`,
-      `${CDN}HampiDenimBlueShirt2.jpg?v=1763043582&width=1200`,
-    ],
+    variants: hampiVariants,
+    images: flat(hampiVariants),
+    colours: hampiVariants.map((v) => v.colour),
     pos: "center 30%",
   },
   {
@@ -152,14 +299,9 @@ export const PRODUCTS = [
     origin: "Block printed in Rajasthan, India",
     care: "Machine wash at 30°C. Warm iron on reverse. Do not tumble dry.",
     sizing: "Arm length 56 cm · Chest 62 cm",
-    colours: ["Pink Flower", "Blue Pattern", "Blue Flower", "White Flower on Denim", "Lilac Flower"],
-    images: [
-      `${CDN}KeralaKortapinkflowerXL_6f8d6913-8162-4644-a49a-fefaa9bd45d0.jpg?v=1761750376&width=1200`,
-      `${CDN}KeralaKortablueflowerXL2_acb651af-f8a8-4eb8-ad74-b2be34f6d9ef.jpg?v=1761750377&width=1200`,
-      `${CDN}KeralaKortaBluepatternXL2_8cbf2f14-bd30-4b42-80b4-8c5b73a26a53.jpg?v=1761750377&width=1200`,
-      `${CDN}KeralaKortapurplefloweronwhiteXL2.jpg?v=1761750376&width=1200`,
-      `${CDN}KeralaKortawhiteflowerondenimXL2.jpg?v=1761750376&width=1200`,
-    ],
+    variants: goaVariants,
+    images: flat(goaVariants),
+    colours: goaVariants.map((v) => v.colour),
     pos: "center 30%",
   },
   {
@@ -174,23 +316,9 @@ export const PRODUCTS = [
     origin: "Block printed in Rajasthan, India",
     care: "Machine wash at 30°C. Warm iron on reverse. Do not tumble dry.",
     sizing: "Arm length 56 cm · Chest 62 cm",
-    colours: [
-      "Blue Flower",
-      "Beige & Turquoise Flower",
-      "Fuchsia Flower",
-      "Pale Blue Block Print",
-      "Green Block Print",
-      "Pink Frangipani",
-      "Navy Blue Block Print",
-    ],
-    images: [
-      `${CDN}Keralablueflowermen_scottonshirtL.heic?v=1761750458&width=1200`,
-      `${CDN}Keralabeigewithturquoiseflowersmen_scottonshirtL.heic?v=1761750459&width=1200`,
-      `${CDN}Keralafushiaflowermen_scottonshirtL2.heic?v=1761750459&width=1200`,
-      `${CDN}KeralanavyblockonwhitemenscottonshirtL3.heic?v=1761750459&width=1200`,
-      `${CDN}KeralapinkfrangipanimenscottonshirtL.heic?v=1761750458&width=1200`,
-      `${CDN}Keralapaleblueblockmen_scottonshirtL2.heic?v=1761750458&width=1200`,
-    ],
+    variants: keralaVariants,
+    images: flat(keralaVariants),
+    colours: keralaVariants.map((v) => v.colour),
     pos: "center 30%",
   },
   {
@@ -204,12 +332,9 @@ export const PRODUCTS = [
       "Beautiful hand-woven bags with intricate patterns in a range of stylish colours. Perfect for the beach, a sunny excursion, or as a travel bag — artisan craft for any day out.",
     material: "Hand Woven Fabric",
     origin: "Made in India",
-    colours: ["Black & Cream", "Cream & White", "Cream & Turquoise", "Cream & Taupe"],
-    images: [
-      `${CDN}IndianBags1_b1392fe3-5266-4abb-bdc3-69b9910dc088.jpg?v=1761682331&width=1200`,
-      `${CDN}indianbags2.jpg?v=1761682332&width=1200`,
-      `${CDN}indianbags3.jpg?v=1761682332&width=1200`,
-    ],
+    variants: bagsVariants,
+    images: flat(bagsVariants),
+    colours: bagsVariants.map((v) => v.colour),
     pos: "center",
   },
   {
@@ -223,16 +348,9 @@ export const PRODUCTS = [
     material: "100% Wool",
     origin: "Made in India",
     care: "Hand wash in cold water. Do not tumble dry.",
-    colours: ["Autumnal", "Pink", "Beige", "Blue", "Brown", "Dark Blue", "Mint", "Plum", "Yellow"],
-    images: [
-      `${CDN}Aginda_Scarf_Autumnal_d5919d8e-c6b7-4132-a0c2-717e7c6c1cb7.jpg?v=1762103326&width=1200`,
-      `${CDN}AgondaScarfPink2.jpg?v=1761929096&width=1200`,
-      `${CDN}AgondaScarfBeige.jpg?v=1761929096&width=1200`,
-      `${CDN}AgondaScarfBlue3.jpg?v=1761929096&width=1200`,
-      `${CDN}AgondaScarfPlum.jpg?v=1761928929&width=1200`,
-      `${CDN}AgondaScarfYellow.jpg?v=1761928929&width=1200`,
-      `${CDN}AgondaScarfMint.jpg?v=1761929096&width=1200`,
-    ],
+    variants: agondaVariants,
+    images: flat(agondaVariants),
+    colours: agondaVariants.map((v) => v.colour),
     pos: "center",
   },
   {
@@ -246,14 +364,9 @@ export const PRODUCTS = [
       "A unique scarf with hand-stitched, layered designs in vibrant one-off colour combinations. Lightweight wool — artisan style and warmth in equal measure.",
     material: "Lightweight Wool",
     origin: "Made in Kashmir",
-    colours: ["Blue", "Peach", "Purple"],
-    images: [
-      `${CDN}MariposaScarfBlue.jpg?v=1761929703&width=1200`,
-      `${CDN}MariposaScarfBlue3.jpg?v=1761930167&width=1200`,
-      `${CDN}MariposaScarfPeach.jpg?v=1761929702&width=1200`,
-      `${CDN}MariposaScarfPurple.jpg?v=1761929701&width=1200`,
-      `${CDN}MariposaScarfBlue2.jpg?v=1761930167&width=1200`,
-    ],
+    variants: mariposaVariants,
+    images: flat(mariposaVariants),
+    colours: mariposaVariants.map((v) => v.colour),
     pos: "center",
   },
   {
@@ -267,16 +380,9 @@ export const PRODUCTS = [
     material: "100% Yak Wool",
     origin: "Made in India",
     care: "Hand wash in cold water. Do not tumble dry.",
-    colours: ["Turquoise", "Beige", "Black", "Blue", "Green", "Brown", "Purple"],
-    images: [
-      `${CDN}YakWoolMandalaScarfBlue3.jpg?v=1762462953&width=1200`,
-      `${CDN}MandalaYakwoolMulticolourpleasespecify2.jpg?v=1762462953&width=1200`,
-      `${CDN}YakWoolMandalaScarfBeige.jpg?v=1762462953&width=1200`,
-      `${CDN}YakWoolMandalaScarfPurple.jpg?v=1762462953&width=1200`,
-      `${CDN}YakWoolMandalaScarfBrown.jpg?v=1762462953&width=1200`,
-      `${CDN}YakWoolMandalaScarfBlue.jpg?v=1762462953&width=1200`,
-      `${CDN}YakWoolMandalaScarfBlack.jpg?v=1761931001&width=1200`,
-    ],
+    variants: yakVariants,
+    images: flat(yakVariants),
+    colours: yakVariants.map((v) => v.colour),
     pos: "center",
   },
 ];
