@@ -37,7 +37,7 @@ export default function Home() {
       </section>
 
       <CollectionRow
-        kicker="— Sustainable Cotton"
+        kicker="— Hand-printed in Rajasthan"
         title="The Women's Edit"
         products={women}
         ctaTo="/shop?cat=women"
@@ -47,7 +47,7 @@ export default function Home() {
       <ArtisanStory />
 
       <CollectionRow
-        kicker="— Linen, light & lived-in"
+        kicker="— 100% Cotton, hand-finished"
         title="For Him"
         products={men}
         ctaTo="/shop?cat=men"
