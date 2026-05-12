@@ -1,0 +1,9 @@
+.App {
+    min-height: 100vh;
+}
+
+/* tasteful focus ring */
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid hsl(var(--kq-terracotta));
+    outline-offset: 2px;
+}
