@@ -25,7 +25,8 @@ export const HERO_SLIDES = [
     sub: "Rare pieces, fairly made",
     cta: { label: "Shop Now", to: "/shop" },
     image:
-      "https://kaftanqueens.co.uk/cdn/shop/files/FullSizeRender_1.jpg?v=1747076209&width=2400",
+      "https://images.unsplash.com/photo-1659126404817-63ddbbae1b06?crop=entropy&cs=srgb&fm=jpg&q=85&w=2400",
+    pos: "center 25%",
   },
   {
     eyebrow: "— Tailored by hand",
@@ -33,7 +34,8 @@ export const HERO_SLIDES = [
     sub: "Buy less, choose well, make it last",
     cta: { label: "Shop Now", to: "/shop" },
     image:
-      "https://images.unsplash.com/photo-1659126404817-63ddbbae1b06?crop=entropy&cs=srgb&fm=jpg&q=85&w=2000",
+      "https://images.unsplash.com/photo-1767617158289-e156ac6792a9?crop=entropy&cs=srgb&fm=jpg&q=85&w=2400",
+    pos: "center 30%",
   },
   {
     eyebrow: "— Pure cottons & silks",
@@ -41,7 +43,8 @@ export const HERO_SLIDES = [
     sub: "Look beautiful, while doing good",
     cta: { label: "Shop Pure Cotton", to: "/shop?cat=women" },
     image:
-      "https://kaftanqueens.co.uk/cdn/shop/files/BE216657-819F-4050-8363-95992F8A1318.jpg?v=1747076210&width=2400",
+      "https://images.unsplash.com/photo-1595539215912-934862bd6f64?crop=entropy&cs=srgb&fm=jpg&q=85&w=2400",
+    pos: "center 30%",
   },
 ];
 

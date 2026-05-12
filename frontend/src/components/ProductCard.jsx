@@ -22,12 +22,14 @@ export default function ProductCard({ product }) {
             src={product.images[0]}
             alt={product.name}
             loading="lazy"
+            style={{ objectPosition: product.pos || "center 25%" }}
             className="kq-swap-front"
           />
           <img
             src={second}
             alt={`${product.name} alternate`}
             loading="lazy"
+            style={{ objectPosition: product.pos || "center 25%" }}
             className="kq-swap-back"
           />
           {product.badge && (

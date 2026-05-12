@@ -17,12 +17,13 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden">
-      <div className="relative aspect-[16/10] md:aspect-[16/8] max-h-[820px] w-full">
+      <div className="relative aspect-[4/5] sm:aspect-[16/10] md:aspect-[16/9] max-h-[860px] w-full">
         {HERO_SLIDES.map((s, i) => (
           <img
             key={s.image}
             src={s.image}
             alt={s.title}
+            style={{ objectPosition: s.pos || "center" }}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ${
               i === idx ? "opacity-100" : "opacity-0"
             }`}
