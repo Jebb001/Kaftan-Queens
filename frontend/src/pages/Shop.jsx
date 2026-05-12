@@ -8,7 +8,7 @@ const CATS = [
   { key: "all", label: "All" },
   { key: "women", label: "Women" },
   { key: "men", label: "Men" },
-  { key: "accessories", label: "Bags & Scarves" },
+  { key: "accessories", label: "Scarves & Bags" },
 ];
 
 export default function Shop() {
@@ -23,32 +23,30 @@ export default function Shop() {
     return list;
   }, [cat, sort]);
 
-  const setCat = (k) => {
-    if (k === "all") setParams({});
-    else setParams({ cat: k });
-  };
+  const setCat = (k) => (k === "all" ? setParams({}) : setParams({ cat: k }));
+
+  const title = cat === "all" ? "All Clothing" : CATS.find((c) => c.key === cat)?.label;
 
   return (
-    <main className="max-w-[1400px] mx-auto px-5 md:px-10 pt-10 md:pt-16">
-      <header className="mb-10 md:mb-14">
-        <span className="text-[11px] tracking-[0.35em] uppercase text-[hsl(var(--kq-terracotta))]">
-          —— The collection
+    <main className="max-w-[1400px] mx-auto px-5 md:px-10 pt-10 md:pt-14">
+      <header className="text-center mb-10 md:mb-14">
+        <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">
+          — The Collection
         </span>
-        <h1 className="font-display text-5xl md:text-7xl mt-3 leading-none">
-          {cat === "all" ? "Shop everything" : CATS.find((c) => c.key === cat)?.label}
-        </h1>
-        <p className="mt-4 text-[hsl(var(--kq-ink-soft))] max-w-xl">
-          Hand-loomed and block-printed in Northern India. Every piece is finished by hand.
+        <h1 className="font-display text-5xl md:text-6xl mt-3 leading-none">{title}</h1>
+        <div className="mt-4 flex items-center justify-center"><span className="kq-thin-rule" /></div>
+        <p className="font-italic text-base md:text-lg text-[hsl(var(--kq-ink-soft))] mt-5 max-w-xl mx-auto">
+          Hand-loomed and block-printed in Northern India. Every piece finished by hand.
         </p>
       </header>
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 pb-5 border-b border-[hsl(var(--kq-line))]">
-        <nav className="flex flex-wrap gap-1">
+        <nav className="flex flex-wrap gap-1.5">
           {CATS.map((c) => (
             <button
               key={c.key}
               onClick={() => setCat(c.key)}
-              className={`px-4 py-2 text-[11px] tracking-[0.25em] uppercase border transition-colors ${
+              className={`px-4 py-2 text-[11px] tracking-[0.22em] uppercase border transition-colors ${
                 cat === c.key
                   ? "bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] border-[hsl(var(--kq-ink))]"
                   : "border-[hsl(var(--kq-line))] hover:border-[hsl(var(--kq-ink))]"
@@ -58,14 +56,14 @@ export default function Shop() {
             </button>
           ))}
         </nav>
-        <div className="flex items-center gap-2 text-xs">
+        <div className="flex items-center gap-3 text-xs">
           <span className="text-[hsl(var(--kq-ink-soft))]">{filtered.length} pieces</span>
-          <span className="mx-2 text-[hsl(var(--kq-line))]">|</span>
+          <span className="text-[hsl(var(--kq-line))]">|</span>
           <div className="relative">
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="appearance-none bg-transparent pr-7 pl-2 py-1.5 text-[11px] tracking-[0.2em] uppercase outline-none border border-[hsl(var(--kq-line))]"
+              className="appearance-none bg-transparent pr-7 pl-3 py-2 text-[11px] tracking-[0.2em] uppercase outline-none border border-[hsl(var(--kq-line))]"
             >
               <option value="featured">Featured</option>
               <option value="low">Price: Low → High</option>
@@ -76,7 +74,7 @@ export default function Shop() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10 md:gap-x-7 md:gap-y-14">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-7 md:gap-y-16">
         {filtered.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}

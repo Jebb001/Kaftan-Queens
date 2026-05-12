@@ -1,74 +1,90 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { HERO_IMAGES } from "../mock";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { HERO_SLIDES } from "../mock";
 
 export default function Hero() {
+  const [idx, setIdx] = useState(0);
+  const slide = HERO_SLIDES[idx];
+
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % HERO_SLIDES.length), 6500);
+    return () => clearInterval(t);
+  }, []);
+
+  const prev = () => setIdx((i) => (i - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+  const next = () => setIdx((i) => (i + 1) % HERO_SLIDES.length);
+
   return (
-    <section className="relative">
-      <div className="max-w-[1400px] mx-auto px-5 md:px-10 pt-6 md:pt-10">
-        <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-end">
-          {/* Copy block */}
-          <div className="md:col-span-5 md:pb-10 kq-fade-up">
-            <span className="text-[11px] tracking-[0.35em] uppercase text-[hsl(var(--kq-ink-soft))]">
-              —— Handcrafted in India
-            </span>
-            <h1 className="font-display text-[44px] leading-[1.02] md:text-[78px] md:leading-[0.95] mt-5">
-              Bohemian luxury, woven by hand.
-            </h1>
-            <p className="mt-6 text-base md:text-lg text-[hsl(var(--kq-ink-soft))] max-w-md">
-              Small-batch kaftans, scarves and shirts — made in Northern India using heritage techniques and natural fibres. Never mass produced. Always one of a kind.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                to="/shop"
-                className="group inline-flex items-center gap-3 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] px-7 py-4 text-[11px] tracking-[0.3em] uppercase hover:bg-[hsl(var(--kq-terracotta))] transition-colors"
-              >
-                Shop the Collection
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link to="/about" className="text-[11px] tracking-[0.3em] uppercase kq-link">
-                Our Story
-              </Link>
-            </div>
+    <section className="relative overflow-hidden">
+      <div className="relative aspect-[16/10] md:aspect-[16/8] max-h-[820px] w-full">
+        {HERO_SLIDES.map((s, i) => (
+          <img
+            key={s.image}
+            src={s.image}
+            alt={s.title}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ${
+              i === idx ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
 
-            <div className="mt-12 grid grid-cols-3 gap-4 max-w-md">
-              {[
-                ["Hand", "made"],
-                ["Small", "batch"],
-                ["Slow", "fashion"],
-              ].map((p, i) => (
-                <div key={i} className="border-t border-[hsl(var(--kq-line))] pt-3">
-                  <p className="font-display text-2xl leading-none">{p[0]}</p>
-                  <p className="text-[10px] tracking-[0.3em] uppercase mt-1 text-[hsl(var(--kq-ink-soft))]">{p[1]}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* Decorative left arc */}
+        <div
+          className="hidden md:block absolute -left-40 top-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle at 30% 50%, hsl(var(--kq-bg-2)) 0%, hsl(var(--kq-bg-2)/0.6) 55%, transparent 70%)",
+          }}
+        />
 
-          {/* Image block */}
-          <div className="md:col-span-7 relative">
-            <div className="relative aspect-[4/5] md:aspect-[5/6] overflow-hidden kq-img-zoom kq-grain">
-              <img
-                src={HERO_IMAGES.primary}
-                alt="Kaftan Queens editorial"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8 flex items-end justify-between text-[hsl(var(--kq-bg))]">
-                <span className="text-[10px] tracking-[0.35em] uppercase backdrop-blur-sm bg-black/15 px-3 py-1.5">
-                  AW ’25 · The Palm Edit
-                </span>
+        {/* Offset content card */}
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10">
+            <div className="max-w-md bg-[hsl(var(--kq-bg))]/95 md:bg-[hsl(var(--kq-bg))] backdrop-blur-sm md:backdrop-blur-none border border-[hsl(var(--kq-line))] p-7 md:p-10 kq-fade-up" key={idx}>
+              <span className="text-[10px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">
+                {slide.eyebrow}
+              </span>
+              <h1 className="font-display text-[40px] md:text-[54px] leading-[1.05] mt-4">
+                {slide.title}
+              </h1>
+              <div className="mt-4 mb-6 flex items-center gap-3">
+                <span className="kq-thin-rule" />
+                <p className="font-italic text-lg md:text-xl text-[hsl(var(--kq-ink-soft))]">{slide.sub}</p>
               </div>
-            </div>
-
-            {/* Floating card */}
-            <div className="hidden md:flex absolute -left-8 bottom-10 w-[260px] bg-[hsl(var(--kq-bg))] border border-[hsl(var(--kq-line))] p-5 flex-col gap-2 shadow-[0_30px_60px_-30px_rgba(40,30,20,0.35)]">
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[hsl(var(--kq-terracotta))]">Featured</span>
-              <p className="font-display text-xl leading-snug">The Palm Kaftan</p>
-              <p className="text-xs text-[hsl(var(--kq-ink-soft))]">Block-printed by hand on breathable cotton.</p>
-              <Link to="/products/palm-kaftan" className="text-[11px] tracking-[0.3em] uppercase kq-link mt-1">Discover →</Link>
+              <Link
+                to={slide.cta.to}
+                className="inline-flex items-center gap-2 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] px-7 py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors"
+              >
+                {slide.cta.label}
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
+        </div>
+
+        {/* Arrows */}
+        <div className="absolute bottom-5 right-5 md:bottom-8 md:right-8 flex gap-2">
+          <button onClick={prev} aria-label="Previous" className="w-10 h-10 bg-[hsl(var(--kq-bg))]/85 hover:bg-[hsl(var(--kq-bg))] flex items-center justify-center transition-colors">
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button onClick={next} aria-label="Next" className="w-10 h-10 bg-[hsl(var(--kq-bg))]/85 hover:bg-[hsl(var(--kq-bg))] flex items-center justify-center transition-colors">
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Dots */}
+        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex gap-2">
+          {HERO_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIdx(i)}
+              aria-label={`Slide ${i + 1}`}
+              className={`w-2 h-2 rounded-full transition-all ${
+                i === idx ? "bg-[hsl(var(--kq-bg))] scale-110" : "bg-[hsl(var(--kq-bg))]/50"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

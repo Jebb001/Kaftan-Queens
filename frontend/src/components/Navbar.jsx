@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { ShoppingBag, Search, Menu, X, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ShoppingBag, Search, Menu, Instagram, User, ChevronDown } from "lucide-react";
 import { NAV, SITE } from "../mock";
 import { useCart } from "../context/CartContext";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -8,10 +8,9 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { count, setIsOpen } = useCart();
-  const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -19,14 +18,23 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-colors duration-300 ${
+      className={`sticky top-0 z-40 transition-colors duration-300 border-b ${
         scrolled
-          ? "bg-[hsl(var(--kq-bg))]/90 backdrop-blur-md border-b border-[hsl(var(--kq-line))]"
-          : "bg-transparent"
+          ? "bg-[hsl(var(--kq-bg))]/95 backdrop-blur-md border-[hsl(var(--kq-line))]"
+          : "bg-[hsl(var(--kq-bg))] border-transparent"
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between py-5 md:py-6">
+          {/* Left nav */}
+          <nav className="hidden md:flex items-center gap-7 text-[11px] tracking-[0.22em] uppercase flex-1">
+            {NAV.slice(0, 3).map((n) => (
+              <Link key={n.label} to={n.to} className="kq-link">
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+
           {/* Mobile menu */}
           <div className="md:hidden">
             <Sheet>
@@ -34,9 +42,9 @@ export default function Navbar() {
                 <Menu className="w-5 h-5" />
               </SheetTrigger>
               <SheetContent side="left" className="bg-[hsl(var(--kq-bg))] border-r border-[hsl(var(--kq-line))]">
-                <div className="mt-8 flex flex-col gap-5">
+                <div className="mt-10 flex flex-col gap-5">
                   {NAV.map((n) => (
-                    <Link key={n.label} to={n.to} className="font-display text-2xl">
+                    <Link key={n.label} to={n.to} className="font-display text-3xl">
                       {n.label}
                     </Link>
                   ))}
@@ -48,56 +56,60 @@ export default function Navbar() {
             </Sheet>
           </div>
 
-          {/* Desktop nav left */}
-          <nav className="hidden md:flex items-center gap-7 text-[12px] tracking-[0.22em] uppercase">
-            {NAV.slice(0, 3).map((n) => (
-              <Link key={n.label} to={n.to} className="kq-link">
-                {n.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Logo */}
-          <Link to="/" className="flex flex-col items-center group">
-            <span className="font-display text-2xl md:text-3xl tracking-wide leading-none">
+          {/* Centered Logo */}
+          <Link to="/" className="flex flex-col items-center select-none px-4">
+            <span className="font-display text-[28px] md:text-[34px] leading-none text-[hsl(var(--kq-accent-2))] tracking-[0.04em]">
               Kaftan Queens
             </span>
-            <span className="text-[9px] md:text-[10px] tracking-[0.5em] uppercase mt-1 text-[hsl(var(--kq-ink-soft))]">
-              Est. India
+            <span className="text-[9px] md:text-[10px] tracking-[0.5em] uppercase mt-1.5 text-[hsl(var(--kq-ink-soft))]">
+              Rare · Handmade
             </span>
           </Link>
 
-          {/* Desktop nav right */}
-          <nav className="hidden md:flex items-center gap-7 text-[12px] tracking-[0.22em] uppercase">
+          {/* Right side */}
+          <div className="hidden md:flex items-center gap-7 text-[11px] tracking-[0.22em] uppercase flex-1 justify-end">
             {NAV.slice(3).map((n) => (
               <Link key={n.label} to={n.to} className="kq-link">
                 {n.label}
               </Link>
             ))}
-          </nav>
+          </div>
 
-          {/* Right icons */}
-          <div className="flex items-center gap-3 md:gap-5">
-            <button aria-label="Search" className="hidden md:block p-1.5 hover:opacity-60 transition">
-              <Search className="w-4 h-4" />
+          {/* Icons */}
+          <div className="flex items-center gap-4 md:gap-5 md:ml-6">
+            <button aria-label="Search" className="hidden md:flex items-center text-[11px] tracking-[0.22em] uppercase hover:text-[hsl(var(--kq-accent-2))] transition-colors">
+              <span className="mr-1">GBP £</span>
+              <ChevronDown className="w-3 h-3" />
             </button>
-            <a href={SITE.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="hidden md:block p-1.5 hover:opacity-60 transition">
-              <Instagram className="w-4 h-4" />
-            </a>
+            <button aria-label="Search" className="p-1.5 hover:text-[hsl(var(--kq-accent-2))] transition-colors">
+              <Search className="w-[18px] h-[18px]" strokeWidth={1.4} />
+            </button>
             <button
               onClick={() => setIsOpen(true)}
               aria-label="Cart"
-              className="relative p-1.5 hover:opacity-60 transition"
+              className="relative inline-flex items-center gap-2 hover:text-[hsl(var(--kq-accent-2))] transition-colors"
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={1.4} />
+              <span className="hidden md:inline text-[11px] tracking-[0.22em] uppercase">Cart ({count})</span>
               {count > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[hsl(var(--kq-terracotta))] text-[hsl(var(--kq-bg))] text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-medium">
+                <span className="md:hidden absolute -top-1.5 -right-1.5 bg-[hsl(var(--kq-accent-2))] text-[hsl(var(--kq-bg))] text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
                   {count}
                 </span>
               )}
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Sub tagline strip — visible only at top, scrolls away */}
+      <div
+        className={`border-t border-[hsl(var(--kq-line))] text-center overflow-hidden transition-all duration-500 ${
+          scrolled ? "max-h-0 py-0 opacity-0 border-transparent" : "max-h-32 py-4 md:py-6 opacity-100"
+        }`}
+      >
+        <p className="font-italic text-base md:text-lg text-[hsl(var(--kq-ink-soft))] px-4 max-w-3xl mx-auto leading-relaxed">
+          {SITE.tagline}
+        </p>
       </div>
     </header>
   );

@@ -14,12 +14,13 @@ export default function ProductDetail() {
   const { addItem } = useCart();
   const [size, setSize] = useState("M");
   const [qty, setQty] = useState(1);
+  const [activeImg, setActiveImg] = useState(0);
 
   if (!product) {
     return (
       <main className="max-w-[1400px] mx-auto px-5 md:px-10 py-32 text-center">
         <h1 className="font-display text-4xl">Piece not found</h1>
-        <Link to="/shop" className="inline-block mt-6 kq-link text-[11px] tracking-[0.3em] uppercase">
+        <Link to="/shop" className="inline-block mt-6 kq-link text-[11px] tracking-[0.28em] uppercase">
           Back to shop
         </Link>
       </main>
@@ -47,28 +48,51 @@ export default function ProductDetail() {
       </nav>
 
       <div className="grid md:grid-cols-2 gap-10 md:gap-16">
-        <div className="relative aspect-[4/5] overflow-hidden bg-[hsl(var(--kq-bg-2))] kq-grain">
-          <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
-          {product.badge && (
-            <span className="absolute top-4 left-4 bg-[hsl(var(--kq-bg))] text-[hsl(var(--kq-ink))] text-[10px] tracking-[0.25em] uppercase px-3 py-1.5">
-              {product.badge}
-            </span>
+        {/* Gallery */}
+        <div>
+          <div className="relative aspect-[4/5] bg-[hsl(var(--kq-bg-2))] overflow-hidden">
+            <img src={product.images[activeImg]} alt={product.name} className="w-full h-full object-cover" />
+            {product.badge && (
+              <span className="absolute top-4 left-4 bg-[hsl(var(--kq-bg))] text-[hsl(var(--kq-ink))] text-[10px] tracking-[0.22em] uppercase px-3 py-1.5">
+                {product.badge}
+              </span>
+            )}
+          </div>
+          {product.images.length > 1 && (
+            <div className="grid grid-cols-4 gap-3 mt-3">
+              {product.images.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveImg(i)}
+                  className={`aspect-[3/4] overflow-hidden border ${
+                    activeImg === i ? "border-[hsl(var(--kq-accent-2))]" : "border-transparent"
+                  }`}
+                >
+                  <img src={src} alt="" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
           )}
         </div>
 
+        {/* Detail */}
         <div className="md:py-6">
-          <span className="text-[11px] tracking-[0.3em] uppercase text-[hsl(var(--kq-terracotta))] capitalize">
+          <span className="text-[11px] tracking-[0.28em] uppercase text-[hsl(var(--kq-accent-2))] capitalize">
             {product.category}
           </span>
           <h1 className="font-display text-4xl md:text-5xl mt-3 leading-tight">{product.name}</h1>
-          <p className="font-display text-2xl mt-3">£{product.price.toFixed(2)} <span className="text-xs tracking-[0.2em] uppercase text-[hsl(var(--kq-ink-soft))] ml-1">GBP</span></p>
+          {product.sub && <p className="font-italic text-lg text-[hsl(var(--kq-ink-soft))] mt-2">{product.sub}</p>}
+          <div className="mt-5 flex items-center gap-3">
+            <span className="kq-thin-rule" />
+            <p className="font-display text-2xl tabular-nums">£{product.price.toFixed(2)} <span className="text-xs tracking-[0.2em] uppercase text-[hsl(var(--kq-ink-soft))]">GBP</span></p>
+          </div>
 
           <p className="mt-6 text-[hsl(var(--kq-ink-soft))] leading-relaxed">{product.description}</p>
 
           {/* Size */}
           <div className="mt-8">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-[11px] tracking-[0.3em] uppercase">Size</p>
+              <p className="text-[11px] tracking-[0.28em] uppercase">Size</p>
               <button className="text-[11px] tracking-[0.2em] uppercase kq-link text-[hsl(var(--kq-ink-soft))]">Size Guide</button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -97,7 +121,7 @@ export default function ProductDetail() {
             </div>
             <button
               onClick={onAdd}
-              className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.3em] uppercase hover:bg-[hsl(var(--kq-terracotta))] transition-colors"
+              className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors"
             >
               Add to Bag — £{(product.price * qty).toFixed(2)}
             </button>
@@ -110,7 +134,7 @@ export default function ProductDetail() {
               [Leaf, "Natural fibres"],
             ].map(([Icon, t], i) => (
               <div key={i} className="flex items-center gap-2 border border-[hsl(var(--kq-line))] px-3 py-2.5">
-                <Icon className="w-3.5 h-3.5 text-[hsl(var(--kq-terracotta))]" strokeWidth={1.5} />
+                <Icon className="w-3.5 h-3.5 text-[hsl(var(--kq-accent-2))]" strokeWidth={1.4} />
                 <span className="text-[10px] tracking-[0.18em] uppercase">{t}</span>
               </div>
             ))}
@@ -132,7 +156,7 @@ export default function ProductDetail() {
             <AccordionItem value="c">
               <AccordionTrigger className="text-[11px] tracking-[0.25em] uppercase">Shipping & Returns</AccordionTrigger>
               <AccordionContent className="text-sm text-[hsl(var(--kq-ink-soft))]">
-                Free UK shipping on orders over £150. International shipping calculated at checkout. 14-day returns on unworn pieces.
+                Free UK shipping on orders over £150. International calculated at checkout. 14-day returns on unworn pieces.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -141,21 +165,21 @@ export default function ProductDetail() {
 
       {/* Related */}
       <section className="mt-24 md:mt-32">
-        <h3 className="font-display text-3xl md:text-4xl mb-8">You may also love</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-10 md:gap-x-7">
-          {related.map((p) => {
-            return (
-              <Link key={p.id} to={`/products/${p.id}`} className="group">
-                <div className="aspect-[4/5] overflow-hidden bg-[hsl(var(--kq-bg-2))] kq-img-zoom">
-                  <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
-                </div>
-                <div className="flex justify-between mt-3">
-                  <p className="font-display text-lg">{p.name}</p>
-                  <p className="text-sm tabular-nums">£{p.price.toFixed(2)}</p>
-                </div>
-              </Link>
-            );
-          })}
+        <div className="text-center mb-10">
+          <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">— You may also love</span>
+          <h3 className="font-display text-3xl md:text-4xl mt-3">Pair it with</h3>
+          <div className="mt-4 flex items-center justify-center"><span className="kq-thin-rule" /></div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-7">
+          {related.map((p) => (
+            <Link key={p.id} to={`/products/${p.id}`} className="group block text-center">
+              <div className="aspect-[3/4] kq-img-zoom bg-[hsl(var(--kq-bg-2))]">
+                <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
+              </div>
+              <h4 className="font-display text-lg md:text-xl mt-4">{p.name}</h4>
+              <p className="text-[13px] mt-1 tabular-nums">£{p.price.toFixed(2)}</p>
+            </Link>
+          ))}
         </div>
       </section>
     </main>
