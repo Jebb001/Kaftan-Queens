@@ -208,7 +208,7 @@ const mariposaVariants = [
 ];
 
 const yakVariants = [
-  { colour: "Turquoise", images: [`${CDN}YakWoolMandalaScarfBlue3.jpg?v=1762462953&width=1200`] },
+  { colour: "Turquoise", images: [`https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ac84abhu_image.png`, `${CDN}YakWoolMandalaScarfBlue3.jpg?v=1762462953&width=1200`] },
   { colour: "Blue", images: [`${CDN}YakWoolMandalaScarfBlue.jpg?v=1762462953&width=1200`, `${CDN}YakWoolMandalaScarfBlue2.jpg?v=1761931001&width=1200`, `${CDN}YakWoolMandalaScarfBlue4.jpg?v=1762462953&width=1200`] },
   { colour: "Multicolour", images: [`${CDN}MandalaYakwoolMulticolourpleasespecify2.jpg?v=1762462953&width=1200`] },
   { colour: "Beige", images: [`${CDN}YakWoolMandalaScarfBeige.jpg?v=1762462953&width=1200`] },
