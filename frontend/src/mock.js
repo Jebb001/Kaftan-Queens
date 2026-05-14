@@ -208,7 +208,8 @@ const mariposaVariants = [
 ];
 
 const yakVariants = [
-  { colour: "Blue", images: [`${CDN}YakWoolMandalaScarfBlue3.jpg?v=1762462953&width=1200`, `${CDN}YakWoolMandalaScarfBlue.jpg?v=1762462953&width=1200`, `${CDN}YakWoolMandalaScarfBlue2.jpg?v=1761931001&width=1200`, `${CDN}YakWoolMandalaScarfBlue4.jpg?v=1762462953&width=1200`] },
+  { colour: "Turquoise", images: [`${CDN}YakWoolMandalaScarfBlue3.jpg?v=1762462953&width=1200`] },
+  { colour: "Blue", images: [`${CDN}YakWoolMandalaScarfBlue.jpg?v=1762462953&width=1200`, `${CDN}YakWoolMandalaScarfBlue2.jpg?v=1761931001&width=1200`, `${CDN}YakWoolMandalaScarfBlue4.jpg?v=1762462953&width=1200`] },
   { colour: "Multicolour", images: [`${CDN}MandalaYakwoolMulticolourpleasespecify2.jpg?v=1762462953&width=1200`] },
   { colour: "Beige", images: [`${CDN}YakWoolMandalaScarfBeige.jpg?v=1762462953&width=1200`] },
   { colour: "Purple", images: [`${CDN}YakWoolMandalaScarfPurple.jpg?v=1762462953&width=1200`] },
