@@ -48,173 +48,107 @@ export const HERO_SLIDES = [
   },
 ];
 
-const CDN = "https://kaftanqueens.co.uk/cdn/shop/files/";
+const CDN = "https://cdn.shopify.com/s/files/1/0928/7027/9498/files/";
 
 // Helper: flatten variants into a single images array for grid cards.
 function flat(variants) {
   return variants.flatMap((v) => v.images);
 }
 
+// Variants below mirror the official colour list on Kaftan Queens' Shop store
+// (each colour maps to its dedicated swatch image where available).
+
 const palmKaftanVariants = [
-  {
-    colour: "Pink",
-    images: [`${CDN}Palmpinkandgreenkaftan.heic?v=1761750123&width=1200`],
-  },
-  {
-    colour: "Green & Fuchsia",
-    images: [`${CDN}Palmbeigekaftan2.heic?v=1761750123&width=1200`],
-  },
-  {
-    colour: "Blue & Red",
-    images: [`${CDN}Palmblueandredkaftan.heic?v=1761750122&width=1200`],
-  },
-  {
-    colour: "Orange",
-    images: [`${CDN}Palm_peach_kaftan.heic?v=1761750299&width=1200`],
-  },
+  { colour: "Pink", images: [`${CDN}Palmpinkandgreenkaftan.heic?v=1761750123&width=1200`] },
+  { colour: "Green & Fuchsia", images: [`${CDN}Palmbeigekaftan2.heic?v=1761750123&width=1200`] },
+  { colour: "Blue & Red", images: [`${CDN}Palmblueandredkaftan.heic?v=1761750122&width=1200`] },
+  { colour: "Orange", images: [`${CDN}Palm_peach_kaftan.heic?v=1761750299&width=1200`] },
 ];
 
 const palmDressVariants = [
-  {
-    colour: "Blue & Pink",
-    images: [`${CDN}Palmblueandpinkdress.heic?v=1761750246&width=1200`],
-  },
-  {
-    colour: "Blue Pattern",
-    images: [`${CDN}Palmbluedress3.heic?v=1762429162&width=1200`],
-  },
-  {
-    colour: "Fuchsia",
-    images: [
-      `${CDN}Palmfusiadress.heic?v=1762429162&width=1200`,
-      `${CDN}Palmpinkdress2.heic?v=1761750246&width=1200`,
-    ],
-  },
-  {
-    colour: "Orange",
-    images: [
-      `${CDN}Palmorangedress3.heic?v=1761750245&width=1200`,
-      `${CDN}Palmorangedress2.heic?v=1761750246&width=1200`,
-    ],
-  },
-  {
-    colour: "Yellow",
-    images: [`${CDN}Palmyellowdress3.heic?v=1761750245&width=1200`],
-  },
+  { colour: "Blue & Pink", images: [`${CDN}Palmblueandpinkdress.heic?v=1761750246&width=1200`] },
+  { colour: "Blue Pattern", images: [`${CDN}Palmbluedress3.heic?v=1762429162&width=1200`] },
+  { colour: "Fuchsia", images: [`${CDN}Palmfusiadress.heic?v=1762429162&width=1200`, `${CDN}Palmpinkdress2.heic?v=1761750246&width=1200`] },
+  { colour: "Orange", images: [`${CDN}Palmorangedress3.heic?v=1761750245&width=1200`, `${CDN}Palmorangedress2.heic?v=1761750246&width=1200`] },
+  { colour: "Yellow", images: [`${CDN}Palmyellowdress3.heic?v=1761750245&width=1200`] },
 ];
 
 const kimonoVariants = [
-  { colour: "Pink", images: [`${CDN}Pinkkimono2.heic?v=1761750652&width=1200`] },
-  { colour: "Yellow", images: [`${CDN}Yellowkimono.heic?v=1761750652&width=1200`] },
-  { colour: "Fuchsia", images: [`${CDN}Fushiapinkkimono3.heic?v=1761750652&width=1200`] },
+  { colour: "Kimono Pink", images: [`${CDN}Pinkkimono2.heic?v=1761750652&width=1200`] },
+  { colour: "Kimono Yellow", images: [`${CDN}Yellowkimono.heic?v=1761750652&width=1200`] },
+  { colour: "Kimono Fuchsia", images: [`${CDN}Fushiapinkkimono3.heic?v=1761750652&width=1200`] },
 ];
 
 const hampiVariants = [
-  {
-    colour: "Navy Blue",
-    images: [
-      `${CDN}Hampi_Navy_Blue_Shirt_2.jpg?v=1763043582&width=1200`,
-      `${CDN}HampiNavyBlueShirt.jpg?v=1763043468&width=1200`,
-      `${CDN}HampiNavyBlueShirt2.jpg?v=1763043467&width=1200`,
-    ],
-  },
-  {
-    colour: "White",
-    images: [
-      `${CDN}HampiWhiteShirt.jpg?v=1763043467&width=1200`,
-      `${CDN}HampiWhiteShirt2.jpg?v=1763043467&width=1200`,
-      `${CDN}HampiWhiteShirt3.jpg?v=1763043466&width=1200`,
-    ],
-  },
-  {
-    colour: "Denim Blue",
-    images: [
-      `${CDN}HampiDenimBlueShirt3.jpg?v=1763043582&width=1200`,
-      `${CDN}HampiDenimBlueShirt2.jpg?v=1763043582&width=1200`,
-      `${CDN}HampiDenimBlueShirt.jpg?v=1763043466&width=1200`,
-    ],
-  },
-  {
-    colour: "Pink",
-    images: [
-      `${CDN}HampiPinkShirt.jpg?v=1763043466&width=1200`,
-      `${CDN}HampiPinkShirt2.jpg?v=1763043467&width=1200`,
-      `${CDN}HampiPinkShirt3.jpg?v=1763043466&width=1200`,
-    ],
-  },
+  { colour: "Navy Blue", images: [`${CDN}Hampi_Navy_Blue_Shirt_2.jpg?v=1763043582&width=1200`, `${CDN}HampiNavyBlueShirt.jpg?v=1763043468&width=1200`, `${CDN}HampiNavyBlueShirt2.jpg?v=1763043467&width=1200`] },
+  { colour: "Pink", images: [`${CDN}Hampi_Pink_Shirt.jpg?v=1763043582&width=1200`, `${CDN}HampiPinkShirt.jpg?v=1763043466&width=1200`, `${CDN}HampiPinkShirt2.jpg?v=1763043467&width=1200`, `${CDN}HampiPinkShirt3.jpg?v=1763043466&width=1200`] },
+  { colour: "Denim Blue", images: [`${CDN}Hampi_Denim_Blue_Shirt_3.jpg?v=1763043582&width=1200`, `${CDN}HampiDenimBlueShirt3.jpg?v=1763043582&width=1200`, `${CDN}HampiDenimBlueShirt2.jpg?v=1763043582&width=1200`, `${CDN}HampiDenimBlueShirt.jpg?v=1763043466&width=1200`] },
+  { colour: "White", images: [`${CDN}Hampi_White_Shirt_2.jpg?v=1763043582&width=1200`, `${CDN}HampiWhiteShirt.jpg?v=1763043467&width=1200`, `${CDN}HampiWhiteShirt2.jpg?v=1763043467&width=1200`, `${CDN}HampiWhiteShirt3.jpg?v=1763043466&width=1200`] },
 ];
 
 const goaVariants = [
-  {
-    colour: "Pink Flower",
-    images: [
-      `${CDN}KeralaKortapinkflowerXL_6f8d6913-8162-4644-a49a-fefaa9bd45d0.jpg?v=1761750376&width=1200`,
-      `${CDN}KeralaKortapinkflowerXL2.jpg?v=1761750376&width=1200`,
-    ],
-  },
-  {
-    colour: "Blue Flower",
-    images: [`${CDN}KeralaKortablueflowerXL2_acb651af-f8a8-4eb8-ad74-b2be34f6d9ef.jpg?v=1761750377&width=1200`],
-  },
-  {
-    colour: "Blue Pattern",
-    images: [`${CDN}KeralaKortaBluepatternXL2_8cbf2f14-bd30-4b42-80b4-8c5b73a26a53.jpg?v=1761750377&width=1200`],
-  },
-  {
-    colour: "Lilac Flower",
-    images: [`${CDN}KeralaKortapurplefloweronwhiteXL2.jpg?v=1761750376&width=1200`],
-  },
-  {
-    colour: "White Flower on Denim",
-    images: [
-      `${CDN}KeralaKortawhiteflowerondenimXL2.jpg?v=1761750376&width=1200`,
-      `${CDN}KeralaKortawhiteflowerondenimXL3.jpg?v=1761750377&width=1200`,
-    ],
-  },
+  { colour: "Pink Flower", images: [`${CDN}KeralaKortapinkflowerXL_6f8d6913-8162-4644-a49a-fefaa9bd45d0.jpg?v=1761750376&width=1200`, `${CDN}KeralaKortapinkflowerXL2.jpg?v=1761750376&width=1200`] },
+  { colour: "Blue Pattern", images: [`${CDN}KeralaKortaBluepatternXL_c96fa810-81a5-488c-a292-0575104080e6.jpg?v=1761750376&width=1200`, `${CDN}KeralaKortaBluepatternXL2_8cbf2f14-bd30-4b42-80b4-8c5b73a26a53.jpg?v=1761750377&width=1200`] },
+  { colour: "Blue Flower", images: [`${CDN}KeralaKortablueflowerXL_144671d0-c2e5-45ed-ba60-c3551876f7f3.jpg?v=1761750376&width=1200`, `${CDN}KeralaKortablueflowerXL2_acb651af-f8a8-4eb8-ad74-b2be34f6d9ef.jpg?v=1761750377&width=1200`] },
+  { colour: "White Flower", images: [`${CDN}KeralaKortawhiteflowerondenimXL.jpg?v=1761750377&width=1200`, `${CDN}KeralaKortawhiteflowerondenimXL2.jpg?v=1761750376&width=1200`, `${CDN}KeralaKortawhiteflowerondenimXL3.jpg?v=1761750377&width=1200`] },
+  { colour: "Lilac Flower", images: [`${CDN}KeralaKortapurplefloweronwhiteXL.jpg?v=1761750377&width=1200`, `${CDN}KeralaKortapurplefloweronwhiteXL2.jpg?v=1761750376&width=1200`] },
 ];
 
 const keralaVariants = [
   { colour: "Blue Flower", images: [`${CDN}Keralablueflowermen_scottonshirtL.heic?v=1761750458&width=1200`, `${CDN}Keralablueflowermen_scottonshirtL2.heic?v=1761750459&width=1200`] },
-  { colour: "Beige & Turquoise Flower", images: [`${CDN}Keralabeigewithturquoiseflowersmen_scottonshirtL.heic?v=1761750459&width=1200`] },
-  { colour: "Fuchsia Flower", images: [`${CDN}Keralafushiaflowermen_scottonshirtL2.heic?v=1761750459&width=1200`] },
-  { colour: "Pale Blue Block Print", images: [`${CDN}Keralapaleblueblockmen_scottonshirtL2.heic?v=1761750458&width=1200`] },
-  { colour: "Green Block Print", images: [`${CDN}Keralagreenblockmen_scottonshirtL_45730605-055a-4193-ada7-0de1cf062fef.heic?v=1761750459&width=1200`] },
+  { colour: "Fuchsia", images: [`${CDN}Keralafushiaflowermen_scottonshirtL2.heic?v=1761750459&width=1200`] },
+  { colour: "Green & Orange", images: [`${CDN}Keralagreenblockmen_scottonshirtL_45730605-055a-4193-ada7-0de1cf062fef.heic?v=1761750459&width=1200`] },
+  { colour: "Blue Pattern", images: [`${CDN}Keralabeigewithturquoiseflowersmen_scottonshirtL.heic?v=1761750459&width=1200`] },
   { colour: "Navy Blue Block Print", images: [`${CDN}KeralanavyblockonwhitemenscottonshirtL3.heic?v=1761750459&width=1200`, `${CDN}KeralanavyblockonwhitemenscottonshirtL.heic?v=1761750459&width=1200`] },
   { colour: "Pink Frangipani", images: [`${CDN}KeralapinkfrangipanimenscottonshirtL.heic?v=1761750458&width=1200`, `${CDN}KeralapinkfrangipanimenscottonshirtL2.heic?v=1761750459&width=1200`] },
+  { colour: "Pale Blue Block Print", images: [`${CDN}Keralapaleblueblockmen_scottonshirtL2.heic?v=1761750458&width=1200`] },
 ];
 
 const bagsVariants = [
   { colour: "Black & Cream", images: [`${CDN}IndianBags1_b1392fe3-5266-4abb-bdc3-69b9910dc088.jpg?v=1761682331&width=1200`] },
   { colour: "Cream & White", images: [`${CDN}indianbags2.jpg?v=1761682332&width=1200`] },
-  { colour: "Cream & Turquoise", images: [`${CDN}indianbags3.jpg?v=1761682332&width=1200`] },
+  { colour: "Turquoise", images: [`${CDN}indianbags3.jpg?v=1761682332&width=1200`] },
+  { colour: "Cream & Taupe", images: [`${CDN}IndianBags1_b1392fe3-5266-4abb-bdc3-69b9910dc088.jpg?v=1761682331&width=1200`] },
 ];
 
 const agondaVariants = [
-  { colour: "Autumnal", images: [`${CDN}Aginda_Scarf_Autumnal_d5919d8e-c6b7-4132-a0c2-717e7c6c1cb7.jpg?v=1762103326&width=1200`, `${CDN}AgondaScarfAutumnal2.jpg?v=1761929096&width=1200`] },
-  { colour: "Pink", images: [`${CDN}AgondaScarfPink2.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfPink.jpg?v=1761928928&width=1200`, `${CDN}AgondaScarfLightPink.jpg?v=1761929096&width=1200`] },
+  { colour: "Autumnal", images: [`${CDN}Aginda_Scarf_Autumnal_d5919d8e-c6b7-4132-a0c2-717e7c6c1cb7.jpg?v=1762103326&width=1200`] },
+  { colour: "Autumnal 2", images: [`${CDN}AgondaScarfAutumnal2.jpg?v=1761929096&width=1200`] },
+  { colour: "Pink", images: [`${CDN}AgondaScarfPink.jpg?v=1761928928&width=1200`] },
+  { colour: "Pink 2", images: [`${CDN}AgondaScarfPink2.jpg?v=1761929096&width=1200`] },
   { colour: "Beige", images: [`${CDN}AgondaScarfBeige.jpg?v=1761929096&width=1200`] },
-  { colour: "Blue", images: [`${CDN}AgondaScarfBlue.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfBlue2.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfBlue3.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfBlue4.jpg?v=1761929096&width=1200`, `${CDN}AgondaScarfBlue5.jpg?v=1761929096&width=1200`] },
-  { colour: "Dark Blue", images: [`${CDN}AgondaScarfDarkBlue.jpg?v=1761929096&width=1200`] },
+  { colour: "Blue", images: [`${CDN}AgondaScarfBlue.jpg?v=1761929096&width=1200`] },
+  { colour: "Blue 2", images: [`${CDN}AgondaScarfBlue2.jpg?v=1761929096&width=1200`] },
+  { colour: "Blue 3", images: [`${CDN}AgondaScarfBlue3.jpg?v=1761929096&width=1200`] },
+  { colour: "Blue 4", images: [`${CDN}AgondaScarfBlue4.jpg?v=1761929096&width=1200`] },
+  { colour: "Blue 5", images: [`${CDN}AgondaScarfBlue5.jpg?v=1761929096&width=1200`] },
   { colour: "Brown", images: [`${CDN}AgondaScarfBrown.jpg?v=1761929096&width=1200`] },
+  { colour: "Dark Blue", images: [`${CDN}AgondaScarfDarkBlue.jpg?v=1761929096&width=1200`] },
+  { colour: "Kimono Pink", images: [`${CDN}AgondaScarfLightPink.jpg?v=1761929096&width=1200`] },
   { colour: "Mint", images: [`${CDN}AgondaScarfMint.jpg?v=1761929096&width=1200`] },
   { colour: "Plum", images: [`${CDN}AgondaScarfPlum.jpg?v=1761928929&width=1200`] },
   { colour: "Yellow", images: [`${CDN}AgondaScarfYellow.jpg?v=1761928929&width=1200`] },
 ];
 
 const mariposaVariants = [
-  { colour: "Blue", images: [`${CDN}MariposaScarfBlue.jpg?v=1761929703&width=1200`, `${CDN}MariposaScarfBlue2.jpg?v=1761930167&width=1200`, `${CDN}MariposaScarfBlue3.jpg?v=1761930167&width=1200`, `${CDN}MariposaScarfBlue4.jpg?v=1761929702&width=1200`] },
-  { colour: "Peach", images: [`${CDN}MariposaScarfPeach.jpg?v=1761929702&width=1200`, `${CDN}MariposaScarfPeach2.jpg?v=1761929702&width=1200`] },
+  { colour: "Blue", images: [`${CDN}MariposaScarfBlue.jpg?v=1761929703&width=1200`] },
+  { colour: "Blue 2", images: [`${CDN}MariposaScarfBlue2.jpg?v=1761930167&width=1200`] },
+  { colour: "Blue 3", images: [`${CDN}MariposaScarfBlue3.jpg?v=1761930167&width=1200`] },
+  { colour: "Blue 4", images: [`${CDN}MariposaScarfBlue4.jpg?v=1761929702&width=1200`] },
+  { colour: "Peach", images: [`${CDN}MariposaScarfPeach.jpg?v=1761929702&width=1200`] },
+  { colour: "Peach 2", images: [`${CDN}MariposaScarfPeach2.jpg?v=1761929702&width=1200`] },
   { colour: "Purple", images: [`${CDN}MariposaScarfPurple.jpg?v=1761929701&width=1200`] },
 ];
 
 const yakVariants = [
   { colour: "Turquoise", images: [`https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ac84abhu_image.png`, `${CDN}YakWoolMandalaScarfBlue3.jpg?v=1762462953&width=1200`] },
-  { colour: "Blue", images: [`${CDN}YakWoolMandalaScarfBlue.jpg?v=1762462953&width=1200`, `${CDN}YakWoolMandalaScarfBlue2.jpg?v=1761931001&width=1200`, `${CDN}YakWoolMandalaScarfBlue4.jpg?v=1762462953&width=1200`] },
-  { colour: "Multicolour", images: [`${CDN}MandalaYakwoolMulticolourpleasespecify2.jpg?v=1762462953&width=1200`] },
   { colour: "Beige", images: [`${CDN}YakWoolMandalaScarfBeige.jpg?v=1762462953&width=1200`] },
-  { colour: "Purple", images: [`${CDN}YakWoolMandalaScarfPurple.jpg?v=1762462953&width=1200`] },
-  { colour: "Brown", images: [`${CDN}YakWoolMandalaScarfBrown.jpg?v=1762462953&width=1200`] },
   { colour: "Black", images: [`${CDN}YakWoolMandalaScarfBlack.jpg?v=1761931001&width=1200`] },
+  { colour: "Blue", images: [`${CDN}YakWoolMandalaScarfBlue.jpg?v=1762462953&width=1200`] },
+  { colour: "Blue 2", images: [`${CDN}YakWoolMandalaScarfBlue2.jpg?v=1761931001&width=1200`] },
+  { colour: "Green", images: [`${CDN}YakWoolMandalaScarfBlue4.jpg?v=1762462953&width=1200`] },
+  { colour: "Brown", images: [`${CDN}YakWoolMandalaScarfBrown.jpg?v=1762462953&width=1200`] },
+  { colour: "Purple", images: [`${CDN}YakWoolMandalaScarfPurple.jpg?v=1762462953&width=1200`] },
 ];
 
 export const PRODUCTS = [
