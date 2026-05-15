@@ -1,6 +1,19 @@
 // Mock data for Kaftan Queens — R&F-inspired redesign
 // Copy preserved from kaftanqueens.co.uk; visuals supplemented with editorial imagery
 
+export const SHOP_BASE = "https://kaftanqueens.co.uk";
+export const SHOP_COLLECTION_URL = `${SHOP_BASE}/collections/all`;
+export const SHOP_CART_URL = `${SHOP_BASE}/cart`;
+
+// Map of product ID → shopify handle (only when different from the local id)
+const SHOP_HANDLES = {
+  "goa-mens-shirt": "kerala-mens-korta-shirt",
+};
+export function shopUrlFor(productId) {
+  const handle = SHOP_HANDLES[productId] || productId;
+  return `${SHOP_BASE}/products/${handle}`;
+}
+
 export const SITE = {
   name: "Kaftan Queens",
   shortName: "K&Q",

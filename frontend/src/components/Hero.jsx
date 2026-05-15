@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { HERO_SLIDES } from "../mock";
+import { HERO_SLIDES, SHOP_COLLECTION_URL } from "../mock";
 
 export default function Hero() {
   const [idx, setIdx] = useState(0);
@@ -53,13 +52,15 @@ export default function Hero() {
                 <span className="kq-thin-rule" />
                 <p className="font-italic text-lg md:text-xl text-[hsl(var(--kq-ink-soft))]">{slide.sub}</p>
               </div>
-              <Link
-                to={slide.cta.to}
+              <a
+                href={SHOP_COLLECTION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] px-7 py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors"
               >
                 {slide.cta.label}
                 <ChevronRight className="w-3.5 h-3.5" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>

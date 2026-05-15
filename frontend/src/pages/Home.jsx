@@ -3,7 +3,6 @@ import Hero from "../components/Hero";
 import CollectionRow from "../components/CollectionRow";
 import ArtisanStory from "../components/ArtisanStory";
 import JournalGrid from "../components/JournalGrid";
-import Newsletter from "../components/Newsletter";
 import { PRODUCTS, TESTIMONIALS, STORY_BLOCKS, SITE } from "../mock";
 import { Leaf, Hand, Sparkles, Truck } from "lucide-react";
 
@@ -48,8 +47,9 @@ export default function Home() {
         kicker="— Hand-printed in Rajasthan"
         title="The Women's Edit"
         products={women}
-        ctaTo="/shop?cat=women"
-        ctaLabel="View All"
+        ctaTo="https://kaftanqueens.co.uk/collections/all?filter.p.product_type=Women"
+        ctaLabel="Shop the Edit"
+        external
       />
 
       <ArtisanStory />
@@ -58,8 +58,9 @@ export default function Home() {
         kicker="— 100% Cotton, hand-finished"
         title="For Him"
         products={men}
-        ctaTo="/shop?cat=men"
-        ctaLabel="View All"
+        ctaTo="https://kaftanqueens.co.uk/collections/all?filter.p.product_type=Men"
+        ctaLabel="Shop the Edit"
+        external
       />
 
       {/* Three-pillar values band */}
@@ -91,8 +92,9 @@ export default function Home() {
         kicker="— Hand-loomed"
         title="Scarves & Bags"
         products={accessories}
-        ctaTo="/shop?cat=accessories"
-        ctaLabel="View All"
+        ctaTo="https://kaftanqueens.co.uk/collections/all?filter.p.product_type=Accessories"
+        ctaLabel="Shop the Edit"
+        external
       />
 
       {/* Testimonials */}
@@ -115,7 +117,6 @@ export default function Home() {
       </section>
 
       <JournalGrid />
-      <Newsletter />
     </main>
   );
 }

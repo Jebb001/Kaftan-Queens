@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { PRODUCTS } from "../mock";
-import { useCart } from "../context/CartContext";
-import { toast } from "sonner";
-import { Truck, RotateCcw, Leaf, Minus, Plus, ChevronRight } from "lucide-react";
+import { PRODUCTS, shopUrlFor } from "../mock";
+import { Truck, RotateCcw, Leaf, Minus, Plus, ChevronRight, ExternalLink } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const product = PRODUCTS.find((p) => p.id === id);
-  const { addItem } = useCart();
   const variants = product?.variants || [];
   const [colour, setColour] = useState(variants[0]?.colour || product?.colours?.[0] || "");
   const [qty, setQty] = useState(1);
@@ -33,11 +30,7 @@ export default function ProductDetail() {
 
   const activeVariant = variants.find((v) => v.colour === colour) || variants[0];
   const galleryImages = activeVariant?.images || product.images;
-
-  const onAdd = () => {
-    addItem(product, { size: colour || "One Size", qty });
-    toast.success(`${product.name}${colour ? ` (${colour})` : ""} added to your bag`);
-  };
+  const buyHref = shopUrlFor(product.id);
 
   const related = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4);
 
@@ -133,20 +126,26 @@ export default function ProductDetail() {
             )}
           </div>
 
-          {/* Qty + add */}
+          {/* Qty + buy */}
           <div className="mt-8 flex items-stretch gap-3">
             <div className="inline-flex items-center border border-[hsl(var(--kq-line))]">
               <button className="px-3 py-3.5" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease"><Minus className="w-3.5 h-3.5" /></button>
               <span className="px-4 tabular-nums text-sm">{qty}</span>
               <button className="px-3 py-3.5" onClick={() => setQty((q) => q + 1)} aria-label="Increase"><Plus className="w-3.5 h-3.5" /></button>
             </div>
-            <button
-              onClick={onAdd}
-              className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors"
+            <a
+              href={buyHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-2 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors"
             >
-              Add to Bag — £{(product.price * qty).toFixed(2)}
-            </button>
+              Buy on Kaftan Queens
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           </div>
+          <p className="mt-3 text-[11px] text-[hsl(var(--kq-ink-soft))] font-italic">
+            Secure checkout & shipping handled by our shop.
+          </p>
 
           <div className="mt-6 grid grid-cols-3 gap-3 text-xs">
             {[
