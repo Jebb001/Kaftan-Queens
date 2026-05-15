@@ -382,7 +382,7 @@ export const ARTISAN = {
     "Our handloomed, naturally dyed pieces support artisan communities across Northern India. We blend their slow-craft creations with modern silhouettes — so you can look beautiful, while doing good.",
   cta: { label: "Meet the Makers", to: "/about" },
   image:
-    "https://kaftanqueens.co.uk/cdn/shop/files/BE216657-819F-4050-8363-95992F8A1318.jpg?v=1747076210&width=1400",
+    "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/3ifkir8k_488535633_17854982841410310_5228255946688593398_n.jpg",
 };
 
 export const TESTIMONIALS = [
