@@ -100,17 +100,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
-      {/* Sub tagline strip — visible only at top, scrolls away */}
-      <div
-        className={`border-t border-[hsl(var(--kq-line))] text-center overflow-hidden transition-all duration-500 ${
-          scrolled ? "max-h-0 py-0 opacity-0 border-transparent" : "max-h-32 py-4 md:py-6 opacity-100"
-        }`}
-      >
-        <p className="font-italic text-base md:text-lg text-[hsl(var(--kq-ink-soft))] px-4 max-w-3xl mx-auto leading-relaxed">
-          {SITE.tagline}
-        </p>
-      </div>
     </header>
   );
 }

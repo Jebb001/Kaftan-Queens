@@ -4,7 +4,7 @@ import CollectionRow from "../components/CollectionRow";
 import ArtisanStory from "../components/ArtisanStory";
 import JournalGrid from "../components/JournalGrid";
 import Newsletter from "../components/Newsletter";
-import { PRODUCTS, TESTIMONIALS, STORY_BLOCKS } from "../mock";
+import { PRODUCTS, TESTIMONIALS, STORY_BLOCKS, SITE } from "../mock";
 import { Leaf, Hand, Sparkles, Truck } from "lucide-react";
 
 export default function Home() {
@@ -15,6 +15,14 @@ export default function Home() {
   return (
     <main>
       <Hero />
+
+      {/* Brand statement — quiet, elegant, scrolls naturally */}
+      <section className="max-w-3xl mx-auto px-5 md:px-10 mt-16 md:mt-24 text-center">
+        <p className="font-italic text-lg md:text-2xl leading-relaxed text-[hsl(var(--kq-ink-soft))]">
+          {SITE.tagline}
+        </p>
+        <div className="mt-6 flex items-center justify-center"><span className="kq-thin-rule" /></div>
+      </section>
 
       {/* Value strip */}
       <section className="max-w-[1400px] mx-auto px-5 md:px-10 mt-14 md:mt-20">
