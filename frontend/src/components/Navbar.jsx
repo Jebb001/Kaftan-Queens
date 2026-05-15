@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag, Search, Menu, Instagram, ChevronDown } from "lucide-react";
-import { NAV, SITE, SHOP_CART_URL } from "../mock";
+import { NAV, SITE } from "../mock";
+import { useCart } from "../context/CartContext";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const { count, setIsOpen } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -82,16 +84,19 @@ export default function Navbar() {
             <button aria-label="Search" className="p-1.5 hover:text-[hsl(var(--kq-accent-2))] transition-colors">
               <Search className="w-[18px] h-[18px]" strokeWidth={1.4} />
             </button>
-            <a
-              href={SHOP_CART_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setIsOpen(true)}
               aria-label="Cart"
               className="relative inline-flex items-center gap-2 hover:text-[hsl(var(--kq-accent-2))] transition-colors"
             >
               <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={1.4} />
-              <span className="hidden md:inline text-[11px] tracking-[0.22em] uppercase">Cart</span>
-            </a>
+              <span className="hidden md:inline text-[11px] tracking-[0.22em] uppercase">Cart ({count})</span>
+              {count > 0 && (
+                <span className="md:hidden absolute -top-1.5 -right-1.5 bg-[hsl(var(--kq-accent-2))] text-[hsl(var(--kq-bg))] text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
+                  {count}
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </div>

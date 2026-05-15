@@ -47,9 +47,8 @@ export default function Home() {
         kicker="— Hand-printed in Rajasthan"
         title="The Women's Edit"
         products={women}
-        ctaTo="https://kaftanqueens.co.uk/collections/all?filter.p.product_type=Women"
-        ctaLabel="Shop the Edit"
-        external
+        ctaTo="/shop?cat=women"
+        ctaLabel="View All"
       />
 
       <ArtisanStory />
@@ -58,9 +57,8 @@ export default function Home() {
         kicker="— 100% Cotton, hand-finished"
         title="For Him"
         products={men}
-        ctaTo="https://kaftanqueens.co.uk/collections/all?filter.p.product_type=Men"
-        ctaLabel="Shop the Edit"
-        external
+        ctaTo="/shop?cat=men"
+        ctaLabel="View All"
       />
 
       {/* Three-pillar values band */}
@@ -92,9 +90,8 @@ export default function Home() {
         kicker="— Hand-loomed"
         title="Scarves & Bags"
         products={accessories}
-        ctaTo="https://kaftanqueens.co.uk/collections/all?filter.p.product_type=Accessories"
-        ctaLabel="Shop the Edit"
-        external
+        ctaTo="/shop?cat=accessories"
+        ctaLabel="View All"
       />
 
       {/* Testimonials */}

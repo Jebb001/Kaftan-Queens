@@ -1,13 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { shopUrlFor } from "../mock";
+import { useCart } from "../context/CartContext";
+import { toast } from "sonner";
 
 export default function ProductCard({ product }) {
+  const { addItem } = useCart();
+
   // Front: first variant's primary image. Back: second variant's image, or second image of first variant.
   const variants = product.variants || [{ colour: "", images: product.images }];
   const front = variants[0].images[0];
   const back = variants[1]?.images?.[0] || variants[0].images[1] || front;
-  const buyHref = shopUrlFor(product.id);
+
+  const onSelect = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem(product);
+    toast.success(`${product.name} added to your bag`);
+  };
 
   return (
     <div className="group block">
@@ -33,15 +42,12 @@ export default function ProductCard({ product }) {
             </span>
           )}
           <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-            <a
-              href={buyHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="block text-center w-full bg-[hsl(var(--kq-bg))] text-[hsl(var(--kq-ink))] hover:bg-[hsl(var(--kq-ink))] hover:text-[hsl(var(--kq-bg))] transition-colors py-3 text-[11px] tracking-[0.28em] uppercase"
+            <button
+              onClick={onSelect}
+              className="w-full bg-[hsl(var(--kq-bg))] text-[hsl(var(--kq-ink))] hover:bg-[hsl(var(--kq-ink))] hover:text-[hsl(var(--kq-bg))] transition-colors py-3 text-[11px] tracking-[0.28em] uppercase"
             >
-              Shop Now
-            </a>
+              Select Options
+            </button>
           </div>
         </div>
       </Link>

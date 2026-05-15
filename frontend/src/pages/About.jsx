@@ -1,5 +1,6 @@
 import React from "react";
-import { ARTISAN, STORY_BLOCKS, SHOP_COLLECTION_URL } from "../mock";
+import { Link } from "react-router-dom";
+import { ARTISAN, STORY_BLOCKS } from "../mock";
 import { ChevronRight } from "lucide-react";
 
 export default function About() {
@@ -56,14 +57,12 @@ export default function About() {
 
       <section className="max-w-[1100px] mx-auto px-5 md:px-10 mt-24 md:mt-32 text-center pb-8">
         <h2 className="font-display text-4xl md:text-6xl leading-[1.04] max-w-3xl mx-auto">Wear a story — not a logo.</h2>
-        <a
-          href={SHOP_COLLECTION_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/shop"
           className="inline-flex items-center gap-2 mt-8 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] px-8 py-4 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors"
         >
           Explore the Collection <ChevronRight className="w-3.5 h-3.5" />
-        </a>
+        </Link>
       </section>
     </main>
   );

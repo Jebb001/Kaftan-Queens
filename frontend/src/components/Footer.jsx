@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Instagram, Mail, Facebook } from "lucide-react";
-import { SITE, SHOP_BASE, SHOP_COLLECTION_URL } from "../mock";
+import { SITE } from "../mock";
 
 export default function Footer() {
   return (
@@ -29,10 +29,10 @@ export default function Footer() {
         <div>
           <h5 className="text-[11px] tracking-[0.3em] uppercase mb-4 text-[hsl(var(--kq-accent-2))]">Shop</h5>
           <ul className="space-y-2.5 text-sm">
-            <li><a href={SHOP_COLLECTION_URL} target="_blank" rel="noopener noreferrer" className="kq-link">All Clothing</a></li>
-            <li><a href={`${SHOP_BASE}/collections/all?filter.p.product_type=Women`} target="_blank" rel="noopener noreferrer" className="kq-link">Women</a></li>
-            <li><a href={`${SHOP_BASE}/collections/all?filter.p.product_type=Men`} target="_blank" rel="noopener noreferrer" className="kq-link">Men</a></li>
-            <li><a href={`${SHOP_BASE}/collections/all?filter.p.product_type=Accessories`} target="_blank" rel="noopener noreferrer" className="kq-link">Scarves & Bags</a></li>
+            <li><Link to="/shop" className="kq-link">All Clothing</Link></li>
+            <li><Link to="/shop?cat=women" className="kq-link">Women</Link></li>
+            <li><Link to="/shop?cat=men" className="kq-link">Men</Link></li>
+            <li><Link to="/shop?cat=accessories" className="kq-link">Scarves & Bags</Link></li>
           </ul>
         </div>
         <div>

@@ -1,12 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ProductCard from "./ProductCard";
 
-export default function CollectionRow({ title, kicker, products, ctaTo = "#", ctaLabel = "View All", external = false }) {
-  const CtaTag = external ? "a" : "a";
-  const ctaProps = external
-    ? { href: ctaTo, target: "_blank", rel: "noopener noreferrer" }
-    : { href: ctaTo };
-
+export default function CollectionRow({ title, kicker, products, ctaTo = "/shop", ctaLabel = "View All" }) {
   return (
     <section className="max-w-[1400px] mx-auto px-5 md:px-10 mt-20 md:mt-28">
       <div className="text-center mb-10 md:mb-14">
@@ -28,12 +24,12 @@ export default function CollectionRow({ title, kicker, products, ctaTo = "#", ct
       </div>
 
       <div className="mt-12 text-center">
-        <CtaTag
-          {...ctaProps}
+        <Link
+          to={ctaTo}
           className="inline-block text-[11px] tracking-[0.28em] uppercase kq-link"
         >
           {ctaLabel}
-        </CtaTag>
+        </Link>
       </div>
     </section>
   );
