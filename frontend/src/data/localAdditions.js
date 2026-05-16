@@ -4,51 +4,22 @@
 // or colour and silently skips the local entry, so cleanup is automatic.
 
 // 1) Add an entire new product (doesn't exist in Shopify yet)
-export const LOCAL_PRODUCT_ADDITIONS = [
-  {
-    handle: "light-cotton-dress",
-    title: "Light Cotton Dress",
-    price: 75,
-    currency: "GBP",
-    category: "women",
-    sub: "Cotton · Block-printed floral",
-    badge: "New In",
-    description:
-      "A breezy lightweight cotton dress with a delicate hand-printed floral motif, ruffled sleeves and shoulders, smocked waist, and tasselled drawstring tie. Effortless femininity for sun-drenched days.",
-    descriptionHtml:
-      "<p>A breezy lightweight cotton dress with a delicate hand-printed floral motif, ruffled sleeves and shoulders, smocked waist, and tasselled drawstring tie. Effortless femininity for sun-drenched days.</p><ul><li>Material: 100% Cotton</li><li>Origin: Hand-printed in India</li><li>Care: Machine wash cold. Warm iron on reverse. Do not tumble dry.</li></ul>",
-    tags: ["women", "dress", "new"],
-    pos: "center 30%",
-    variants: [
-      {
-        colour: "Pink White",
-        images: [
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ka9ax8vj_7d05f83a-a321-42cc-af6d-cfd184bb8975.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ra5xg2lw_5654a25f-7bfc-48e3-af34-6bf0da481eb5.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/y3xx0o3z_20447cc2-0441-4efb-9a8b-34354ecdcfef.jpeg",
-        ],
-      },
-      {
-        colour: "White Ditsy",
-        images: [
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/3h7lsqkt_IMG_7306.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ygcvmbdh_IMG_7307.jpeg",
-        ],
-      },
-      {
-        colour: "Blue Flower",
-        images: [
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/dalun1op_IMG_7300.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/wmv5mqsy_IMG_7301.jpeg",
-        ],
-      },
-    ],
-  },
-];
+export const LOCAL_PRODUCT_ADDITIONS = [];
 
 // 2) Add new colour/size variants to an existing Shopify product
 export const LOCAL_VARIANT_ADDITIONS = {
-  // handle: [{ colour, images, sizes, pending: true }]
+  // handle: [{ colour, images, sizes, pending: true, prepend?: true }]
+  "light-cotton-dress": [
+    {
+      colour: "Pink/Orange Teardrop",
+      images: [
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/nraya2wi_IMG_7319.jpeg",
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/2nx2r33k_IMG_7311.jpeg",
+      ],
+      pending: true,
+      prepend: true,
+    },
+  ],
   "palazzo-trousers": [
     {
       colour: "Pink Tiedye",

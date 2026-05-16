@@ -174,7 +174,7 @@ function subFromProductType(productType, tags) {
 export function transformProduct(node) {
   if (!node) return null;
   const tags = node.tags || [];
-  const allImages = node.images.edges.map((e) => e.node.url);
+  const allImages = node.images.edges.map((e) => ({ url: e.node.url, alt: e.node.altText || "" }));
   const variants = node.variants.edges.map((e) => e.node);
 
   // Group by Colour to mimic mock variant structure
@@ -194,9 +194,21 @@ export function transformProduct(node) {
     if (size && !entry.sizes.includes(size)) entry.sizes.push(size);
   }
 
+  // Distribute remaining product-level images to colours via alt text matching
+  for (const img of allImages) {
+    const altLower = img.alt.toLowerCase();
+    if (!altLower) continue;
+    for (const entry of byColour.values()) {
+      if (entry.images.includes(img.url)) continue;
+      if (altLower.includes(entry.colour.toLowerCase())) {
+        entry.images.push(img.url);
+      }
+    }
+  }
+
   const variantArray = Array.from(byColour.values()).map((g) => ({
     colour: g.colour,
-    images: g.images.length ? g.images : allImages.slice(0, 1),
+    images: g.images.length ? g.images : allImages.slice(0, 1).map((i) => i.url),
     variantIds: g.variantIds,
     sizes: g.sizes,
   }));
@@ -206,18 +218,20 @@ export function transformProduct(node) {
   const existingColours = new Set(variantArray.map((v) => v.colour.toLowerCase()));
   for (const add of localAdds) {
     if (existingColours.has(add.colour.toLowerCase())) continue;
-    variantArray.push({
+    const entry = {
       colour: add.colour,
       images: add.images,
       variantIds: [], // empty = pending, no Shopify ID yet
       sizes: add.sizes || [],
       pending: true,
-    });
+    };
+    if (add.prepend) variantArray.unshift(entry);
+    else variantArray.push(entry);
   }
 
   // Fallback: if no images on variants, distribute all product images
   const flatImages = variantArray.flatMap((v) => v.images);
-  const finalImages = flatImages.length ? flatImages : allImages;
+  const finalImages = flatImages.length ? flatImages : allImages.map((i) => i.url);
 
   // Sizes (top-level if any variant has a Size option)
   const sizesOption = (node.options || []).find((o) => o.name === "Size");
