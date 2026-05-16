@@ -1,7 +1,7 @@
 // Shopify Storefront API client + product/cart helpers.
 // Token is public-safe (Storefront Public Access Token) so direct calls from browser are intentional.
 
-import { LOCAL_VARIANT_ADDITIONS } from "../data/localAdditions";
+import { LOCAL_VARIANT_ADDITIONS, LOCAL_PRODUCT_ADDITIONS } from "../data/localAdditions";
 
 const DOMAIN = process.env.REACT_APP_SHOPIFY_DOMAIN;
 const TOKEN = process.env.REACT_APP_SHOPIFY_STOREFRONT_TOKEN;
@@ -253,15 +253,61 @@ export function findVariantId(product, colour, size) {
   return (match || v.variantIds[0])?.id || null;
 }
 
+// Build a pending product (not yet in Shopify) for the LOCAL_PRODUCT_ADDITIONS layer
+function buildLocalProduct(local) {
+  const variantArray = local.variants.map((v) => ({
+    colour: v.colour,
+    images: v.images,
+    variantIds: [],
+    sizes: v.sizes || [],
+    pending: true,
+  }));
+  return {
+    id: local.handle,
+    handle: local.handle,
+    shopifyId: null,
+    name: local.title,
+    price: local.price,
+    currency: local.currency || "GBP",
+    category: local.category,
+    sub: local.sub,
+    badge: local.badge,
+    description: local.description,
+    descriptionHtml: local.descriptionHtml,
+    tags: local.tags || [],
+    variants: variantArray,
+    images: variantArray.flatMap((v) => v.images),
+    colours: variantArray.map((v) => v.colour),
+    sizes: local.sizes || null,
+    pos: local.pos || "center 30%",
+    pending: true,
+  };
+}
+
 // ---------- Public API ----------
 export async function fetchProducts(first = 50) {
   const data = await shopifyFetch(PRODUCTS_QUERY, { first });
-  return data.products.edges.map((e) => transformProduct(e.node)).filter(Boolean);
+  const live = data.products.edges.map((e) => transformProduct(e.node)).filter(Boolean);
+  // Prepend local additions whose handle isn't already in Shopify
+  const liveHandles = new Set(live.map((p) => p.handle));
+  const pending = LOCAL_PRODUCT_ADDITIONS
+    .filter((lp) => !liveHandles.has(lp.handle))
+    .map(buildLocalProduct);
+  return [...pending, ...live];
 }
 
 export async function fetchProductByHandle(handle) {
-  const data = await shopifyFetch(PRODUCT_BY_HANDLE_QUERY, { handle });
-  return transformProduct(data.product);
+  // Check local additions first
+  const local = LOCAL_PRODUCT_ADDITIONS.find((p) => p.handle === handle);
+  try {
+    const data = await shopifyFetch(PRODUCT_BY_HANDLE_QUERY, { handle });
+    const live = transformProduct(data.product);
+    if (live) return live;
+  } catch (e) {
+    // fall through to local
+  }
+  if (local) return buildLocalProduct(local);
+  return null;
 }
 
 export async function createCart(lines = []) {
