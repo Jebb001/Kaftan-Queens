@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useProduct, useProducts } from "../hooks/useProducts";
 import { findVariantId } from "../lib/shopify";
+import { ORDER_EMAIL } from "../data/localAdditions";
 import { useCart } from "../context/CartContext";
 import { toast } from "sonner";
-import { Truck, RotateCcw, Leaf, Minus, Plus, ChevronRight, Loader2 } from "lucide-react";
+import { Truck, RotateCcw, Leaf, Minus, Plus, ChevronRight, Loader2, Mail } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion";
 
 export default function ProductDetail() {
@@ -55,6 +56,9 @@ export default function ProductDetail() {
 
   const activeVariant = variants.find((v) => v.colour === colour) || variants[0];
   const galleryImages = activeVariant?.images?.length ? activeVariant.images : product.images;
+  const isPending = !!activeVariant?.pending;
+  const pendingSizes = activeVariant?.sizes || [];
+  const sizesToShow = isPending && pendingSizes.length ? pendingSizes : product.sizes;
 
   const onAdd = async () => {
     const variantId = findVariantId(product, colour, product.sizes ? size : null);
@@ -169,13 +173,13 @@ export default function ProductDetail() {
 
           {/* Size */}
           <div className="mt-6">
-            {product.sizes && product.sizes.length > 0 ? (
+            {sizesToShow && sizesToShow.length > 0 ? (
               <>
                 <p className="text-[11px] tracking-[0.28em] uppercase">
                   Size <span className="text-[hsl(var(--kq-ink-soft))] ml-1 normal-case tracking-normal font-italic">{size}</span>
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {product.sizes.map((s) => (
+                  {sizesToShow.map((s) => (
                     <button
                       key={s}
                       onClick={() => setSize(s)}
@@ -201,19 +205,35 @@ export default function ProductDetail() {
           {/* Qty + add */}
           <div className="mt-8 flex items-stretch gap-3">
             <div className="inline-flex items-center border border-[hsl(var(--kq-line))]">
-              <button className="px-3 py-3.5" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease"><Minus className="w-3.5 h-3.5" /></button>
+              <button className="px-3 py-3.5" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease" disabled={isPending}><Minus className="w-3.5 h-3.5" /></button>
               <span className="px-4 tabular-nums text-sm" data-testid="pdp-qty">{qty}</span>
-              <button className="px-3 py-3.5" onClick={() => setQty((q) => q + 1)} aria-label="Increase"><Plus className="w-3.5 h-3.5" /></button>
+              <button className="px-3 py-3.5" onClick={() => setQty((q) => q + 1)} aria-label="Increase" disabled={isPending}><Plus className="w-3.5 h-3.5" /></button>
             </div>
-            <button
-              onClick={onAdd}
-              disabled={busy}
-              data-testid="pdp-add-to-bag"
-              className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors disabled:opacity-60"
-            >
-              {busy ? "Adding…" : `Add to Bag — £${(product.price * qty).toFixed(2)}`}
-            </button>
+            {isPending ? (
+              <a
+                href={`mailto:${ORDER_EMAIL}?subject=${encodeURIComponent(`Order: ${product.name} — ${colour}${size ? ` (${size})` : ""}`)}&body=${encodeURIComponent(`Hi, I'd like to order the ${product.name} in ${colour}${size ? ` (size ${size})` : ""}. Please confirm availability and next steps. Thank you!`)}`}
+                data-testid="pdp-email-to-order"
+                className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors flex items-center justify-center gap-2"
+              >
+                <Mail className="w-3.5 h-3.5" /> Email to Order — £{product.price.toFixed(2)}
+              </a>
+            ) : (
+              <button
+                onClick={onAdd}
+                disabled={busy}
+                data-testid="pdp-add-to-bag"
+                className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors disabled:opacity-60"
+              >
+                {busy ? "Adding…" : `Add to Bag — £${(product.price * qty).toFixed(2)}`}
+              </button>
+            )}
           </div>
+
+          {isPending && (
+            <p className="mt-3 text-xs font-italic text-[hsl(var(--kq-ink-soft))]">
+              Just landed — final stock being confirmed. Email us and we'll reserve a piece for you.
+            </p>
+          )}
 
           <div className="mt-6 grid grid-cols-3 gap-3 text-xs">
             {[

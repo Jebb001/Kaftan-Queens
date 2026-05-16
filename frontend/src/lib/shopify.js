@@ -1,6 +1,8 @@
 // Shopify Storefront API client + product/cart helpers.
 // Token is public-safe (Storefront Public Access Token) so direct calls from browser are intentional.
 
+import { LOCAL_VARIANT_ADDITIONS } from "../data/localAdditions";
+
 const DOMAIN = process.env.REACT_APP_SHOPIFY_DOMAIN;
 const TOKEN = process.env.REACT_APP_SHOPIFY_STOREFRONT_TOKEN;
 const API_VERSION = process.env.REACT_APP_SHOPIFY_API_VERSION || "2025-01";
@@ -198,6 +200,20 @@ export function transformProduct(node) {
     variantIds: g.variantIds,
     sizes: g.sizes,
   }));
+
+  // Merge in any local pending variant additions (skip if colour already exists on Shopify)
+  const localAdds = LOCAL_VARIANT_ADDITIONS[node.handle] || [];
+  const existingColours = new Set(variantArray.map((v) => v.colour.toLowerCase()));
+  for (const add of localAdds) {
+    if (existingColours.has(add.colour.toLowerCase())) continue;
+    variantArray.push({
+      colour: add.colour,
+      images: add.images,
+      variantIds: [], // empty = pending, no Shopify ID yet
+      sizes: add.sizes || [],
+      pending: true,
+    });
+  }
 
   // Fallback: if no images on variants, distribute all product images
   const flatImages = variantArray.flatMap((v) => v.images);
