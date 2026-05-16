@@ -161,6 +161,13 @@ const palazzoVariants = [
       "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/40bg5a06_image0%20%281%29.jpeg",
     ],
   },
+  {
+    colour: "Pink & Blue Flower",
+    images: [
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/tuejngv9_image0.jpeg",
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/mkfwviik_image1.jpeg",
+    ],
+  },
 ];
 
 const yakVariants = [
