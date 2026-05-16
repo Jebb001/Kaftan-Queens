@@ -35,6 +35,13 @@ export const LOCAL_PRODUCT_ADDITIONS = [
           "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ygcvmbdh_IMG_7307.jpeg",
         ],
       },
+      {
+        colour: "Blue Flower",
+        images: [
+          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/dalun1op_IMG_7300.jpeg",
+          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/wmv5mqsy_IMG_7301.jpeg",
+        ],
+      },
     ],
   },
 ];
