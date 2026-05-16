@@ -153,6 +153,16 @@ const mariposaVariants = [
   { colour: "Purple", images: [`${CDN}MariposaScarfPurple.jpg?v=1761929701&width=1200`] },
 ];
 
+const palazzoVariants = [
+  {
+    colour: "Teal Blue & White Flower",
+    images: [
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/60ickvjo_image3.jpeg",
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/40bg5a06_image0%20%281%29.jpeg",
+    ],
+  },
+];
+
 const yakVariants = [
   { colour: "Turquoise", images: [`https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ac84abhu_image.png`, `${CDN}YakWoolMandalaScarfBlue3.jpg?v=1762462953&width=1200`] },
   { colour: "Beige", images: [`${CDN}YakWoolMandalaScarfBeige.jpg?v=1762462953&width=1200`] },
@@ -215,6 +225,25 @@ export const PRODUCTS = [
     images: flat(kimonoVariants),
     colours: kimonoVariants.map((v) => v.colour),
     pos: "center 30%",
+  },
+  {
+    id: "palazzo-trousers",
+    name: "Palazzo Trousers",
+    price: 65,
+    category: "women",
+    sub: "Wide stretch waist · Two lengths",
+    badge: "New In",
+    description:
+      "New Palazzo trousers with a wide, comfortable stretch waist that sits beautifully on any silhouette. Wide, flowing leg in a delicate hand-printed floral cotton. Available in two lengths — Short or Long — so you can find the perfect fit.",
+    material: "Cotton",
+    origin: "Hand-printed in India",
+    care: "Machine wash cold. Warm iron on reverse. Do not tumble dry.",
+    sizing: "Inside leg to hem — Short 53 cm · Long 66 cm",
+    sizes: ["Short", "Long"],
+    variants: palazzoVariants,
+    images: flat(palazzoVariants),
+    colours: palazzoVariants.map((v) => v.colour),
+    pos: "center 40%",
   },
   {
     id: "hampi-linen-shirt",

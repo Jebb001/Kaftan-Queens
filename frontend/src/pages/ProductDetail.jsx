@@ -12,6 +12,7 @@ export default function ProductDetail() {
   const { addItem } = useCart();
   const variants = product?.variants || [];
   const [colour, setColour] = useState(variants[0]?.colour || product?.colours?.[0] || "");
+  const [size, setSize] = useState(product?.sizes?.[0] || "One Size");
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
 
@@ -35,8 +36,10 @@ export default function ProductDetail() {
   const galleryImages = activeVariant?.images || product.images;
 
   const onAdd = () => {
-    addItem(product, { size: colour || "One Size", qty });
-    toast.success(`${product.name}${colour ? ` (${colour})` : ""} added to your bag`);
+    const labelParts = [colour, product.sizes ? size : null].filter(Boolean);
+    const cartSize = labelParts.join(" · ") || "One Size";
+    addItem(product, { size: cartSize, qty });
+    toast.success(`${product.name}${labelParts.length ? ` (${labelParts.join(" · ")})` : ""} added to your bag`);
   };
 
   const related = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4);
@@ -125,11 +128,36 @@ export default function ProductDetail() {
             </div>
           )}
 
-          {/* Size note */}
+          {/* Size */}
           <div className="mt-6">
-            <p className="text-[11px] tracking-[0.28em] uppercase">Size <span className="text-[hsl(var(--kq-ink-soft))] ml-1 normal-case tracking-normal font-italic">One Size</span></p>
+            {product.sizes && product.sizes.length > 0 ? (
+              <>
+                <p className="text-[11px] tracking-[0.28em] uppercase">
+                  Size <span className="text-[hsl(var(--kq-ink-soft))] ml-1 normal-case tracking-normal font-italic">{size}</span>
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {product.sizes.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => setSize(s)}
+                      className={`px-5 py-2.5 text-xs border transition-colors ${
+                        size === s
+                          ? "bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] border-[hsl(var(--kq-ink))]"
+                          : "border-[hsl(var(--kq-line))] hover:border-[hsl(var(--kq-ink))]"
+                      }`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p className="text-[11px] tracking-[0.28em] uppercase">
+                Size <span className="text-[hsl(var(--kq-ink-soft))] ml-1 normal-case tracking-normal font-italic">One Size</span>
+              </p>
+            )}
             {product.sizing && (
-              <p className="text-xs text-[hsl(var(--kq-ink-soft))] mt-2 font-italic">{product.sizing}</p>
+              <p className="text-xs text-[hsl(var(--kq-ink-soft))] mt-3 font-italic">{product.sizing}</p>
             )}
           </div>
 
