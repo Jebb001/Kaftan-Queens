@@ -5,11 +5,11 @@ import { ChevronRight } from "lucide-react";
 
 export default function ArtisanStory() {
   return (
-    <section className="mt-24 md:mt-32 max-w-[1400px] mx-auto px-5 md:px-10">
+    <section className="mt-24 md:mt-32 max-w-[1400px] mx-auto px-5 md:px-10 kq-defer">
       <div className="grid md:grid-cols-12 gap-8 md:gap-14 items-center">
         <div className="md:col-span-5 relative">
           <div className="aspect-[4/5] kq-img-zoom">
-            <img src={ARTISAN.image} alt="Artisans at work" className="w-full h-full object-cover" />
+            <img src={ARTISAN.image} alt="Artisans at work" loading="lazy" decoding="async" className="w-full h-full object-cover" />
           </div>
           {/* Decorative oval */}
           <div

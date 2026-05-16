@@ -23,7 +23,10 @@ export default function Hero() {
             key={s.image}
             src={s.image}
             alt={s.title}
-            style={{ objectPosition: s.pos || "center" }}
+            loading={i === 0 ? "eager" : "lazy"}
+            fetchpriority={i === 0 ? "high" : "low"}
+            decoding="async"
+            style={{ objectPosition: s.pos || "center", willChange: "opacity" }}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ${
               i === idx ? "opacity-100" : "opacity-0"
             }`}
@@ -32,7 +35,7 @@ export default function Hero() {
 
         {/* Decorative left arc */}
         <div
-          className="hidden md:block absolute -left-40 top-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full pointer-events-none"
+          className="hidden md:block absolute -left-40 top-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full pointer-events-none kq-gpu"
           style={{
             background:
               "radial-gradient(circle at 30% 50%, hsl(var(--kq-bg-2)) 0%, hsl(var(--kq-bg-2)/0.6) 55%, transparent 70%)",
@@ -42,7 +45,7 @@ export default function Hero() {
         {/* Offset content card */}
         <div className="absolute inset-0 flex items-center">
           <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10">
-            <div className="max-w-md bg-[hsl(var(--kq-bg))]/95 md:bg-[hsl(var(--kq-bg))] backdrop-blur-sm md:backdrop-blur-none border border-[hsl(var(--kq-line))] p-7 md:p-10 kq-fade-up" key={idx}>
+            <div className="max-w-md bg-[hsl(var(--kq-bg))]/95 md:bg-[hsl(var(--kq-bg))] border border-[hsl(var(--kq-line))] p-7 md:p-10 kq-fade-up" key={idx}>
               <span className="text-[10px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">
                 {slide.eyebrow}
               </span>

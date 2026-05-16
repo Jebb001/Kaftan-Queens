@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function JournalGrid() {
   return (
-    <section className="mt-24 md:mt-32 max-w-[1400px] mx-auto px-5 md:px-10">
+    <section className="mt-24 md:mt-32 max-w-[1400px] mx-auto px-5 md:px-10 kq-defer">
       <div className="text-center mb-10 md:mb-14">
         <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">
           — Journal
@@ -18,7 +18,7 @@ export default function JournalGrid() {
           <article key={post.id} className="group">
             <a href="#" className="block">
               <div className="aspect-[16/10] kq-img-zoom">
-                <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                <img src={post.image} alt={post.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
               </div>
               <h3 className="font-display text-2xl md:text-[26px] leading-snug mt-5">{post.title}</h3>
               <p className="text-xs tracking-[0.2em] uppercase text-[hsl(var(--kq-accent-2))] mt-2">{post.author}</p>

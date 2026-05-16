@@ -68,7 +68,7 @@ export default function Home() {
       )}
 
       {/* Three-pillar values band */}
-      <section className="mt-24 md:mt-32 bg-[hsl(var(--kq-bg-2))]">
+      <section className="mt-24 md:mt-32 bg-[hsl(var(--kq-bg-2))] kq-defer">
         <div className="max-w-[1400px] mx-auto px-5 md:px-10 py-20 md:py-28">
           <div className="text-center mb-12">
             <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">— Our values</span>
@@ -79,7 +79,7 @@ export default function Home() {
             {STORY_BLOCKS.map((s, i) => (
               <article key={s.title} className="text-center">
                 <div className="relative aspect-[4/5] kq-img-zoom mb-6">
-                  <img src={s.image} alt={s.title} className="w-full h-full object-cover" />
+                  <img src={s.image} alt={s.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
                 <span className="font-italic text-sm text-[hsl(var(--kq-accent-2))]">0{i + 1}</span>
                 <h3 className="font-display text-2xl md:text-3xl mt-2">{s.title}</h3>
@@ -103,7 +103,7 @@ export default function Home() {
       )}
 
       {/* Testimonials */}
-      <section className="mt-24 md:mt-32 max-w-[1100px] mx-auto px-5 md:px-10 text-center">
+      <section className="mt-24 md:mt-32 max-w-[1100px] mx-auto px-5 md:px-10 text-center kq-defer">
         <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">— Loved by</span>
         <h2 className="font-display text-3xl md:text-4xl mt-3">In their words</h2>
         <div className="mt-4 flex items-center justify-center mb-12"><span className="kq-thin-rule" /></div>

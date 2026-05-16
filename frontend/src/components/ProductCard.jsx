@@ -15,6 +15,7 @@ export default function ProductCard({ product }) {
             src={front}
             alt={product.name}
             loading="lazy"
+            decoding="async"
             style={{ objectPosition: product.pos || "center 25%" }}
             className="kq-swap-front"
           />
@@ -22,6 +23,7 @@ export default function ProductCard({ product }) {
             src={back}
             alt={`${product.name} alternate`}
             loading="lazy"
+            decoding="async"
             style={{ objectPosition: product.pos || "center 25%" }}
             className="kq-swap-back"
           />

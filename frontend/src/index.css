@@ -127,3 +127,27 @@ a[href*="emergent.sh"][id="emergent-badge"] {
     opacity: 0 !important;
     pointer-events: none !important;
 }
+
+/* ---------- Performance ---------- */
+/* Promote animated/blended layers to their own GPU layer to avoid paint storms */
+.kq-gpu {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Skip rendering off-screen sections — huge win on scroll-heavy pages */
+.kq-defer {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+}
+
+/* Default decoding/loading hints for images already get respected; force GPU compositing on swap cards */
+.kq-swap { transform: translateZ(0); }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .kq-fade-up { animation: none; opacity: 1; transform: none; }
+    .kq-img-zoom img { transition: none; }
+    .kq-swap .kq-swap-front, .kq-swap .kq-swap-back { transition: none; }
+}
