@@ -1,5 +1,5 @@
 import React from "react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "./ui/sheet";
 import { useCart } from "../context/CartContext";
 import { Minus, Plus, X, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ export default function CartDrawer() {
       <SheetContent className="bg-[hsl(var(--kq-bg))] w-full sm:max-w-md flex flex-col p-0" data-testid="cart-drawer">
         <SheetHeader className="px-6 py-5 border-b border-[hsl(var(--kq-line))]">
           <SheetTitle className="font-display text-2xl text-left">Your Bag</SheetTitle>
+          <SheetDescription className="sr-only">Review the items in your bag and proceed to checkout.</SheetDescription>
         </SheetHeader>
 
         <div className="flex-1 overflow-auto px-6 py-4">
