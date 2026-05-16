@@ -412,21 +412,21 @@ export const STORY_BLOCKS = [
     body:
       "Responsibly sourced renewable and recycled materials, and low-impact manufacturing — to cut CO₂, water use and waste.",
     image:
-      "https://kaftanqueens.co.uk/cdn/shop/files/IMG_1402.jpg?v=1747076213&width=1500",
+      "https://images.unsplash.com/photo-1581084324492-c8076f130f86?crop=entropy&cs=srgb&fm=jpg&q=85&w=1500",
   },
   {
     title: "Artisanal Luxury",
     body:
       "Handmade in small batches using heritage techniques and ethically sourced premium materials — each piece authentic, each piece scarce.",
     image:
-      "https://kaftanqueens.co.uk/cdn/shop/files/IMG_1403.jpg?v=1747076213&width=1500",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?crop=entropy&cs=srgb&fm=jpg&q=85&w=1500",
   },
   {
     title: "Bohemian Chic",
     body:
       "Relaxed vintage silhouettes, natural fabrics and global patterns for a layered look you can wear from sand to supper.",
     image:
-      "https://kaftanqueens.co.uk/cdn/shop/files/IMG_1783.jpg?v=1747076211&width=1500",
+      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?crop=entropy&cs=srgb&fm=jpg&q=85&w=1500",
   },
 ];
 
@@ -456,7 +456,7 @@ export const JOURNAL = [
       "From ethical treatment of workers to sustainable materials and waste — the impact of fast fashion and whether it can ever truly slow down.",
     author: "Rosalyn Bowen",
     image:
-      "https://kaftanqueens.co.uk/cdn/shop/files/IMG_1402.jpg?v=1747076213&width=900",
+      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?crop=entropy&cs=srgb&fm=jpg&q=80&w=900",
   },
 ];
 
