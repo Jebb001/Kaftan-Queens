@@ -1,78 +1,147 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
+import {
+  createCart,
+  getCart,
+  addCartLines,
+  updateCartLines,
+  removeCartLines,
+} from "../lib/shopify";
 
 const CartContext = createContext(null);
+const STORAGE_KEY = "kq_shopify_cart_id";
 
-const STORAGE_KEY = "kq_cart_v1";
+function normalize(cart) {
+  if (!cart) return { items: [], subtotal: 0, count: 0, checkoutUrl: null, currency: "GBP" };
+  const items = cart.lines.edges.map(({ node }) => {
+    const m = node.merchandise;
+    const colour = m.selectedOptions.find((o) => o.name === "Colour")?.value || "";
+    const size = m.selectedOptions.find((o) => o.name === "Size")?.value || null;
+    const sizeLabel = [colour, size].filter(Boolean).join(" · ") || "One Size";
+    return {
+      key: node.id, // Shopify line id
+      lineId: node.id,
+      variantId: m.id,
+      productHandle: m.product?.handle,
+      name: m.product?.title || m.title,
+      image: m.image?.url,
+      price: Number(m.price.amount),
+      currency: m.price.currencyCode,
+      qty: node.quantity,
+      size: sizeLabel,
+    };
+  });
+  const subtotal = Number(cart.cost?.subtotalAmount?.amount || 0);
+  const currency = cart.cost?.subtotalAmount?.currencyCode || "GBP";
+  return {
+    items,
+    subtotal,
+    count: cart.totalQuantity || 0,
+    checkoutUrl: cart.checkoutUrl,
+    currency,
+  };
+}
 
 export function CartProvider({ children }) {
-  const [items, setItems] = useState(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [cart, setCart] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
 
+  // Hydrate cart from saved cartId on mount
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+    getCart(saved)
+      .then((c) => {
+        if (c) setCart(c);
+        else localStorage.removeItem(STORAGE_KEY);
+      })
+      .catch(() => localStorage.removeItem(STORAGE_KEY));
+  }, []);
 
-  const addItem = (product, opts = {}) => {
-    const size = opts.size || "One Size";
-    const qty = opts.qty || 1;
-    setItems((prev) => {
-      const key = `${product.id}__${size}`;
-      const existing = prev.find((p) => p.key === key);
-      if (existing) {
-        return prev.map((p) =>
-          p.key === key ? { ...p, qty: p.qty + qty } : p
-        );
-      }
-      return [
-        ...prev,
-        {
-          key,
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.images[0],
-          size,
-          qty,
-        },
-      ];
-    });
-    setIsOpen(true);
+  const persist = (c) => {
+    setCart(c);
+    if (c?.id) localStorage.setItem(STORAGE_KEY, c.id);
   };
 
-  const removeItem = (key) =>
-    setItems((prev) => prev.filter((p) => p.key !== key));
+  const addItem = useCallback(
+    async (variantId, qty = 1) => {
+      if (!variantId) return;
+      setBusy(true);
+      try {
+        if (!cart?.id) {
+          const c = await createCart([{ merchandiseId: variantId, quantity: qty }]);
+          persist(c);
+        } else {
+          const c = await addCartLines(cart.id, [{ merchandiseId: variantId, quantity: qty }]);
+          persist(c);
+        }
+        setIsOpen(true);
+      } finally {
+        setBusy(false);
+      }
+    },
+    [cart]
+  );
 
-  const updateQty = (key, qty) =>
-    setItems((prev) =>
-      prev
-        .map((p) => (p.key === key ? { ...p, qty: Math.max(1, qty) } : p))
-        .filter((p) => p.qty > 0)
-    );
+  const updateQty = useCallback(
+    async (lineId, qty) => {
+      if (!cart?.id) return;
+      setBusy(true);
+      try {
+        if (qty <= 0) {
+          const c = await removeCartLines(cart.id, [lineId]);
+          persist(c);
+        } else {
+          const c = await updateCartLines(cart.id, [{ id: lineId, quantity: qty }]);
+          persist(c);
+        }
+      } finally {
+        setBusy(false);
+      }
+    },
+    [cart]
+  );
 
-  const clear = () => setItems([]);
+  const removeItem = useCallback(
+    async (lineId) => {
+      if (!cart?.id) return;
+      setBusy(true);
+      try {
+        const c = await removeCartLines(cart.id, [lineId]);
+        persist(c);
+      } finally {
+        setBusy(false);
+      }
+    },
+    [cart]
+  );
+
+  const clear = useCallback(async () => {
+    if (!cart?.id) return;
+    const ids = cart.lines.edges.map((e) => e.node.id);
+    if (!ids.length) return;
+    setBusy(true);
+    try {
+      const c = await removeCartLines(cart.id, ids);
+      persist(c);
+    } finally {
+      setBusy(false);
+    }
+  }, [cart]);
 
   const value = useMemo(() => {
-    const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
-    const count = items.reduce((s, i) => s + i.qty, 0);
+    const n = normalize(cart);
     return {
-      items,
+      ...n,
       isOpen,
       setIsOpen,
+      busy,
       addItem,
-      removeItem,
       updateQty,
+      removeItem,
       clear,
-      subtotal,
-      count,
     };
-  }, [items, isOpen]);
+  }, [cart, isOpen, busy, addItem, updateQty, removeItem, clear]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

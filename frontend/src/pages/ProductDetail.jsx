@@ -1,25 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { PRODUCTS } from "../mock";
+import { useProduct, useProducts } from "../hooks/useProducts";
+import { findVariantId } from "../lib/shopify";
 import { useCart } from "../context/CartContext";
 import { toast } from "sonner";
-import { Truck, RotateCcw, Leaf, Minus, Plus, ChevronRight } from "lucide-react";
+import { Truck, RotateCcw, Leaf, Minus, Plus, ChevronRight, Loader2 } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion";
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const product = PRODUCTS.find((p) => p.id === id);
-  const { addItem } = useCart();
+  const { product, loading } = useProduct(id);
+  const { products } = useProducts();
+  const { addItem, busy } = useCart();
+
   const variants = product?.variants || [];
-  const [colour, setColour] = useState(variants[0]?.colour || product?.colours?.[0] || "");
-  const [size, setSize] = useState(product?.sizes?.[0] || "One Size");
+  const [colour, setColour] = useState("");
+  const [size, setSize] = useState("");
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
 
+  // Initialize selections once product loads
+  useEffect(() => {
+    if (!product) return;
+    setColour(variants[0]?.colour || "");
+    setSize(product.sizes?.[0] || "");
+    setActiveImg(0);
+    setQty(1);
+  }, [product?.handle]); // eslint-disable-line
+
   // Reset gallery when colour changes
-  React.useEffect(() => {
+  useEffect(() => {
     setActiveImg(0);
   }, [colour]);
+
+  if (loading) {
+    return (
+      <main className="max-w-[1400px] mx-auto px-5 md:px-10 py-32 text-center" data-testid="pdp-loading">
+        <Loader2 className="w-6 h-6 animate-spin mx-auto mb-3 text-[hsl(var(--kq-ink-soft))]" />
+        <p className="text-xs tracking-[0.2em] uppercase text-[hsl(var(--kq-ink-soft))]">Loading piece…</p>
+      </main>
+    );
+  }
 
   if (!product) {
     return (
@@ -33,16 +54,24 @@ export default function ProductDetail() {
   }
 
   const activeVariant = variants.find((v) => v.colour === colour) || variants[0];
-  const galleryImages = activeVariant?.images || product.images;
+  const galleryImages = activeVariant?.images?.length ? activeVariant.images : product.images;
 
-  const onAdd = () => {
-    const labelParts = [colour, product.sizes ? size : null].filter(Boolean);
-    const cartSize = labelParts.join(" · ") || "One Size";
-    addItem(product, { size: cartSize, qty });
-    toast.success(`${product.name}${labelParts.length ? ` (${labelParts.join(" · ")})` : ""} added to your bag`);
+  const onAdd = async () => {
+    const variantId = findVariantId(product, colour, product.sizes ? size : null);
+    if (!variantId) {
+      toast.error("Sorry, this option is unavailable.");
+      return;
+    }
+    try {
+      await addItem(variantId, qty);
+      const labelParts = [colour, product.sizes ? size : null].filter(Boolean);
+      toast.success(`${product.name}${labelParts.length ? ` (${labelParts.join(" · ")})` : ""} added to your bag`);
+    } catch (e) {
+      toast.error(e.message || "Couldn't add to bag. Please try again.");
+    }
   };
 
-  const related = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4);
+  const related = products.filter((p) => p.handle !== product.handle).slice(0, 4);
 
   return (
     <main className="max-w-[1400px] mx-auto px-5 md:px-10 pt-8 md:pt-12">
@@ -64,6 +93,7 @@ export default function ProductDetail() {
               alt={`${product.name} — ${colour}`}
               style={{ objectPosition: product.pos || "center" }}
               className="w-full h-full object-cover kq-fade-up"
+              data-testid="pdp-main-image"
             />
             {product.badge && (
               <span className="absolute top-4 left-4 bg-[hsl(var(--kq-bg))] text-[hsl(var(--kq-ink))] text-[10px] tracking-[0.22em] uppercase px-3 py-1.5">
@@ -77,6 +107,7 @@ export default function ProductDetail() {
                 <button
                   key={src}
                   onClick={() => setActiveImg(i)}
+                  data-testid={`pdp-thumb-${i}`}
                   className={`aspect-[3/4] overflow-hidden border ${
                     activeImg === i ? "border-[hsl(var(--kq-accent-2))]" : "border-transparent"
                   }`}
@@ -93,14 +124,21 @@ export default function ProductDetail() {
           <span className="text-[11px] tracking-[0.28em] uppercase text-[hsl(var(--kq-accent-2))] capitalize">
             {product.category}
           </span>
-          <h1 className="font-display text-4xl md:text-5xl mt-3 leading-tight">{product.name}</h1>
+          <h1 className="font-display text-4xl md:text-5xl mt-3 leading-tight" data-testid="pdp-title">{product.name}</h1>
           {product.sub && <p className="font-italic text-lg text-[hsl(var(--kq-ink-soft))] mt-2">{product.sub}</p>}
           <div className="mt-5 flex items-center gap-3">
             <span className="kq-thin-rule" />
-            <p className="font-display text-2xl tabular-nums">£{product.price.toFixed(2)} <span className="text-xs tracking-[0.2em] uppercase text-[hsl(var(--kq-ink-soft))]">GBP</span></p>
+            <p className="font-display text-2xl tabular-nums">£{product.price.toFixed(2)} <span className="text-xs tracking-[0.2em] uppercase text-[hsl(var(--kq-ink-soft))]">{product.currency || "GBP"}</span></p>
           </div>
 
-          <p className="mt-6 text-[hsl(var(--kq-ink-soft))] leading-relaxed">{product.description}</p>
+          {product.descriptionHtml ? (
+            <div
+              className="mt-6 text-[hsl(var(--kq-ink-soft))] leading-relaxed kq-rich"
+              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+            />
+          ) : (
+            <p className="mt-6 text-[hsl(var(--kq-ink-soft))] leading-relaxed">{product.description}</p>
+          )}
 
           {/* Colour swatches */}
           {product.colours && product.colours.length > 0 && (
@@ -115,6 +153,7 @@ export default function ProductDetail() {
                   <button
                     key={c}
                     onClick={() => setColour(c)}
+                    data-testid={`pdp-colour-${c}`}
                     className={`px-4 py-2.5 text-xs border transition-colors ${
                       colour === c
                         ? "bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] border-[hsl(var(--kq-ink))]"
@@ -140,6 +179,7 @@ export default function ProductDetail() {
                     <button
                       key={s}
                       onClick={() => setSize(s)}
+                      data-testid={`pdp-size-${s}`}
                       className={`px-5 py-2.5 text-xs border transition-colors ${
                         size === s
                           ? "bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] border-[hsl(var(--kq-ink))]"
@@ -156,23 +196,22 @@ export default function ProductDetail() {
                 Size <span className="text-[hsl(var(--kq-ink-soft))] ml-1 normal-case tracking-normal font-italic">One Size</span>
               </p>
             )}
-            {product.sizing && (
-              <p className="text-xs text-[hsl(var(--kq-ink-soft))] mt-3 font-italic">{product.sizing}</p>
-            )}
           </div>
 
           {/* Qty + add */}
           <div className="mt-8 flex items-stretch gap-3">
             <div className="inline-flex items-center border border-[hsl(var(--kq-line))]">
               <button className="px-3 py-3.5" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease"><Minus className="w-3.5 h-3.5" /></button>
-              <span className="px-4 tabular-nums text-sm">{qty}</span>
+              <span className="px-4 tabular-nums text-sm" data-testid="pdp-qty">{qty}</span>
               <button className="px-3 py-3.5" onClick={() => setQty((q) => q + 1)} aria-label="Increase"><Plus className="w-3.5 h-3.5" /></button>
             </div>
             <button
               onClick={onAdd}
-              className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors"
+              disabled={busy}
+              data-testid="pdp-add-to-bag"
+              className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors disabled:opacity-60"
             >
-              Add to Bag — £{(product.price * qty).toFixed(2)}
+              {busy ? "Adding…" : `Add to Bag — £${(product.price * qty).toFixed(2)}`}
             </button>
           </div>
 
@@ -193,19 +232,12 @@ export default function ProductDetail() {
             <AccordionItem value="a" className="border-b border-[hsl(var(--kq-line))]">
               <AccordionTrigger className="text-[11px] tracking-[0.25em] uppercase">Details & Materials</AccordionTrigger>
               <AccordionContent className="text-sm text-[hsl(var(--kq-ink-soft))] space-y-1.5">
-                {product.material && <p><span className="text-[hsl(var(--kq-ink))]">Material:</span> {product.material}</p>}
-                {product.origin && <p><span className="text-[hsl(var(--kq-ink))]">Origin:</span> {product.origin}</p>}
-                {product.sizing && <p><span className="text-[hsl(var(--kq-ink))]">Sizing:</span> {product.sizing}</p>}
                 {product.colours && <p><span className="text-[hsl(var(--kq-ink))]">Colours:</span> {product.colours.join(", ")}</p>}
+                {product.sizes && <p><span className="text-[hsl(var(--kq-ink))]">Sizes:</span> {product.sizes.join(", ")}</p>}
+                {product.vendor && <p><span className="text-[hsl(var(--kq-ink))]">Vendor:</span> {product.vendor}</p>}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="b" className="border-b border-[hsl(var(--kq-line))]">
-              <AccordionTrigger className="text-[11px] tracking-[0.25em] uppercase">Care</AccordionTrigger>
-              <AccordionContent className="text-sm text-[hsl(var(--kq-ink-soft))]">
-                {product.care || "Hand wash cold or gentle machine cycle. Line dry in shade. Cool iron on reverse."}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="c">
+            <AccordionItem value="b">
               <AccordionTrigger className="text-[11px] tracking-[0.25em] uppercase">Shipping & Returns</AccordionTrigger>
               <AccordionContent className="text-sm text-[hsl(var(--kq-ink-soft))]">
                 Free UK shipping on orders over £150. International calculated at checkout. 14-day returns on unworn pieces.
@@ -216,24 +248,26 @@ export default function ProductDetail() {
       </div>
 
       {/* Related */}
-      <section className="mt-24 md:mt-32">
-        <div className="text-center mb-10">
-          <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">— You may also love</span>
-          <h3 className="font-display text-3xl md:text-4xl mt-3">Pair it with</h3>
-          <div className="mt-4 flex items-center justify-center"><span className="kq-thin-rule" /></div>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-7">
-          {related.map((p) => (
-            <Link key={p.id} to={`/products/${p.id}`} className="group block text-center">
-              <div className="aspect-[3/4] kq-img-zoom bg-[hsl(var(--kq-bg-2))]">
-                <img src={p.images[0]} alt={p.name} style={{ objectPosition: p.pos || "center 25%" }} className="w-full h-full object-cover" />
-              </div>
-              <h4 className="font-display text-lg md:text-xl mt-4">{p.name}</h4>
-              <p className="text-[13px] mt-1 tabular-nums">£{p.price.toFixed(2)}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {related.length > 0 && (
+        <section className="mt-24 md:mt-32">
+          <div className="text-center mb-10">
+            <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">— You may also love</span>
+            <h3 className="font-display text-3xl md:text-4xl mt-3">Pair it with</h3>
+            <div className="mt-4 flex items-center justify-center"><span className="kq-thin-rule" /></div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-7">
+            {related.map((p) => (
+              <Link key={p.id} to={`/products/${p.id}`} className="group block text-center">
+                <div className="aspect-[3/4] kq-img-zoom bg-[hsl(var(--kq-bg-2))]">
+                  <img src={p.images[0]} alt={p.name} style={{ objectPosition: p.pos || "center 25%" }} className="w-full h-full object-cover" />
+                </div>
+                <h4 className="font-display text-lg md:text-xl mt-4">{p.name}</h4>
+                <p className="text-[13px] mt-1 tabular-nums">£{p.price.toFixed(2)}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 }

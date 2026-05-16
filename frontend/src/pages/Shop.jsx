@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import { PRODUCTS } from "../mock";
-import { ChevronDown } from "lucide-react";
+import { useProducts } from "../hooks/useProducts";
+import { ChevronDown, Loader2 } from "lucide-react";
 
 const CATS = [
   { key: "all", label: "All" },
@@ -15,13 +15,14 @@ export default function Shop() {
   const [params, setParams] = useSearchParams();
   const cat = params.get("cat") || "all";
   const [sort, setSort] = useState("featured");
+  const { products, loading, error } = useProducts();
 
   const filtered = useMemo(() => {
-    let list = cat === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.category === cat);
+    let list = cat === "all" ? products : products.filter((p) => p.category === cat);
     if (sort === "low") list = [...list].sort((a, b) => a.price - b.price);
     if (sort === "high") list = [...list].sort((a, b) => b.price - a.price);
     return list;
-  }, [cat, sort]);
+  }, [cat, sort, products]);
 
   const setCat = (k) => (k === "all" ? setParams({}) : setParams({ cat: k }));
 
@@ -46,6 +47,7 @@ export default function Shop() {
             <button
               key={c.key}
               onClick={() => setCat(c.key)}
+              data-testid={`shop-cat-${c.key}`}
               className={`px-4 py-2 text-[11px] tracking-[0.22em] uppercase border transition-colors ${
                 cat === c.key
                   ? "bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] border-[hsl(var(--kq-ink))]"
@@ -57,12 +59,13 @@ export default function Shop() {
           ))}
         </nav>
         <div className="flex items-center gap-3 text-xs">
-          <span className="text-[hsl(var(--kq-ink-soft))]">{filtered.length} pieces</span>
+          <span className="text-[hsl(var(--kq-ink-soft))]" data-testid="shop-count">{filtered.length} pieces</span>
           <span className="text-[hsl(var(--kq-line))]">|</span>
           <div className="relative">
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
+              data-testid="shop-sort"
               className="appearance-none bg-transparent pr-7 pl-3 py-2 text-[11px] tracking-[0.2em] uppercase outline-none border border-[hsl(var(--kq-line))]"
             >
               <option value="featured">Featured</option>
@@ -74,11 +77,26 @@ export default function Shop() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-7 md:gap-y-16">
-        {filtered.map((p) => (
-          <ProductCard key={p.id} product={p} />
-        ))}
-      </div>
+      {loading && (
+        <div className="py-32 flex flex-col items-center text-[hsl(var(--kq-ink-soft))]" data-testid="shop-loading">
+          <Loader2 className="w-6 h-6 animate-spin mb-3" />
+          <p className="text-xs tracking-[0.2em] uppercase">Loading collection…</p>
+        </div>
+      )}
+
+      {error && !loading && (
+        <div className="py-32 text-center" data-testid="shop-error">
+          <p className="text-sm text-[hsl(var(--kq-ink-soft))]">We couldn't load the collection right now. Please try again shortly.</p>
+        </div>
+      )}
+
+      {!loading && !error && (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-7 md:gap-y-16" data-testid="shop-grid">
+          {filtered.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
+        </div>
+      )}
     </main>
   );
 }

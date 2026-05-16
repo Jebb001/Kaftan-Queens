@@ -1,0 +1,49 @@
+{
+  "summary": "Frontend-only E2E test of the new headless Shopify storefront (Kaftan Queens). All major flows — Home, Shop (filters + sort), PDP (colour swatches + size), Add to Bag (cart drawer auto-opens), qty increment/decrement (Shopify cartLinesUpdate), Cart page, Checkout URL (real Shopify URL), and cart persistence across reload — work end-to-end against the live Shopify Storefront GraphQL API. No critical issues found.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Cart Drawer (Sheet/Dialog)", "issues": ["Radix a11y console warning: 'Missing Description or aria-describedby={undefined} for {DialogContent}'. Add a <SheetDescription> (or aria-describedby) to the cart drawer SheetContent for screen-reader compliance. Non-blocking."]},
+      {"screen": "Browser tab title", "issues": ["Page title is still the default 'Emergent | Fullstack App' instead of brand-appropriate 'Kaftan Queens'. Update public/index.html <title> and ideally add per-route titles."]}
+    ]
+  },
+  "test_evidence": {
+    "home": {"h1": "Handmade, Natural Clothing", "product_links": 12},
+    "shop": {"grid_present": true, "total_count_text": "12 pieces", "filtered": {"women": 4, "men": 4, "accessories": 4}, "sort_low_to_high_ordered": true, "first5_prices_asc": [20, 65, 65, 65, 65]},
+    "pdp_palm_kaftan": {"title": "Palm Kaftan", "colours": ["Pink", "Green & Fuchsia", "Blue & Red", "Orange"], "main_image_changes_on_swatch_click": true},
+    "pdp_palazzo_trousers": {"title": "Palazzo Trousers", "colours": 3, "sizes": 2},
+    "pdp_hampi_linen_shirt": {"title": "Hampi Linen Shirt", "renders": true},
+    "add_to_bag": {"drawer_auto_opens": true, "line_items": 1, "drawer_subtotal": "£65.00 GBP", "navbar_counter": "CART (1)"},
+    "cart_lines_update": {"after_increment_subtotal": "£130.00 GBP", "after_decrement_subtotal": "£65.00 GBP", "qty_visible": "2 then back to 1"},
+    "checkout_url_drawer": "https://kaftan-queens-3.myshopify.com/cart/c/hWNCEro2R42AYAr03jDGIPfW?key=...",
+    "checkout_url_cart_page": "https://kaftan-queens-3.myshopify.com/cart/c/hWNCEro2R42AYAr03jDGIPfW?key=...",
+    "checkout_url_is_real_shopify": true,
+    "persistence": {"cart_id_localStorage_key": "kq_shopify_cart_id", "cart_id_persisted_after_reload": true, "cart_rows_after_reload": 1, "nav_cart_after_reload": "CART (1)"}
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Update <title> in /app/frontend/public/index.html from 'Emergent | Fullstack App' to 'Kaftan Queens — Handmade Indian Clothing' (or similar) and consider per-route titles via react-helmet.",
+    "Add a SheetDescription / aria-describedby to CartDrawer's SheetContent to silence the Radix Dialog a11y warning."
+  ],
+  "critical_code_review_comments": [
+    "useProducts hook caches at module-level — fine for SPA lifetime, but if products are updated in Shopify, user won't see them until a hard reload. Consider TTL or invalidation, especially if inventory matters.",
+    "CartContext: when getCart returns null after reload (e.g. cart expired in Shopify), code removes the localStorage key (good). However it does NOT clear the in-memory state nor reset for failed network calls beyond the catch path — currently OK for happy path, but worth a small refactor to centralize.",
+    "shopify.js: Storefront token is committed in frontend/.env. This is intentional (it is the public Storefront Access Token), but worth a comment in README that this token is publish-safe vs the Admin API token which must never leak.",
+    "data-testid values for colour swatches include spaces and special characters (e.g. data-testid='pdp-colour-Green & Fuchsia'). Selectors work, but consider slugifying values for predictable automation.",
+    "ProductDetail.jsx useEffect dependency suppresses lint with [product?.handle] — fine but small risk of stale closure when variants array reference changes for same handle.",
+    "Cart.jsx checkoutUrl fallback shows toast 'Checkout not ready yet' only on cart page, while CartDrawer silently prevents default with no message — inconsistent UX."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (not tested per request)", "frontend": "100% on all listed flows (8/8)"},
+  "test_credentials": "Not required — no auth in storefront flow. Checkout is handed off to Shopify-hosted page.",
+  "seed_data_creation": "None. Used the 12 live Shopify products already imported (palm-kaftan, palazzo-trousers, hampi-linen-shirt, etc.).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Storefront token & domain live in frontend/.env (REACT_APP_SHOPIFY_DOMAIN=kaftan-queens-3.myshopify.com). Cart id persists in localStorage under key 'kq_shopify_cart_id'. The same cart id can be reused across iterations; if cart gets stale on Shopify side, the hydrate path clears it. All 12 product handles, 4 per category. Only palazzo-trousers has Colour AND Size. Real Shopify checkout URL is returned from cartCreate/cartLines mutations; do NOT complete checkout in automation, only verify href contains '*.myshopify.com/cart/c/'.",
+  "rca of the issue": "No bugs to root-cause — all 8 requested feature flows verified."
+}
