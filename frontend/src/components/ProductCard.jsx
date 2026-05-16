@@ -1,22 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
-import { toast } from "sonner";
 
 export default function ProductCard({ product }) {
-  const { addItem } = useCart();
-
   // Front: first variant's primary image. Back: second variant's image, or second image of first variant.
   const variants = product.variants || [{ colour: "", images: product.images }];
   const front = variants[0].images[0];
   const back = variants[1]?.images?.[0] || variants[0].images[1] || front;
-
-  const onSelect = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addItem(product);
-    toast.success(`${product.name} added to your bag`);
-  };
 
   return (
     <div className="group block">
@@ -42,24 +31,19 @@ export default function ProductCard({ product }) {
             </span>
           )}
           <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-            <button
-              onClick={onSelect}
-              className="w-full bg-[hsl(var(--kq-bg))] text-[hsl(var(--kq-ink))] hover:bg-[hsl(var(--kq-ink))] hover:text-[hsl(var(--kq-bg))] transition-colors py-3 text-[11px] tracking-[0.28em] uppercase"
-            >
+            <span className="block w-full text-center bg-[hsl(var(--kq-bg))] text-[hsl(var(--kq-ink))] group-hover:bg-[hsl(var(--kq-ink))] group-hover:text-[hsl(var(--kq-bg))] transition-colors py-3 text-[11px] tracking-[0.28em] uppercase">
               Select Options
-            </button>
+            </span>
           </div>
         </div>
-      </Link>
-      <div className="mt-5 text-center">
-        <Link to={`/products/${product.id}`} className="block">
+        <div className="mt-5 text-center">
           <h3 className="font-display text-xl md:text-[22px] leading-snug">{product.name}</h3>
-        </Link>
-        {product.sub && (
-          <p className="font-italic text-sm text-[hsl(var(--kq-ink-soft))] mt-1">{product.sub}</p>
-        )}
-        <p className="text-[13px] tracking-[0.04em] mt-2 tabular-nums">£{product.price.toFixed(2)}</p>
-      </div>
+          {product.sub && (
+            <p className="font-italic text-sm text-[hsl(var(--kq-ink-soft))] mt-1">{product.sub}</p>
+          )}
+          <p className="text-[13px] tracking-[0.04em] mt-2 tabular-nums">£{product.price.toFixed(2)}</p>
+        </div>
+      </Link>
     </div>
   );
 }
