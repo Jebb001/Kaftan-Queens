@@ -27,6 +27,14 @@ NEW_PRODUCTS = [
                 ],
                 None,  # no sizes
             ),
+            (
+                "White Ditsy",
+                [
+                    "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/3h7lsqkt_IMG_7306.jpeg",
+                    "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ygcvmbdh_IMG_7307.jpeg",
+                ],
+                None,
+            ),
         ],
     },
 ]

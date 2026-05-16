@@ -28,6 +28,13 @@ export const LOCAL_PRODUCT_ADDITIONS = [
           "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/y3xx0o3z_20447cc2-0441-4efb-9a8b-34354ecdcfef.jpeg",
         ],
       },
+      {
+        colour: "White Ditsy",
+        images: [
+          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/3h7lsqkt_IMG_7306.jpeg",
+          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ygcvmbdh_IMG_7307.jpeg",
+        ],
+      },
     ],
   },
 ];
