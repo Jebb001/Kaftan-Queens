@@ -153,6 +153,16 @@ const mariposaVariants = [
   { colour: "Purple", images: [`${CDN}MariposaScarfPurple.jpg?v=1761929701&width=1200`] },
 ];
 
+const junglePrintVariants = [
+  {
+    colour: "Blue Jungle",
+    images: [
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/05de4u7f_image1.jpeg",
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/464iwadb_image0.jpeg",
+    ],
+  },
+];
+
 const palazzoVariants = [
   {
     colour: "Teal Blue & White Flower",
@@ -275,6 +285,24 @@ export const PRODUCTS = [
     variants: hampiVariants,
     images: flat(hampiVariants),
     colours: hampiVariants.map((v) => v.colour),
+    pos: "center 30%",
+  },
+  {
+    id: "jungle-print-shirt",
+    name: "Jungle Print Shirt",
+    price: 75,
+    category: "men",
+    sub: "Cotton · Indian jungle print",
+    badge: "New In",
+    description:
+      "A bold new shirt in deep indigo cotton, hand-printed with an Indian jungle motif of palms, foliage and birds. A large, loose, easy fit — made to be lived in, layered and loved.",
+    material: "100% Cotton",
+    origin: "Hand-printed in India",
+    care: "Machine wash at 30°C. Warm iron on reverse. Do not tumble dry.",
+    sizing: "Large loose fit",
+    variants: junglePrintVariants,
+    images: flat(junglePrintVariants),
+    colours: junglePrintVariants.map((v) => v.colour),
     pos: "center 30%",
   },
   {
