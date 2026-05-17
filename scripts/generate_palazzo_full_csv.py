@@ -8,7 +8,7 @@ from pathlib import Path
 
 HANDLE = "palazzo-trousers"
 TITLE = "Palazzo Trousers"
-PRICE = "65.00"
+PRICE = "55.00"
 TYPE = "Trousers"
 TAGS = "women,trousers,new"
 BODY = "<p>New Palazzo trousers with a wide, comfortable stretch waist that sits beautifully on any silhouette. Wide, flowing leg in a delicate hand-printed floral cotton. Available in two lengths &mdash; Short or Long &mdash; so you can find the perfect fit.</p><ul><li>Material: Cotton</li><li>Origin: Hand-printed in India</li><li>Sizing: Inside leg to hem &mdash; Short 53 cm &middot; Long 66 cm</li><li>Care: Machine wash cold. Warm iron on reverse. Do not tumble dry.</li></ul>"

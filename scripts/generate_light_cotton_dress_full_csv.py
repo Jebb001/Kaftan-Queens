@@ -7,7 +7,7 @@ from pathlib import Path
 
 HANDLE = "light-cotton-dress"
 TITLE = "Light Cotton Dress"
-PRICE = "75.00"
+PRICE = "95.00"
 TYPE = "Dress"
 TAGS = "women,dress,new"
 BODY = "<p>A breezy lightweight cotton dress with a delicate hand-printed floral motif, ruffled sleeves and shoulders, smocked waist, and tasselled drawstring tie. Effortless femininity for sun-drenched days.</p><ul><li>Material: 100% Cotton</li><li>Origin: Hand-printed in India</li><li>Care: Machine wash cold. Warm iron on reverse. Do not tumble dry.</li></ul>"
