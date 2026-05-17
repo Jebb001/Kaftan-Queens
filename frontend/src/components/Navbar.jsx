@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag, Search, Menu, Instagram, ChevronDown } from "lucide-react";
 import { NAV, SITE } from "../mock";
@@ -6,24 +6,10 @@ import { useCart } from "../context/CartContext";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const { count, setIsOpen } = useCart();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <header
-      className={`sticky top-0 z-40 transition-colors duration-300 border-b ${
-        scrolled
-          ? "bg-[hsl(var(--kq-bg))]/98 border-[hsl(var(--kq-line))]"
-          : "bg-[hsl(var(--kq-bg))] border-transparent"
-      }`}
-    >
+    <header className="sticky top-0 z-40 bg-[hsl(var(--kq-bg))] border-b border-[hsl(var(--kq-line))]">
       <div className="max-w-[1400px] mx-auto px-4 md:px-10">
         <div className="flex items-center justify-between py-4 md:py-6 gap-2">
           {/* Left nav */}
