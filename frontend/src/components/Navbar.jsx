@@ -20,12 +20,12 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-40 transition-colors duration-300 border-b ${
         scrolled
-          ? "bg-[hsl(var(--kq-bg))]/95 backdrop-blur-md border-[hsl(var(--kq-line))]"
+          ? "bg-[hsl(var(--kq-bg))]/98 border-[hsl(var(--kq-line))]"
           : "bg-[hsl(var(--kq-bg))] border-transparent"
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-        <div className="flex items-center justify-between py-5 md:py-6">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-10">
+        <div className="flex items-center justify-between py-4 md:py-6 gap-2">
           {/* Left nav */}
           <nav className="hidden md:flex items-center gap-7 text-[11px] tracking-[0.22em] uppercase flex-1">
             {NAV.slice(0, 3).map((n) => (
@@ -57,11 +57,11 @@ export default function Navbar() {
           </div>
 
           {/* Centered Logo */}
-          <Link to="/" className="flex flex-col items-center select-none px-4">
-            <span className="font-display text-[28px] md:text-[34px] leading-none text-[hsl(var(--kq-accent-2))] tracking-[0.04em]">
+          <Link to="/" className="flex flex-col items-center select-none px-1 sm:px-4 min-w-0">
+            <span className="font-display text-[22px] sm:text-[26px] md:text-[34px] leading-none text-[hsl(var(--kq-accent-2))] tracking-[0.04em] whitespace-nowrap">
               Kaftan Queens
             </span>
-            <span className="text-[9px] md:text-[10px] tracking-[0.5em] uppercase mt-1.5 text-[hsl(var(--kq-ink-soft))]">
+            <span className="text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.4em] sm:tracking-[0.5em] uppercase mt-1 md:mt-1.5 text-[hsl(var(--kq-ink-soft))]">
               Rare · Handmade
             </span>
           </Link>

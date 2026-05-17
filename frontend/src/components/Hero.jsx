@@ -44,21 +44,21 @@ export default function Hero() {
 
         {/* Offset content card */}
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10">
-            <div className="max-w-md bg-[hsl(var(--kq-bg))]/95 md:bg-[hsl(var(--kq-bg))] border border-[hsl(var(--kq-line))] p-7 md:p-10 kq-fade-up" key={idx}>
+          <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10">
+            <div className="max-w-[88vw] sm:max-w-md bg-[hsl(var(--kq-bg))]/95 md:bg-[hsl(var(--kq-bg))] border border-[hsl(var(--kq-line))] p-5 sm:p-7 md:p-10 kq-fade-up" key={idx}>
               <span className="text-[10px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">
                 {slide.eyebrow}
               </span>
-              <h1 className="font-display text-[40px] md:text-[54px] leading-[1.05] mt-4">
+              <h1 className="font-display text-[30px] sm:text-[40px] md:text-[54px] leading-[1.05] mt-3 sm:mt-4">
                 {slide.title}
               </h1>
-              <div className="mt-4 mb-6 flex items-center gap-3">
+              <div className="mt-3 mb-5 sm:mt-4 sm:mb-6 flex items-center gap-3">
                 <span className="kq-thin-rule" />
-                <p className="font-italic text-lg md:text-xl text-[hsl(var(--kq-ink-soft))]">{slide.sub}</p>
+                <p className="font-italic text-base sm:text-lg md:text-xl text-[hsl(var(--kq-ink-soft))]">{slide.sub}</p>
               </div>
               <Link
                 to={slide.cta.to}
-                className="inline-flex items-center gap-2 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] px-7 py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors"
+                className="inline-flex items-center gap-2 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] px-6 py-3 sm:px-7 sm:py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors"
               >
                 {slide.cta.label}
                 <ChevronRight className="w-3.5 h-3.5" />

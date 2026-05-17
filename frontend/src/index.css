@@ -13,7 +13,10 @@ body {
     background: hsl(var(--kq-bg));
     color: hsl(var(--kq-ink));
     letter-spacing: 0.01em;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
+html { scroll-behavior: smooth; }
 
 .font-display {
     font-family: 'Cormorant Garamond', Georgia, serif;

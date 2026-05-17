@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { ARTISAN, STORY_BLOCKS } from "../mock";
 import { ChevronRight } from "lucide-react";
 
+const OUR_STORY_HERO_IMAGE =
+  "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/kn9iosey_501018665_17861695443410310_1099596968290489489_n.jpg";
+
 export default function About() {
   return (
     <main>
@@ -16,8 +19,15 @@ export default function About() {
       </section>
 
       <section className="max-w-[1400px] mx-auto px-5 md:px-10 mt-14 md:mt-20">
-        <div className="aspect-[16/8] kq-img-zoom">
-          <img src={ARTISAN.image} alt="Artisans at work" className="w-full h-full object-cover" />
+        <div className="aspect-[4/5] sm:aspect-[16/10] md:aspect-[16/8] kq-img-zoom">
+          <img
+            src={OUR_STORY_HERO_IMAGE}
+            alt="Hand-printed kaftans on a sunlit fence"
+            loading="lazy"
+            decoding="async"
+            style={{ objectPosition: "center 40%" }}
+            className="w-full h-full object-cover"
+          />
         </div>
       </section>
 
