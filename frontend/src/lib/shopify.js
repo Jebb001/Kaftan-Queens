@@ -171,6 +171,12 @@ function subFromProductType(productType, tags) {
   return productType;
 }
 
+// Per-product object-position overrides so portrait full-body photos
+// don't crop heads/feet. Keys are Shopify handles.
+const POS_OVERRIDES = {
+  "light-cotton-dress": "center 15%",
+};
+
 export function transformProduct(node) {
   if (!node) return null;
   const tags = node.tags || [];
@@ -255,7 +261,7 @@ export function transformProduct(node) {
     images: finalImages,
     colours: variantArray.map((v) => v.colour),
     sizes,
-    pos: "center 30%",
+    pos: POS_OVERRIDES[node.handle] || "center 30%",
   };
 }
 
@@ -293,7 +299,7 @@ function buildLocalProduct(local) {
     images: variantArray.flatMap((v) => v.images),
     colours: variantArray.map((v) => v.colour),
     sizes: local.sizes || null,
-    pos: local.pos || "center 30%",
+    pos: local.pos || POS_OVERRIDES[local.handle] || "center 30%",
     pending: true,
   };
 }
