@@ -27,8 +27,6 @@ export const NAV = [
   { label: "Home", to: "/" },
   { label: "Shop", to: "/shop" },
   { label: "Our Story", to: "/about" },
-  { label: "Contact", to: "/contact" },
-  { label: "Journal", to: "/journal" },
 ];
 
 export const HERO_SLIDES = [

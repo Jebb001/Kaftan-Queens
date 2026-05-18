@@ -64,13 +64,6 @@ export default function Navbar() {
 
           {/* Icons */}
           <div className="flex items-center gap-4 md:gap-5 md:ml-6">
-            <button aria-label="Search" className="hidden md:flex items-center text-[11px] tracking-[0.22em] uppercase hover:text-[hsl(var(--kq-accent-2))] transition-colors">
-              <span className="mr-1">GBP £</span>
-              <ChevronDown className="w-3 h-3" />
-            </button>
-            <button aria-label="Search" className="p-1.5 hover:text-[hsl(var(--kq-accent-2))] transition-colors">
-              <Search className="w-[18px] h-[18px]" strokeWidth={1.4} />
-            </button>
             <button
               onClick={() => setIsOpen(true)}
               aria-label="Cart"
