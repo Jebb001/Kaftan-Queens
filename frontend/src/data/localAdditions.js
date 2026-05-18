@@ -33,5 +33,17 @@ export const LOCAL_VARIANT_ADDITIONS = {
   ],
 };
 
+// 3) Append extra lifestyle/secondary images to an EXISTING colour on a Shopify product.
+// Once you upload the image to Shopify and assign it to the variant, the merge
+// auto-skips by URL match (or just leave this map — it's harmless duplication).
+export const LOCAL_VARIANT_IMAGE_ADDITIONS = {
+  // handle: { "Colour Name": [extra image URLs] }
+  "kerala-mens-shirt": {
+    "Blue Flower": [
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/yx4337eg_IMG_7332.jpeg",
+    ],
+  },
+};
+
 // Brand contact for "email to order" CTA on pending variants/products.
 export const ORDER_EMAIL = "hello@kaftanqueens.co.uk";

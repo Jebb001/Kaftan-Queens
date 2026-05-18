@@ -16,6 +16,7 @@ VARIANTS = [
     ("Blue Flower", [
         "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/Keralablueflowermen_scottonshirtL.jpg?v=1778956780",
         "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/Keralablueflowermen_scottonshirtL2.jpg?v=1778956780",
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/yx4337eg_IMG_7332.jpeg",
     ]),
     ("Fuchsia", [
         "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/Keralafushiaflowermen_scottonshirtL2.jpg?v=1778956780",
@@ -36,10 +37,6 @@ VARIANTS = [
     ]),
     ("Pale Blue Block Print", [
         "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/Keralapaleblueblockmen_scottonshirtL2.jpg?v=1778956780",
-    ]),
-    # NEW
-    ("Navy Botanical", [
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/yx4337eg_IMG_7332.jpeg",
     ]),
 ]
 
@@ -104,7 +101,7 @@ def main():
             rows.append(ir)
             image_pos += 1
 
-    out = Path("/app/frontend/public/downloads/kerala_navy_botanical.csv")
+    out = Path("/app/frontend/public/downloads/kerala_blue_flower_extra.csv")
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=HEADERS)
