@@ -410,7 +410,7 @@ export const STORY_BLOCKS = [
     body:
       "Handmade in small batches using heritage techniques and ethically sourced premium materials — each piece authentic, each piece scarce.",
     image: "/values/v2.jpg",
-    pos: "center 35%",
+    pos: "center 70%",
   },
   {
     title: "Bohemian Chic",
@@ -428,8 +428,8 @@ export const JOURNAL = [
     excerpt:
       "Love luxury fashion? Care about sustainability? Our edit of the year’s best eco-luxe labels — plus tips to make the most of your purchasing power.",
     author: "Maxime Ducker",
-    image:
-      "https://images.unsplash.com/photo-1595539215912-934862bd6f64?crop=entropy&cs=srgb&fm=jpg&q=80&w=900",
+    image: "/journal/j1.jpg",
+    pos: "center 35%",
   },
   {
     id: "eco-fabrics",
@@ -437,8 +437,8 @@ export const JOURNAL = [
     excerpt:
       "Shopping for natural, eco-fabrics brings a range of fantastic benefits — not least the kindness they show to your skin.",
     author: "Laura Noble",
-    image:
-      "https://images.unsplash.com/photo-1767617158289-e156ac6792a9?crop=entropy&cs=srgb&fm=jpg&q=80&w=900",
+    image: "/journal/j2.jpg",
+    pos: "center 40%",
   },
   {
     id: "fast-vs-slow",
@@ -446,8 +446,8 @@ export const JOURNAL = [
     excerpt:
       "From ethical treatment of workers to sustainable materials and waste — the impact of fast fashion and whether it can ever truly slow down.",
     author: "Rosalyn Bowen",
-    image:
-      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?crop=entropy&cs=srgb&fm=jpg&q=80&w=900",
+    image: "/journal/j3.jpg",
+    pos: "center 30%",
   },
 ];
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { JOURNAL } from "../mock";
-import { ArrowRight } from "lucide-react";
 
 export default function JournalGrid() {
   return (
@@ -17,15 +16,12 @@ export default function JournalGrid() {
         {JOURNAL.map((post) => (
           <article key={post.id} className="group">
             <a href="#" className="block">
-              <div className="aspect-[16/10] kq-img-zoom">
-                <img src={post.image} alt={post.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              <div className="aspect-[4/5] kq-img-zoom">
+                <img src={post.image} alt={post.title} loading="lazy" decoding="async" style={{ objectPosition: post.pos || "center" }} className="w-full h-full object-cover" />
               </div>
               <h3 className="font-display text-2xl md:text-[26px] leading-snug mt-5">{post.title}</h3>
               <p className="text-xs tracking-[0.2em] uppercase text-[hsl(var(--kq-accent-2))] mt-2">{post.author}</p>
               <p className="font-italic text-base md:text-lg text-[hsl(var(--kq-ink-soft))] mt-3 leading-relaxed">{post.excerpt}</p>
-              <span className="inline-flex items-center gap-1.5 mt-4 text-[11px] tracking-[0.28em] uppercase kq-link">
-                Read more <ArrowRight className="w-3.5 h-3.5" />
-              </span>
             </a>
           </article>
         ))}
