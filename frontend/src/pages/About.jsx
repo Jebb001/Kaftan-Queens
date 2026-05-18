@@ -19,17 +19,29 @@ export default function About() {
       </section>
 
       <section className="max-w-[1100px] mx-auto px-5 md:px-10 mt-14 md:mt-20">
-        <div className="bg-[hsl(var(--kq-bg-2))] flex items-center justify-center kq-img-zoom">
-          <picture>
-            <source media="(max-width: 767px)" srcSet="/about/our-story-mobile.jpg" />
-            <img
-              src="/about/our-story-desktop.jpg"
-              alt="Our story — Kaftan Queens"
-              loading="lazy"
-              decoding="async"
-              className="block w-full max-h-[85vh] md:max-h-[800px] object-contain"
-            />
-          </picture>
+        <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+          {/* Photo — full image always visible, never cropped */}
+          <div className="md:col-span-7 lg:col-span-6 bg-[hsl(var(--kq-bg-2))] flex items-center justify-center">
+            <picture>
+              <source media="(max-width: 767px)" srcSet="/about/our-story-mobile.jpg" />
+              <img
+                src="/about/our-story-desktop.jpg"
+                alt="Our story — Kaftan Queens"
+                loading="lazy"
+                decoding="async"
+                className="block w-auto max-w-full max-h-[80vh] md:max-h-[720px] object-contain"
+              />
+            </picture>
+          </div>
+          {/* Side caption */}
+          <aside className="md:col-span-5 lg:col-span-6">
+            <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">— Founder note</span>
+            <h2 className="font-display text-3xl md:text-4xl leading-[1.05] mt-3">A wardrobe made with love.</h2>
+            <div className="mt-4"><span className="kq-thin-rule" /></div>
+            <p className="font-italic text-base md:text-lg text-[hsl(var(--kq-ink-soft))] leading-relaxed mt-5">
+              Hand-picked in India, finished by artisan hand, and worn from sunrise on the beach to candlelit evenings at home.
+            </p>
+          </aside>
         </div>
       </section>
 
