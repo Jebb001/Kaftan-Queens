@@ -79,7 +79,7 @@ export default function Home() {
             {STORY_BLOCKS.map((s, i) => (
               <article key={s.title} className="text-center">
                 <div className="relative aspect-[4/5] kq-img-zoom mb-6">
-                  <img src={s.image} alt={s.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                  <img src={s.image} alt={s.title} loading="lazy" decoding="async" style={{ objectPosition: s.pos || "center" }} className="w-full h-full object-cover" />
                 </div>
                 <span className="font-italic text-sm text-[hsl(var(--kq-accent-2))]">0{i + 1}</span>
                 <h3 className="font-display text-2xl md:text-3xl mt-2">{s.title}</h3>

@@ -402,22 +402,22 @@ export const STORY_BLOCKS = [
     title: "Sustainably Crafted",
     body:
       "Responsibly sourced renewable and recycled materials, and low-impact manufacturing — to cut CO₂, water use and waste.",
-    image:
-      "https://images.unsplash.com/photo-1581084324492-c8076f130f86?crop=entropy&cs=srgb&fm=jpg&q=85&w=1500",
+    image: "/values/v1.jpg",
+    pos: "center 18%",
   },
   {
     title: "Artisanal Luxury",
     body:
       "Handmade in small batches using heritage techniques and ethically sourced premium materials — each piece authentic, each piece scarce.",
-    image:
-      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?crop=entropy&cs=srgb&fm=jpg&q=85&w=1500",
+    image: "/values/v2.jpg",
+    pos: "center 35%",
   },
   {
     title: "Bohemian Chic",
     body:
       "Relaxed vintage silhouettes, natural fabrics and global patterns for a layered look you can wear from sand to supper.",
-    image:
-      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?crop=entropy&cs=srgb&fm=jpg&q=85&w=1500",
+    image: "/values/v3.jpg",
+    pos: "center 18%",
   },
 ];
 
