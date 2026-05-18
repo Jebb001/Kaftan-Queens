@@ -26,10 +26,6 @@ export default function JournalGrid() {
           </article>
         ))}
       </div>
-
-      <div className="mt-12 text-center">
-        <a href="#" className="text-[11px] tracking-[0.28em] uppercase kq-link">Read the Journal</a>
-      </div>
     </section>
   );
 }
