@@ -33,31 +33,22 @@ export const NAV = [
 
 export const HERO_SLIDES = [
   {
-    eyebrow: "— The Palm Edit",
-    title: "Handmade, Natural Clothing",
-    sub: "Rare pieces, fairly made",
+    eyebrow: "— Hand-printed in India",
+    title: "Heritage Threads",
+    sub: "Block-printed pieces, made by artisan hand.",
     cta: { label: "Shop Now", to: "/shop" },
-    image:
-      "https://images.unsplash.com/photo-1659126404817-63ddbbae1b06?crop=entropy&cs=srgb&fm=jpg&q=85&w=2400",
-    pos: "center 25%",
+    image: "/hero/hero1-desktop.jpg",
+    imageMobile: "/hero/hero1-mobile.jpg",
+    pos: "center bottom",
   },
   {
-    eyebrow: "— Tailored by hand",
-    title: "Tailor-Made With Quality",
-    sub: "Buy less, choose well, make it last",
-    cta: { label: "Shop Now", to: "/shop" },
-    image:
-      "https://images.unsplash.com/photo-1767617158289-e156ac6792a9?crop=entropy&cs=srgb&fm=jpg&q=85&w=2400",
-    pos: "center 30%",
-  },
-  {
-    eyebrow: "— Pure cottons & silks",
-    title: "Handmade Clothes, Natural Fibres",
-    sub: "Look beautiful, while doing good",
-    cta: { label: "Shop Pure Cotton", to: "/shop?cat=women" },
-    image:
-      "https://images.unsplash.com/photo-1595539215912-934862bd6f64?crop=entropy&cs=srgb&fm=jpg&q=85&w=2400",
-    pos: "center 30%",
+    eyebrow: "— Scarves from Kashmir",
+    title: "Colour, Woven In",
+    sub: "One-of-a-kind hand-stitched throws.",
+    cta: { label: "Shop Scarves", to: "/shop?cat=accessories" },
+    image: "/hero/hero2-desktop.jpg",
+    imageMobile: "/hero/hero2-mobile.jpg",
+    pos: "center 40%",
   },
 ];
 

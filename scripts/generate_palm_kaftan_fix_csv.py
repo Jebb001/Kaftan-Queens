@@ -13,6 +13,7 @@ TAGS = "women,kaftan,bestseller"
 BODY = "<p>A vibrant kaftan featuring a unique hand-printed design and a flattering drawstring waist. Crafted from a soft silk/viscose blend, this midi-length kaftan adds individual style and breezy comfort to your wardrobe.</p><ul><li>Material: Silk/Viscose</li><li>Origin: Hand-printed in Rajasthan, India</li><li>Care: Machine wash at 30&deg;C. Warm iron on reverse. Do not tumble dry.</li></ul>"
 
 # Corrected mapping (existing colour names → matching image)
+# Orange variant removed per user request.
 VARIANTS = [
     ("Pink", [
         "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/Palm_peach_kaftan.jpg?v=1778956769",
@@ -22,9 +23,6 @@ VARIANTS = [
     ]),
     ("Blue & Red", [
         "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/Palmblueandredkaftan.jpg?v=1778956769",
-    ]),
-    ("Orange", [
-        "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/Palmbeigekaftan2.jpg?v=1778956770",
     ]),
 ]
 
