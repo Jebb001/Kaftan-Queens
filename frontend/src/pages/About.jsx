@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ARTISAN, STORY_BLOCKS } from "../mock";
+import { STORY_BLOCKS } from "../mock";
 import { ChevronRight } from "lucide-react";
-
-const OUR_STORY_HERO_IMAGE =
-  "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/kn9iosey_501018665_17861695443410310_1099596968290489489_n.jpg";
 
 export default function About() {
   return (
@@ -13,21 +10,26 @@ export default function About() {
         <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">— Our story</span>
         <h1 className="font-display text-5xl md:text-7xl leading-[1.02] mt-4">Made by hand, for the way you live.</h1>
         <div className="mt-5 flex items-center justify-center"><span className="kq-thin-rule" /></div>
-        <p className="font-italic text-lg md:text-xl text-[hsl(var(--kq-ink-soft))] leading-relaxed mt-7 max-w-2xl mx-auto">
-          Kaftan Queens celebrates craftsmanship, sustainability and style — connecting you to traditional Indian artistry while championing eco-conscious fashion. An alternative to mass-produced fast fashion, showcasing the beauty of handcrafted luxury.
-        </p>
+        <div className="font-italic text-base md:text-lg text-[hsl(var(--kq-ink-soft))] leading-relaxed mt-7 max-w-2xl mx-auto space-y-5 text-left sm:text-center">
+          <p>Kaftan Queens was born out of a love of travel, colour and casual fashion.</p>
+          <p>Timeless, easy-to-wear kaftans, dresses, scarves &amp; men&apos;s shirts that bring joy. Each piece is sourced by me personally and ethically made in India — and all my scarves are hand stitched.</p>
+          <p>From sun-drenched mornings to layered winter escapes, Kaftan Queens is made to be lived in and enjoyed — anywhere.</p>
+          <p>Thank you for being part of our journey so far.</p>
+        </div>
       </section>
 
-      <section className="max-w-[1400px] mx-auto px-5 md:px-10 mt-14 md:mt-20">
-        <div className="aspect-[4/5] sm:aspect-[16/10] md:aspect-[16/8] kq-img-zoom">
-          <img
-            src={OUR_STORY_HERO_IMAGE}
-            alt="Hand-printed kaftans on a sunlit fence"
-            loading="lazy"
-            decoding="async"
-            style={{ objectPosition: "center 40%" }}
-            className="w-full h-full object-cover"
-          />
+      <section className="max-w-[1100px] mx-auto px-5 md:px-10 mt-14 md:mt-20">
+        <div className="bg-[hsl(var(--kq-bg-2))] flex items-center justify-center kq-img-zoom">
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/about/our-story-mobile.jpg" />
+            <img
+              src="/about/our-story-desktop.jpg"
+              alt="Our story — Kaftan Queens"
+              loading="lazy"
+              decoding="async"
+              className="block w-full max-h-[85vh] md:max-h-[800px] object-contain"
+            />
+          </picture>
         </div>
       </section>
 

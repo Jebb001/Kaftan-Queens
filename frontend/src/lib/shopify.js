@@ -239,6 +239,7 @@ export function transformProduct(node) {
       variantIds: [], // empty = pending, no Shopify ID yet
       sizes: add.sizes || [],
       pending: true,
+      imageFit: add.imageFit || null,
     };
     if (add.prepend) variantArray.unshift(entry);
     else variantArray.push(entry);

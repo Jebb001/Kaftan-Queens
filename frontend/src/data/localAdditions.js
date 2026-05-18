@@ -18,6 +18,7 @@ export const LOCAL_VARIANT_ADDITIONS = {
       ],
       pending: true,
       prepend: true,
+      imageFit: "contain",
     },
   ],
   "palazzo-trousers": [

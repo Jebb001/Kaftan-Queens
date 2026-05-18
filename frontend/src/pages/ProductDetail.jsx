@@ -59,6 +59,8 @@ export default function ProductDetail() {
   const isPending = !!activeVariant?.pending;
   const pendingSizes = activeVariant?.sizes || [];
   const sizesToShow = isPending && pendingSizes.length ? pendingSizes : product.sizes;
+  const useContain = activeVariant?.imageFit === "contain";
+  const imgFitClass = useContain ? "object-contain" : "object-cover";
 
   const onAdd = async () => {
     const variantId = findVariantId(product, colour, product.sizes ? size : null);
@@ -95,8 +97,8 @@ export default function ProductDetail() {
               key={galleryImages[activeImg]}
               src={galleryImages[activeImg]}
               alt={`${product.name} — ${colour}`}
-              style={{ objectPosition: product.pos || "center" }}
-              className="w-full h-full object-cover kq-fade-up"
+              style={{ objectPosition: useContain ? "center" : (product.pos || "center") }}
+              className={`w-full h-full ${imgFitClass} kq-fade-up`}
               data-testid="pdp-main-image"
             />
             {product.badge && (
@@ -116,7 +118,7 @@ export default function ProductDetail() {
                     activeImg === i ? "border-[hsl(var(--kq-accent-2))]" : "border-transparent"
                   }`}
                 >
-                  <img src={src} alt="" style={{ objectPosition: product.pos || "center" }} className="w-full h-full object-cover" />
+                  <img src={src} alt="" style={{ objectPosition: useContain ? "center" : (product.pos || "center") }} className={`w-full h-full ${imgFitClass}`} />
                 </button>
               ))}
             </div>
