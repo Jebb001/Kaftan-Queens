@@ -43,13 +43,14 @@ export default function Navbar() {
           </div>
 
           {/* Centered Logo */}
-          <Link to="/" className="flex flex-col items-center select-none px-1 sm:px-4 min-w-0">
-            <span className="font-display text-[22px] sm:text-[26px] md:text-[34px] leading-none text-[hsl(var(--kq-accent-2))] tracking-[0.04em] whitespace-nowrap">
-              Kaftan Queens
-            </span>
-            <span className="text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.4em] sm:tracking-[0.5em] uppercase mt-1 md:mt-1.5 text-[hsl(var(--kq-ink-soft))]">
-              Rare · Handmade
-            </span>
+          <Link to="/" className="flex items-center justify-center select-none px-1 sm:px-4 min-w-0" data-testid="navbar-logo-link">
+            <img
+              src="/brand/logo-600.png"
+              alt="Kaftan Queens"
+              className="h-12 sm:h-14 md:h-16 w-auto"
+              loading="eager"
+              decoding="async"
+            />
           </Link>
 
           {/* Right side */}
