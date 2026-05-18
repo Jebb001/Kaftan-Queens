@@ -31,6 +31,15 @@ export const LOCAL_VARIANT_ADDITIONS = {
       pending: true,
     },
   ],
+  "kerala-mens-shirt": [
+    {
+      colour: "Navy Botanical",
+      images: [
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/yx4337eg_IMG_7332.jpeg",
+      ],
+      pending: true,
+    },
+  ],
 };
 
 // Brand contact for "email to order" CTA on pending variants/products.
