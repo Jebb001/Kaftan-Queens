@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ShoppingBag, Search, Menu, Instagram, ChevronDown } from "lucide-react";
 import { NAV, SITE } from "../mock";
 import { useCart } from "../context/CartContext";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "./ui/sheet";
 
 export default function Navbar() {
   const { count, setIsOpen } = useCart();
@@ -28,6 +28,8 @@ export default function Navbar() {
                 <Menu className="w-5 h-5" />
               </SheetTrigger>
               <SheetContent side="left" className="bg-[hsl(var(--kq-bg))] border-r border-[hsl(var(--kq-line))]">
+                <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+                <SheetDescription className="sr-only">Browse Kaftan Queens — Home, Shop, Our Story, and Instagram.</SheetDescription>
                 <div className="mt-10 flex flex-col gap-5">
                   {NAV.map((n) => (
                     <Link key={n.label} to={n.to} className="font-display text-3xl">

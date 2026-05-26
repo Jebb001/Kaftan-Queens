@@ -23,7 +23,13 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (!product) return;
-    setColour(variants[0]?.colour || "");
+    // Prefer the first NON-pending, NON-soldOut variant so the PDP lands on an
+    // "Add to Bag" CTA whenever any variant is actually available. Falls back
+    // to variants[0] if every variant is pending/sold out.
+    const first =
+      variants.find((v) => !v.pending && !v.soldOut) ||
+      variants[0];
+    setColour(first?.colour || "");
     setSize(product.sizes?.[0] || "");
     setActiveImg(0);
     setQty(1);

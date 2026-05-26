@@ -34,15 +34,24 @@ and checkout managed natively in Shopify, frontend rendered with React.
 - Footer redesign (removed non-functional links + Facebook)
 - Mobile safe-area fixes
 
-### 2026-02-26 — Butterfly Long Dress complete
-- All 4 variants now have user-supplied photos:
-  - Antique Rose (3 images)
-  - Blue/White (2 images)
-  - Bohemian (2 images)
-  - Python (2 images)
-- CSV generated at `/app/frontend/public/downloads/butterfly_long_dress.csv`
-  via `/app/scripts/generate_butterfly_long_dress_csv.py` — ready for Shopify
-  import.
+### 2026-02-26 — Photo refresh + mobile QA + CTA fixes
+- All 4 Butterfly Long Dress variants finalized (Antique Rose reduced to 2 images).
+- Palazzo Trousers: every variant photo refreshed
+  (Teal Blue & White Flower, Pink & Blue Flower, Orange Yellow & Gold Fleck,
+  Pink Tiedye). CSV at `/app/frontend/public/downloads/palazzo_trousers_full_refresh.csv`.
+- Header logo enlarged ~50% (h-16 → h-24 desktop) using negative vertical margin
+  so the nav bar height is unchanged.
+- Added `VARIANT_IMAGE_REPLACEMENTS` mechanism in `localAdditions.js` to swap
+  variant images on the preview before the CSV import.
+- Fixed PDP default-variant logic: `ProductDetail.jsx` now picks the first
+  NON-pending NON-soldOut variant on landing — Narlai Dress no longer shows
+  "Email to Order" by default.
+- Removed `prepend:true` on Pink/Orange Teardrop pending variant.
+- a11y / DOM fixes: added `SheetTitle` + `SheetDescription` to mobile nav
+  drawer (Radix warning gone); fixed `fetchpriority` → `fetchPriority` casing.
+- E2E mobile + Shopify checkout tested in iter-2: 100% pass on all requested flows.
+- Note: Shopify store is in "Opening soon" password mode — checkout URL is valid
+  but end page is `/password` until the user publishes the store in Shopify Admin.
 
 ## Backlog / next
 - **P0** User imports `butterfly_long_dress.csv` to Shopify. Once live, remove

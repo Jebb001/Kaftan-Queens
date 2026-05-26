@@ -30,7 +30,7 @@ export default function Hero() {
                     src={s.image}
                     alt={s.title}
                     loading={i === 0 ? "eager" : "lazy"}
-                    fetchpriority={i === 0 ? "high" : "low"}
+                    fetchPriority={i === 0 ? "high" : "low"}
                     decoding="async"
                     style={{ objectPosition: s.pos || "center", willChange: "opacity" }}
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1100ms] ${

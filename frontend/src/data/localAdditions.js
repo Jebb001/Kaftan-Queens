@@ -63,7 +63,6 @@ export const LOCAL_VARIANT_ADDITIONS = {
         "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/2nx2r33k_IMG_7311.jpeg",
       ],
       pending: true,
-      prepend: true,
       imageFit: "contain",
     },
   ],
