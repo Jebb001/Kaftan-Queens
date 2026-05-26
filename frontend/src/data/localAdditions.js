@@ -38,9 +38,8 @@ export const LOCAL_PRODUCT_ADDITIONS = [
       {
         colour: "Python",
         images: [
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/1cct5rz4_IMG_7403.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/sqg76by8_IMG_7406.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/5pmbt5it_IMG_7418.jpeg",
+          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/x9hsejjh_IMG_7403.jpeg",
+          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/2lqunex6_IMG_7406.jpeg",
         ],
         imageFit: "contain",
       },
