@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useProduct, useProducts } from "../hooks/useProducts";
+import { useProduct } from "../hooks/useProducts";
 import { findVariantId } from "../lib/shopify";
-import { ORDER_EMAIL } from "../data/localAdditions";
+import { ORDER_EMAIL, MATERIALS_BY_HANDLE, CARE_BY_CATEGORY } from "../data/localAdditions";
 import { useCart } from "../context/CartContext";
 import { toast } from "sonner";
-import { Truck, RotateCcw, Leaf, Minus, Plus, ChevronRight, Loader2, Mail } from "lucide-react";
+import { Truck, RotateCcw, Leaf, Minus, Plus, ChevronRight, Loader2, Mail, ZoomIn } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion";
+import Lightbox from "../components/Lightbox";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const { product, loading } = useProduct(id);
-  const { products } = useProducts();
   const { addItem, busy } = useCart();
 
   const variants = product?.variants || [];
@@ -19,8 +19,8 @@ export default function ProductDetail() {
   const [size, setSize] = useState("");
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
+  const [lightboxIdx, setLightboxIdx] = useState(null);
 
-  // Initialize selections once product loads
   useEffect(() => {
     if (!product) return;
     setColour(variants[0]?.colour || "");
@@ -29,10 +29,7 @@ export default function ProductDetail() {
     setQty(1);
   }, [product?.handle]); // eslint-disable-line
 
-  // Reset gallery when colour changes
-  useEffect(() => {
-    setActiveImg(0);
-  }, [colour]);
+  useEffect(() => { setActiveImg(0); }, [colour]);
 
   if (loading) {
     return (
@@ -57,17 +54,18 @@ export default function ProductDetail() {
   const activeVariant = variants.find((v) => v.colour === colour) || variants[0];
   const galleryImages = activeVariant?.images?.length ? activeVariant.images : product.images;
   const isPending = !!activeVariant?.pending;
+  const isSoldOut = !!activeVariant?.soldOut;
   const pendingSizes = activeVariant?.sizes || [];
   const sizesToShow = isPending && pendingSizes.length ? pendingSizes : product.sizes;
   const useContain = activeVariant?.imageFit === "contain";
   const imgFitClass = useContain ? "object-contain" : "object-cover";
 
+  const material = MATERIALS_BY_HANDLE[product.handle];
+  const careInstruction = CARE_BY_CATEGORY[product.category];
+
   const onAdd = async () => {
     const variantId = findVariantId(product, colour, product.sizes ? size : null);
-    if (!variantId) {
-      toast.error("Sorry, this option is unavailable.");
-      return;
-    }
+    if (!variantId) { toast.error("Sorry, this option is unavailable."); return; }
     try {
       await addItem(variantId, qty);
       const labelParts = [colour, product.sizes ? size : null].filter(Boolean);
@@ -76,8 +74,6 @@ export default function ProductDetail() {
       toast.error(e.message || "Couldn't add to bag. Please try again.");
     }
   };
-
-  const related = products.filter((p) => p.handle !== product.handle).slice(0, 4);
 
   return (
     <main className="max-w-[1400px] mx-auto px-5 md:px-10 pt-8 md:pt-12">
@@ -92,7 +88,13 @@ export default function ProductDetail() {
       <div className="grid md:grid-cols-2 gap-10 md:gap-16">
         {/* Gallery */}
         <div>
-          <div className="relative aspect-[4/5] bg-[hsl(var(--kq-bg-2))] overflow-hidden">
+          <button
+            type="button"
+            onClick={() => galleryImages[activeImg] && setLightboxIdx(activeImg)}
+            className="relative w-full aspect-[4/5] bg-[hsl(var(--kq-bg-2))] overflow-hidden group cursor-zoom-in"
+            aria-label="View full image"
+            data-testid="pdp-main-image-btn"
+          >
             <img
               key={galleryImages[activeImg]}
               src={galleryImages[activeImg]}
@@ -106,7 +108,15 @@ export default function ProductDetail() {
                 {product.badge}
               </span>
             )}
-          </div>
+            {isSoldOut && (
+              <span className="absolute top-4 right-4 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] text-[10px] tracking-[0.22em] uppercase px-3 py-1.5">
+                Sold Out
+              </span>
+            )}
+            <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 text-[10px] tracking-[0.22em] uppercase text-[hsl(var(--kq-ink))] bg-[hsl(var(--kq-bg))]/90 px-3 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <ZoomIn className="w-3.5 h-3.5" /> View full
+            </span>
+          </button>
           {galleryImages.length > 1 && (
             <div className="grid grid-cols-5 gap-2 mt-3">
               {galleryImages.map((src, i) => (
@@ -114,9 +124,7 @@ export default function ProductDetail() {
                   key={src}
                   onClick={() => setActiveImg(i)}
                   data-testid={`pdp-thumb-${i}`}
-                  className={`aspect-[3/4] overflow-hidden border ${
-                    activeImg === i ? "border-[hsl(var(--kq-accent-2))]" : "border-transparent"
-                  }`}
+                  className={`aspect-[3/4] overflow-hidden border ${activeImg === i ? "border-[hsl(var(--kq-accent-2))]" : "border-transparent"}`}
                 >
                   <img src={src} alt="" style={{ objectPosition: useContain ? "center" : (product.pos || "center") }} className={`w-full h-full ${imgFitClass}`} />
                 </button>
@@ -127,9 +135,7 @@ export default function ProductDetail() {
 
         {/* Detail */}
         <div className="md:py-6">
-          <span className="text-[11px] tracking-[0.28em] uppercase text-[hsl(var(--kq-accent-2))] capitalize">
-            {product.category}
-          </span>
+          <span className="text-[11px] tracking-[0.28em] uppercase text-[hsl(var(--kq-accent-2))] capitalize">{product.category}</span>
           <h1 className="font-display text-4xl md:text-5xl mt-3 leading-tight" data-testid="pdp-title">{product.name}</h1>
           {product.sub && <p className="font-italic text-lg text-[hsl(var(--kq-ink-soft))] mt-2">{product.sub}</p>}
           <div className="mt-5 flex items-center gap-3">
@@ -138,10 +144,7 @@ export default function ProductDetail() {
           </div>
 
           {product.descriptionHtml ? (
-            <div
-              className="mt-6 text-[hsl(var(--kq-ink-soft))] leading-relaxed kq-rich"
-              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-            />
+            <div className="mt-6 text-[hsl(var(--kq-ink-soft))] leading-relaxed kq-rich" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
           ) : (
             <p className="mt-6 text-[hsl(var(--kq-ink-soft))] leading-relaxed">{product.description}</p>
           )}
@@ -151,24 +154,28 @@ export default function ProductDetail() {
             <div className="mt-8">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-[11px] tracking-[0.28em] uppercase">
-                  Colour <span className="text-[hsl(var(--kq-ink-soft))] ml-1 normal-case tracking-normal font-italic">{colour}</span>
+                  Colour <span className="text-[hsl(var(--kq-ink-soft))] ml-1 normal-case tracking-normal font-italic">{colour}{isSoldOut ? " · Sold Out" : ""}</span>
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
-                {product.colours.map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => setColour(c)}
-                    data-testid={`pdp-colour-${c}`}
-                    className={`px-4 py-2.5 text-xs border transition-colors ${
-                      colour === c
-                        ? "bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] border-[hsl(var(--kq-ink))]"
-                        : "border-[hsl(var(--kq-line))] hover:border-[hsl(var(--kq-ink))]"
-                    }`}
-                  >
-                    {c}
-                  </button>
-                ))}
+                {product.colours.map((c) => {
+                  const v = variants.find((x) => x.colour === c);
+                  const so = !!v?.soldOut;
+                  return (
+                    <button
+                      key={c}
+                      onClick={() => setColour(c)}
+                      data-testid={`pdp-colour-${c}`}
+                      className={`px-4 py-2.5 text-xs border transition-colors relative ${
+                        colour === c
+                          ? "bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] border-[hsl(var(--kq-ink))]"
+                          : "border-[hsl(var(--kq-line))] hover:border-[hsl(var(--kq-ink))]"
+                      } ${so ? "opacity-60" : ""}`}
+                    >
+                      {c}{so ? " · Sold" : ""}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -182,18 +189,10 @@ export default function ProductDetail() {
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {sizesToShow.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => setSize(s)}
-                      data-testid={`pdp-size-${s}`}
+                    <button key={s} onClick={() => setSize(s)} data-testid={`pdp-size-${s}`}
                       className={`px-5 py-2.5 text-xs border transition-colors ${
-                        size === s
-                          ? "bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] border-[hsl(var(--kq-ink))]"
-                          : "border-[hsl(var(--kq-line))] hover:border-[hsl(var(--kq-ink))]"
-                      }`}
-                    >
-                      {s}
-                    </button>
+                        size === s ? "bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] border-[hsl(var(--kq-ink))]" : "border-[hsl(var(--kq-line))] hover:border-[hsl(var(--kq-ink))]"
+                      }`}>{s}</button>
                   ))}
                 </div>
               </>
@@ -207,11 +206,15 @@ export default function ProductDetail() {
           {/* Qty + add */}
           <div className="mt-8 flex items-stretch gap-3">
             <div className="inline-flex items-center border border-[hsl(var(--kq-line))]">
-              <button className="px-3 py-3.5" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease" disabled={isPending}><Minus className="w-3.5 h-3.5" /></button>
+              <button className="px-3 py-3.5" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease" disabled={isPending || isSoldOut}><Minus className="w-3.5 h-3.5" /></button>
               <span className="px-4 tabular-nums text-sm" data-testid="pdp-qty">{qty}</span>
-              <button className="px-3 py-3.5" onClick={() => setQty((q) => q + 1)} aria-label="Increase" disabled={isPending}><Plus className="w-3.5 h-3.5" /></button>
+              <button className="px-3 py-3.5" onClick={() => setQty((q) => q + 1)} aria-label="Increase" disabled={isPending || isSoldOut}><Plus className="w-3.5 h-3.5" /></button>
             </div>
-            {isPending ? (
+            {isSoldOut ? (
+              <button disabled className="flex-1 bg-[hsl(var(--kq-bg-2))] text-[hsl(var(--kq-ink-soft))] py-3.5 text-[11px] tracking-[0.28em] uppercase cursor-not-allowed" data-testid="pdp-sold-out">
+                Sold Out
+              </button>
+            ) : isPending ? (
               <a
                 href={`mailto:${ORDER_EMAIL}?subject=${encodeURIComponent(`Order: ${product.name} — ${colour}${size ? ` (${size})` : ""}`)}&body=${encodeURIComponent(`Hi, I'd like to order the ${product.name} in ${colour}${size ? ` (size ${size})` : ""}. Please confirm availability and next steps. Thank you!`)}`}
                 data-testid="pdp-email-to-order"
@@ -220,18 +223,14 @@ export default function ProductDetail() {
                 <Mail className="w-3.5 h-3.5" /> Email to Order — £{product.price.toFixed(2)}
               </a>
             ) : (
-              <button
-                onClick={onAdd}
-                disabled={busy}
-                data-testid="pdp-add-to-bag"
-                className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors disabled:opacity-60"
-              >
+              <button onClick={onAdd} disabled={busy} data-testid="pdp-add-to-bag"
+                className="flex-1 bg-[hsl(var(--kq-ink))] text-[hsl(var(--kq-bg))] py-3.5 text-[11px] tracking-[0.28em] uppercase hover:bg-[hsl(var(--kq-accent-2))] transition-colors disabled:opacity-60">
                 {busy ? "Adding…" : `Add to Bag — £${(product.price * qty).toFixed(2)}`}
               </button>
             )}
           </div>
 
-          {isPending && (
+          {isPending && !isSoldOut && (
             <p className="mt-3 text-xs font-italic text-[hsl(var(--kq-ink-soft))]">
               Just landed — final stock being confirmed. Email us and we'll reserve a piece for you.
             </p>
@@ -254,11 +253,17 @@ export default function ProductDetail() {
             <AccordionItem value="a" className="border-b border-[hsl(var(--kq-line))]">
               <AccordionTrigger className="text-[11px] tracking-[0.25em] uppercase">Details & Materials</AccordionTrigger>
               <AccordionContent className="text-sm text-[hsl(var(--kq-ink-soft))] space-y-1.5">
+                {material && <p><span className="text-[hsl(var(--kq-ink))]">Material:</span> {material}</p>}
                 {product.colours && <p><span className="text-[hsl(var(--kq-ink))]">Colours:</span> {product.colours.join(", ")}</p>}
                 {product.sizes && <p><span className="text-[hsl(var(--kq-ink))]">Sizes:</span> {product.sizes.join(", ")}</p>}
-                {product.vendor && <p><span className="text-[hsl(var(--kq-ink))]">Vendor:</span> {product.vendor}</p>}
               </AccordionContent>
             </AccordionItem>
+            {careInstruction && (
+              <AccordionItem value="c" className="border-b border-[hsl(var(--kq-line))]">
+                <AccordionTrigger className="text-[11px] tracking-[0.25em] uppercase">Care</AccordionTrigger>
+                <AccordionContent className="text-sm text-[hsl(var(--kq-ink-soft))]">{careInstruction}</AccordionContent>
+              </AccordionItem>
+            )}
             <AccordionItem value="b">
               <AccordionTrigger className="text-[11px] tracking-[0.25em] uppercase">Shipping & Returns</AccordionTrigger>
               <AccordionContent className="text-sm text-[hsl(var(--kq-ink-soft))]">
@@ -269,27 +274,13 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Related */}
-      {related.length > 0 && (
-        <section className="mt-24 md:mt-32">
-          <div className="text-center mb-10">
-            <span className="text-[11px] tracking-[0.32em] uppercase text-[hsl(var(--kq-accent-2))]">— You may also love</span>
-            <h3 className="font-display text-3xl md:text-4xl mt-3">Pair it with</h3>
-            <div className="mt-4 flex items-center justify-center"><span className="kq-thin-rule" /></div>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-7">
-            {related.map((p) => (
-              <Link key={p.id} to={`/products/${p.id}`} className="group block text-center">
-                <div className="aspect-[3/4] kq-img-zoom bg-[hsl(var(--kq-bg-2))]">
-                  <img src={p.images[0]} alt={p.name} style={{ objectPosition: p.pos || "center 25%" }} className="w-full h-full object-cover" />
-                </div>
-                <h4 className="font-display text-lg md:text-xl mt-4">{p.name}</h4>
-                <p className="text-[13px] mt-1 tabular-nums">£{p.price.toFixed(2)}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
+      <Lightbox
+        images={galleryImages}
+        index={lightboxIdx}
+        onClose={() => setLightboxIdx(null)}
+        onPrev={() => setLightboxIdx((i) => (i - 1 + galleryImages.length) % galleryImages.length)}
+        onNext={() => setLightboxIdx((i) => (i + 1) % galleryImages.length)}
+      />
     </main>
   );
 }

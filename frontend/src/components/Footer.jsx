@@ -4,7 +4,6 @@ import { Instagram, Mail } from "lucide-react";
 import { SITE } from "../mock";
 
 const LINKS = [
-  { label: "All Clothing", to: "/shop" },
   { label: "Women", to: "/shop?cat=women" },
   { label: "Men", to: "/shop?cat=men" },
   { label: "Scarves & Bags", to: "/shop?cat=accessories" },

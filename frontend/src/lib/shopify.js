@@ -1,7 +1,7 @@
 // Shopify Storefront API client + product/cart helpers.
 // Token is public-safe (Storefront Public Access Token) so direct calls from browser are intentional.
 
-import { LOCAL_VARIANT_ADDITIONS, LOCAL_PRODUCT_ADDITIONS, LOCAL_VARIANT_IMAGE_ADDITIONS } from "../data/localAdditions";
+import { LOCAL_VARIANT_ADDITIONS, LOCAL_PRODUCT_ADDITIONS, LOCAL_VARIANT_IMAGE_ADDITIONS, TITLE_OVERRIDES, COLOUR_RENAMES, SOLD_OUT_VARIANTS, VARIANT_IMAGE_ORDER } from "../data/localAdditions";
 
 const DOMAIN = process.env.REACT_APP_SHOPIFY_DOMAIN;
 const TOKEN = process.env.REACT_APP_SHOPIFY_STOREFRONT_TOKEN;
@@ -245,6 +245,32 @@ export function transformProduct(node) {
     else variantArray.push(entry);
   }
 
+  // Apply colour renames (display-only) per product
+  const colourRenames = COLOUR_RENAMES[node.handle] || {};
+  for (const v of variantArray) {
+    if (colourRenames[v.colour]) v.colour = colourRenames[v.colour];
+  }
+
+  // Sold-out marker (overrides Shopify inventory for display purposes)
+  const soldOutList = SOLD_OUT_VARIANTS[node.handle] || [];
+  for (const v of variantArray) {
+    if (soldOutList.includes(v.colour)) v.soldOut = true;
+  }
+
+  // Front-image reorder: bring matching substring(s) to the front for a variant
+  const imgOrder = VARIANT_IMAGE_ORDER[node.handle] || {};
+  for (const v of variantArray) {
+    const tokens = imgOrder[v.colour];
+    if (!tokens || !tokens.length) continue;
+    const front = [];
+    const rest = [];
+    for (const url of v.images) {
+      if (tokens.some((t) => url.includes(t))) front.push(url);
+      else rest.push(url);
+    }
+    v.images = [...front, ...rest];
+  }
+
   // Fallback: if no images on variants, distribute all product images
   const flatImages = variantArray.flatMap((v) => v.images);
   const finalImages = flatImages.length ? flatImages : allImages.map((i) => i.url);
@@ -258,7 +284,7 @@ export function transformProduct(node) {
     id: node.handle,
     handle: node.handle,
     shopifyId: node.id,
-    name: node.title,
+    name: TITLE_OVERRIDES[node.handle] || node.title,
     price: Number(node.priceRange.minVariantPrice.amount),
     currency: node.priceRange.minVariantPrice.currencyCode,
     category: categoryFromTags(tags),
@@ -291,6 +317,7 @@ function buildLocalProduct(local) {
     variantIds: [],
     sizes: v.sizes || [],
     pending: true,
+    imageFit: v.imageFit || null,
   }));
   return {
     id: local.handle,

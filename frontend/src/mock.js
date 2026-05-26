@@ -32,18 +32,16 @@ export const NAV = [
 export const HERO_SLIDES = [
   {
     eyebrow: "— Hand-printed in India",
-    title: "Heritage Threads",
-    sub: "Block-printed pieces, made by artisan hand.",
-    cta: { label: "Shop Now", to: "/shop" },
+    title: "Kaftan Queens",
+    sub: "Rare, handmade pieces — made to be lived in.",
     image: "/hero/hero1-desktop.jpg",
     imageMobile: "/hero/hero1-mobile.jpg",
     pos: "center bottom",
   },
   {
     eyebrow: "— Scarves from Kashmir",
-    title: "Colour, Woven In",
-    sub: "One-of-a-kind hand-stitched throws.",
-    cta: { label: "Shop Scarves", to: "/shop?cat=accessories" },
+    title: "Colour, woven in.",
+    sub: "Sun-drenched mornings to layered winter escapes.",
     image: "/hero/hero2-desktop.jpg",
     imageMobile: "/hero/hero2-mobile.jpg",
     pos: "center 40%",

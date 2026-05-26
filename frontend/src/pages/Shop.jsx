@@ -5,7 +5,6 @@ import { useProducts } from "../hooks/useProducts";
 import { ChevronDown, Loader2 } from "lucide-react";
 
 const CATS = [
-  { key: "all", label: "All" },
   { key: "women", label: "Women" },
   { key: "men", label: "Men" },
   { key: "accessories", label: "Scarves & Bags" },
@@ -13,20 +12,20 @@ const CATS = [
 
 export default function Shop() {
   const [params, setParams] = useSearchParams();
-  const cat = params.get("cat") || "all";
+  const cat = params.get("cat") || "women";
   const [sort, setSort] = useState("featured");
   const { products, loading, error } = useProducts();
 
   const filtered = useMemo(() => {
-    let list = cat === "all" ? products : products.filter((p) => p.category === cat);
+    let list = products.filter((p) => p.category === cat);
     if (sort === "low") list = [...list].sort((a, b) => a.price - b.price);
     if (sort === "high") list = [...list].sort((a, b) => b.price - a.price);
     return list;
   }, [cat, sort, products]);
 
-  const setCat = (k) => (k === "all" ? setParams({}) : setParams({ cat: k }));
+  const setCat = (k) => setParams({ cat: k });
 
-  const title = cat === "all" ? "All Clothing" : CATS.find((c) => c.key === cat)?.label;
+  const title = CATS.find((c) => c.key === cat)?.label || "Shop";
 
   return (
     <main className="max-w-[1400px] mx-auto px-5 md:px-10 pt-10 md:pt-14">

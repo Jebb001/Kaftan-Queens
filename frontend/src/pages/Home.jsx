@@ -1,23 +1,16 @@
 import React from "react";
 import Hero from "../components/Hero";
-import CollectionRow from "../components/CollectionRow";
 import ArtisanStory from "../components/ArtisanStory";
 import JournalGrid from "../components/JournalGrid";
 import { TESTIMONIALS, STORY_BLOCKS, SITE } from "../mock";
-import { useProducts } from "../hooks/useProducts";
 import { Leaf, Hand, Sparkles, Truck } from "lucide-react";
 
 export default function Home() {
-  const { products } = useProducts();
-  const women = products.filter((p) => p.category === "women");
-  const men = products.filter((p) => p.category === "men");
-  const accessories = products.filter((p) => p.category === "accessories");
-
   return (
     <main>
       <Hero />
 
-      {/* Brand statement — quiet, elegant, scrolls naturally */}
+      {/* Brand statement */}
       <section className="max-w-3xl mx-auto px-5 md:px-10 mt-16 md:mt-24 text-center">
         <p className="font-italic text-lg md:text-2xl leading-relaxed text-[hsl(var(--kq-ink-soft))]">
           {SITE.tagline}
@@ -45,27 +38,7 @@ export default function Home() {
         </div>
       </section>
 
-      {women.length > 0 && (
-        <CollectionRow
-          kicker="— Hand-printed in Rajasthan"
-          title="The Women's Edit"
-          products={women}
-          ctaTo="/shop?cat=women"
-          ctaLabel="View All"
-        />
-      )}
-
       <ArtisanStory />
-
-      {men.length > 0 && (
-        <CollectionRow
-          kicker="— 100% Cotton, hand-finished"
-          title="For Him"
-          products={men}
-          ctaTo="/shop?cat=men"
-          ctaLabel="View All"
-        />
-      )}
 
       {/* Three-pillar values band */}
       <section className="mt-24 md:mt-32 bg-[hsl(var(--kq-bg-2))] kq-defer">
@@ -91,16 +64,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {accessories.length > 0 && (
-        <CollectionRow
-          kicker="— Hand-loomed"
-          title="Scarves & Bags"
-          products={accessories}
-          ctaTo="/shop?cat=accessories"
-          ctaLabel="View All"
-        />
-      )}
 
       {/* Testimonials */}
       <section className="mt-24 md:mt-32 max-w-[1100px] mx-auto px-5 md:px-10 text-center kq-defer">
