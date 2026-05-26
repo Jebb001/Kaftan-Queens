@@ -71,8 +71,8 @@ export const LOCAL_VARIANT_ADDITIONS = {
     {
       colour: "Pink Tiedye",
       images: [
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/jnarnwb5_image0%20%281%29.jpeg",
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/j7emy92w_image1.jpeg",
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/mug96hpj_IMG_7395.jpeg",
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/pgrv7vig_IMG_7394.jpeg",
       ],
       sizes: ["Short", "Long"],
       pending: true,
@@ -90,6 +90,9 @@ export const LOCAL_VARIANT_IMAGE_ADDITIONS = {
 //     names (pre any COLOUR_RENAMES).
 export const VARIANT_IMAGE_REPLACEMENTS = {
   "palazzo-trousers": {
+    "Teal Blue & White Flower": [
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/d7oylynn_IMG_7390.jpeg",
+    ],
     "Pink & Blue Flower": [
       "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/y55peeo7_IMG_7388.jpeg",
       "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/n0q5jym0_IMG_7389.jpeg",
