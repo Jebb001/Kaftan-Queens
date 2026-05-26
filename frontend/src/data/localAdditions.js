@@ -26,7 +26,14 @@ export const LOCAL_PRODUCT_ADDITIONS = [
         ],
         imageFit: "contain",
       },
-      { colour: "Blue/White", images: [], imageFit: "contain" },
+      {
+        colour: "Blue/White",
+        images: [
+          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/65p0r42i_IMG_7422.jpeg",
+          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/15j49w2l_IMG_7421.jpeg",
+        ],
+        imageFit: "contain",
+      },
       { colour: "Bohemian", images: [], imageFit: "contain" },
       {
         colour: "Python",
