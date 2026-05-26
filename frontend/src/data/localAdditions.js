@@ -20,32 +20,32 @@ export const LOCAL_PRODUCT_ADDITIONS = [
       {
         colour: "Antique Rose",
         images: [
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/8ljk3v2z_IMG_7416.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/nv65hwob_IMG_7418.jpeg",
+          "/products/butterfly-antique-rose-1.jpg",
+          "/products/butterfly-antique-rose-2.jpg",
         ],
         imageFit: "contain",
       },
       {
         colour: "Blue/White",
         images: [
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/65p0r42i_IMG_7422.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/15j49w2l_IMG_7421.jpeg",
+          "/products/butterfly-blue-white-1.jpg",
+          "/products/butterfly-blue-white-2.jpg",
         ],
         imageFit: "contain",
       },
       {
         colour: "Bohemian",
         images: [
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/k6cba05r_IMG_7397.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/qbsx0eib_IMG_7398.jpeg",
+          "/products/butterfly-bohemian-1.jpg",
+          "/products/butterfly-bohemian-2.jpg",
         ],
         imageFit: "contain",
       },
       {
         colour: "Python",
         images: [
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/x9hsejjh_IMG_7403.jpeg",
-          "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/2lqunex6_IMG_7406.jpeg",
+          "/products/butterfly-python-1.jpg",
+          "/products/butterfly-python-2.jpg",
         ],
         imageFit: "contain",
       },
@@ -59,8 +59,8 @@ export const LOCAL_VARIANT_ADDITIONS = {
     {
       colour: "Pink/Orange Teardrop",
       images: [
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/nraya2wi_IMG_7319.jpeg",
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/2nx2r33k_IMG_7311.jpeg",
+        "/products/narlai-pink-orange-teardrop-1.jpg",
+        "/products/narlai-pink-orange-teardrop-2.jpg",
       ],
       pending: true,
       imageFit: "contain",
@@ -70,8 +70,8 @@ export const LOCAL_VARIANT_ADDITIONS = {
     {
       colour: "Pink Tiedye",
       images: [
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/mug96hpj_IMG_7395.jpeg",
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/pgrv7vig_IMG_7394.jpeg",
+        "/products/palazzo-pinktiedye-1.jpg",
+        "/products/palazzo-pinktiedye-2.jpg",
       ],
       sizes: ["Short", "Long"],
       pending: true,
@@ -90,16 +90,16 @@ export const LOCAL_VARIANT_IMAGE_ADDITIONS = {
 export const VARIANT_IMAGE_REPLACEMENTS = {
   "palazzo-trousers": {
     "Teal Blue & White Flower": [
-      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/d7oylynn_IMG_7390.jpeg",
+      "/products/palazzo-teal-1.jpg",
       "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/60ickvjo_image3.jpg",
     ],
     "Pink & Blue Flower": [
-      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/y55peeo7_IMG_7388.jpeg",
-      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/n0q5jym0_IMG_7389.jpeg",
+      "/products/palazzo-pinkblue-1.jpg",
+      "/products/palazzo-pinkblue-2.jpg",
     ],
     "Orange & Yellow Flower": [
-      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/kiy3fv41_IMG_7393.jpeg",
-      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ksy8bvve_IMG_7392.jpeg",
+      "/products/palazzo-orange-1.jpg",
+      "/products/palazzo-orange-2.jpg",
     ],
   },
 };

@@ -13,22 +13,24 @@ TYPE = "Trousers"
 TAGS = "women,trousers,new"
 BODY = "<p>New Palazzo trousers with a wide, comfortable stretch waist that sits beautifully on any silhouette. Wide, flowing leg in a delicate hand-printed floral cotton. Available in two lengths &mdash; Short or Long &mdash; so you can find the perfect fit.</p><ul><li>Material: Cotton</li><li>Origin: Hand-printed in India</li><li>Sizing: Inside leg to hem &mdash; Short 53 cm &middot; Long 66 cm</li><li>Care: Machine wash cold. Warm iron on reverse. Do not tumble dry.</li></ul>"
 
+PUBLIC_BASE = "https://image-scraper-3.preview.emergentagent.com"
+
 VARIANTS = [
     ("Teal Blue & White Flower", [
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/d7oylynn_IMG_7390.jpeg",
+        f"{PUBLIC_BASE}/products/palazzo-teal-1.jpg",
         "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/60ickvjo_image3.jpg",
     ]),
     ("Pink & Blue Flower", [
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/y55peeo7_IMG_7388.jpeg",
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/n0q5jym0_IMG_7389.jpeg",
+        f"{PUBLIC_BASE}/products/palazzo-pinkblue-1.jpg",
+        f"{PUBLIC_BASE}/products/palazzo-pinkblue-2.jpg",
     ]),
     ("Orange, Yellow & Gold Fleck", [
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/kiy3fv41_IMG_7393.jpeg",
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ksy8bvve_IMG_7392.jpeg",
+        f"{PUBLIC_BASE}/products/palazzo-orange-1.jpg",
+        f"{PUBLIC_BASE}/products/palazzo-orange-2.jpg",
     ]),
     ("Pink Tiedye", [
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/mug96hpj_IMG_7395.jpeg",
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/pgrv7vig_IMG_7394.jpeg",
+        f"{PUBLIC_BASE}/products/palazzo-pinktiedye-1.jpg",
+        f"{PUBLIC_BASE}/products/palazzo-pinktiedye-2.jpg",
     ]),
 ]
 SIZES = ["Short", "Long"]

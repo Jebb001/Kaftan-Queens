@@ -7,6 +7,8 @@ import csv
 import re
 from pathlib import Path
 
+PUBLIC_BASE = "https://image-scraper-3.preview.emergentagent.com"
+
 PRODUCT = {
     "handle": "butterfly-long-dress",
     "title": "Butterfly Long Dress",
@@ -28,32 +30,32 @@ PRODUCT = {
         (
             "Antique Rose",
             [
-                "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/8ljk3v2z_IMG_7416.jpeg",
-                "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/nv65hwob_IMG_7418.jpeg",
+                f"{PUBLIC_BASE}/products/butterfly-antique-rose-1.jpg",
+                f"{PUBLIC_BASE}/products/butterfly-antique-rose-2.jpg",
             ],
             None,
         ),
         (
             "Blue/White",
             [
-                "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/65p0r42i_IMG_7422.jpeg",
-                "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/15j49w2l_IMG_7421.jpeg",
+                f"{PUBLIC_BASE}/products/butterfly-blue-white-1.jpg",
+                f"{PUBLIC_BASE}/products/butterfly-blue-white-2.jpg",
             ],
             None,
         ),
         (
             "Bohemian",
             [
-                "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/k6cba05r_IMG_7397.jpeg",
-                "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/qbsx0eib_IMG_7398.jpeg",
+                f"{PUBLIC_BASE}/products/butterfly-bohemian-1.jpg",
+                f"{PUBLIC_BASE}/products/butterfly-bohemian-2.jpg",
             ],
             None,
         ),
         (
             "Python",
             [
-                "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/x9hsejjh_IMG_7403.jpeg",
-                "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/2lqunex6_IMG_7406.jpeg",
+                f"{PUBLIC_BASE}/products/butterfly-python-1.jpg",
+                f"{PUBLIC_BASE}/products/butterfly-python-2.jpg",
             ],
             None,
         ),
