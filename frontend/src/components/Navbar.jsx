@@ -42,12 +42,12 @@ export default function Navbar() {
             </Sheet>
           </div>
 
-          {/* Centered Logo */}
-          <Link to="/" className="flex items-center justify-center select-none px-1 sm:px-4 min-w-0" data-testid="navbar-logo-link">
+          {/* Centered Logo — larger, with negative vertical margin so bar height stays unchanged */}
+          <Link to="/" className="flex items-center justify-center select-none px-1 sm:px-4 min-w-0 overflow-visible" data-testid="navbar-logo-link">
             <img
               src="/brand/logo-600.png"
               alt="Kaftan Queens"
-              className="h-12 sm:h-14 md:h-16 w-auto"
+              className="h-16 sm:h-20 md:h-24 w-auto -my-2 sm:-my-3 md:-my-4"
               loading="eager"
               decoding="async"
             />

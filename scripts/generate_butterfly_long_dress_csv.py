@@ -30,7 +30,6 @@ PRODUCT = {
             [
                 "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/8ljk3v2z_IMG_7416.jpeg",
                 "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/nv65hwob_IMG_7418.jpeg",
-                "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ume2efze_IMG_7412.jpeg",
             ],
             None,
         ),
