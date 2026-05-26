@@ -1,57 +1,8 @@
 // Local additions / overrides layer.
 
 // 1) Brand new products not yet in Shopify
-export const LOCAL_PRODUCT_ADDITIONS = [
-  {
-    handle: "butterfly-long-dress",
-    title: "Butterfly Long Dress",
-    price: 95,
-    currency: "GBP",
-    category: "women",
-    sub: "Cotton / Viscose · Hand-finished",
-    badge: "New In",
-    description:
-      "A flowing, ankle-grazing dress with butterfly sleeves and a relaxed silhouette. Crafted in soft cotton/viscose, hand-finished in India. Made to flutter from beach to bar.",
-    descriptionHtml:
-      "<p>A flowing, ankle-grazing dress with butterfly sleeves and a relaxed silhouette. Crafted in soft cotton/viscose, hand-finished in India. Made to flutter from beach to bar.</p>",
-    tags: ["women", "dress", "new"],
-    pos: "center 25%",
-    variants: [
-      {
-        colour: "Antique Rose",
-        images: [
-          "/products/butterfly-antique-rose-1.jpg",
-          "/products/butterfly-antique-rose-2.jpg",
-        ],
-        imageFit: "contain",
-      },
-      {
-        colour: "Blue/White",
-        images: [
-          "/products/butterfly-blue-white-1.jpg",
-          "/products/butterfly-blue-white-2.jpg",
-        ],
-        imageFit: "contain",
-      },
-      {
-        colour: "Bohemian",
-        images: [
-          "/products/butterfly-bohemian-1.jpg",
-          "/products/butterfly-bohemian-2.jpg",
-        ],
-        imageFit: "contain",
-      },
-      {
-        colour: "Python",
-        images: [
-          "/products/butterfly-python-1.jpg",
-          "/products/butterfly-python-2.jpg",
-        ],
-        imageFit: "contain",
-      },
-    ],
-  },
-];
+// (none — Butterfly Long Dress was imported to Shopify on 2026-02-26)
+export const LOCAL_PRODUCT_ADDITIONS = [];
 
 // 2) Variants added to EXISTING Shopify products
 export const LOCAL_VARIANT_ADDITIONS = {
@@ -66,17 +17,7 @@ export const LOCAL_VARIANT_ADDITIONS = {
       imageFit: "contain",
     },
   ],
-  "palazzo-trousers": [
-    {
-      colour: "Pink Tiedye",
-      images: [
-        "/products/palazzo-pinktiedye-1.jpg",
-        "/products/palazzo-pinktiedye-2.jpg",
-      ],
-      sizes: ["Short", "Long"],
-      pending: true,
-    },
-  ],
+  // palazzo-trousers Pink Tiedye removed — imported to Shopify 2026-02-26.
 };
 
 // 3) Extra lifestyle images to append to existing colours
@@ -87,22 +28,8 @@ export const LOCAL_VARIANT_IMAGE_ADDITIONS = {
 // 3b) REPLACE the images of an existing Shopify variant entirely (frontend preview
 //     before re-importing the CSV to Shopify). Keys are Shopify's ORIGINAL colour
 //     names (pre any COLOUR_RENAMES).
-export const VARIANT_IMAGE_REPLACEMENTS = {
-  "palazzo-trousers": {
-    "Teal Blue & White Flower": [
-      "/products/palazzo-teal-1.jpg",
-      "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/60ickvjo_image3.jpg",
-    ],
-    "Pink & Blue Flower": [
-      "/products/palazzo-pinkblue-1.jpg",
-      "/products/palazzo-pinkblue-2.jpg",
-    ],
-    "Orange & Yellow Flower": [
-      "/products/palazzo-orange-1.jpg",
-      "/products/palazzo-orange-2.jpg",
-    ],
-  },
-};
+// (none — palazzo trousers full refresh was imported to Shopify on 2026-02-26)
+export const VARIANT_IMAGE_REPLACEMENTS = {};
 
 // 4) Per-product display overrides (renames without re-importing Shopify)
 export const TITLE_OVERRIDES = {

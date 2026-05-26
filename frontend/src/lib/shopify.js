@@ -8,6 +8,16 @@ const TOKEN = process.env.REACT_APP_SHOPIFY_STOREFRONT_TOKEN;
 const API_VERSION = process.env.REACT_APP_SHOPIFY_API_VERSION || "2025-01";
 const ENDPOINT = `https://${DOMAIN}/api/${API_VERSION}/graphql.json`;
 
+// Append width=1400 to Shopify CDN URLs so Shopify delivers a resized image
+// (typically 60-85% smaller than the original) without affecting visible quality.
+// Non-Shopify URLs (e.g. local /products/*.jpg) are returned untouched.
+function optimizeCdn(url, width = 1400) {
+  if (!url || typeof url !== "string") return url;
+  if (!url.includes("cdn.shopify.com")) return url;
+  if (/[?&]width=\d+/.test(url)) return url; // already has width
+  return url + (url.includes("?") ? "&" : "?") + `width=${width}`;
+}
+
 async function shopifyFetch(query, variables = {}) {
   const res = await fetch(ENDPOINT, {
     method: "POST",
@@ -180,14 +190,14 @@ const POS_OVERRIDES = {
 export function transformProduct(node) {
   if (!node) return null;
   const tags = node.tags || [];
-  const allImages = node.images.edges.map((e) => ({ url: e.node.url, alt: e.node.altText || "" }));
+  const allImages = node.images.edges.map((e) => ({ url: optimizeCdn(e.node.url), alt: e.node.altText || "" }));
   const variants = node.variants.edges.map((e) => e.node);
 
   // Group by Colour to mimic mock variant structure
   const byColour = new Map();
   for (const v of variants) {
     const colour = v.selectedOptions.find((o) => o.name === "Colour")?.value || v.title || "Default";
-    const img = v.image?.url;
+    const img = optimizeCdn(v.image?.url);
     if (!byColour.has(colour)) byColour.set(colour, { colour, images: [], variantIds: [], sizes: [] });
     const entry = byColour.get(colour);
     if (img && !entry.images.includes(img)) entry.images.push(img);
