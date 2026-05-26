@@ -1,7 +1,7 @@
 // Shopify Storefront API client + product/cart helpers.
 // Token is public-safe (Storefront Public Access Token) so direct calls from browser are intentional.
 
-import { LOCAL_VARIANT_ADDITIONS, LOCAL_PRODUCT_ADDITIONS, LOCAL_VARIANT_IMAGE_ADDITIONS, TITLE_OVERRIDES, COLOUR_RENAMES, SOLD_OUT_VARIANTS, VARIANT_IMAGE_ORDER } from "../data/localAdditions";
+import { LOCAL_VARIANT_ADDITIONS, LOCAL_PRODUCT_ADDITIONS, LOCAL_VARIANT_IMAGE_ADDITIONS, VARIANT_IMAGE_REPLACEMENTS, TITLE_OVERRIDES, COLOUR_RENAMES, SOLD_OUT_VARIANTS, VARIANT_IMAGE_ORDER } from "../data/localAdditions";
 
 const DOMAIN = process.env.REACT_APP_SHOPIFY_DOMAIN;
 const TOKEN = process.env.REACT_APP_SHOPIFY_STOREFRONT_TOKEN;
@@ -218,6 +218,17 @@ export function transformProduct(node) {
     variantIds: g.variantIds,
     sizes: g.sizes,
   }));
+
+  // Replace variant images entirely (used to preview new product photography
+  // before re-importing the CSV to Shopify). Done BEFORE LOCAL_VARIANT_IMAGE_ADDITIONS
+  // and BEFORE COLOUR_RENAMES, so keys are the original Shopify colour names.
+  const imageReplacements = VARIANT_IMAGE_REPLACEMENTS[node.handle] || {};
+  for (const v of variantArray) {
+    const replacement = imageReplacements[v.colour];
+    if (replacement && replacement.length) {
+      v.images = [...replacement];
+    }
+  }
 
   // Append local extra images to existing colours (lifestyle shots added before Shopify upload)
   const imageAdds = LOCAL_VARIANT_IMAGE_ADDITIONS[node.handle] || {};

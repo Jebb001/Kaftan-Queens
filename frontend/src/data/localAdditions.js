@@ -85,6 +85,22 @@ export const LOCAL_VARIANT_IMAGE_ADDITIONS = {
   // Now empty — the kerala blue flower motorbike image lives in Shopify CDN.
 };
 
+// 3b) REPLACE the images of an existing Shopify variant entirely (frontend preview
+//     before re-importing the CSV to Shopify). Keys are Shopify's ORIGINAL colour
+//     names (pre any COLOUR_RENAMES).
+export const VARIANT_IMAGE_REPLACEMENTS = {
+  "palazzo-trousers": {
+    "Pink & Blue Flower": [
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/y55peeo7_IMG_7388.jpeg",
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/n0q5jym0_IMG_7389.jpeg",
+    ],
+    "Orange & Yellow Flower": [
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/kiy3fv41_IMG_7393.jpeg",
+      "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ksy8bvve_IMG_7392.jpeg",
+    ],
+  },
+};
+
 // 4) Per-product display overrides (renames without re-importing Shopify)
 export const TITLE_OVERRIDES = {
   "kerala-mens-shirt": "Kerala Shirt",
