@@ -1,0 +1,63 @@
+{
+  "summary": "Frontend-only mobile (375x812) E2E test of Kaftan Queens after the palazzo/Butterfly photo refresh. Verified mobile layout, mobile nav drawer, enlarged logo with normal header height, PDP variant swatch image swap, lightbox open, add-to-bag flow with cart drawer auto-open, valid Shopify checkout URL handoff, and an exhaustive CTA audit across all 9 product handles and every colour variant. All target flows pass. One legitimate but undocumented 'Email to Order' CTA was discovered on the Narlai Dress (light-cotton-dress) → Pink/Orange Teardrop variant — it is marked pending:true AND prepend:true in localAdditions.js, which means the DEFAULT landing CTA for that PDP is 'Email to Order' (not 'Add to Bag'). Confirming with main agent whether this is intentional.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Cart Drawer + Mobile Nav Sheet", "issues": ["Radix console warnings persist from iter-1: 'DialogContent requires a DialogTitle' on the mobile nav Sheet (Navbar.jsx) and 'Missing Description or aria-describedby={undefined}' on cart drawer/sheet. Wrap titles in VisuallyHidden or add SheetTitle/SheetDescription. Non-blocking."]},
+      {"screen": "All pages", "issues": ["React DOM warning: Invalid prop 'fetchpriority' (should be 'fetchPriority' camelCase). Trace it from an <img> with fetchpriority attr (likely Lightbox or a CDN image component)."]}
+    ]
+  },
+  "cta_audit": {
+    "expected_exceptions_per_request": ["butterfly-long-dress (all variants)", "palazzo-trousers Pink Tiedye"],
+    "actual_email_to_order_cta_found": {
+      "butterfly-long-dress": ["Antique Rose", "Blue/White", "Bohemian", "Python"],
+      "palazzo-trousers": ["Pink Tiedye"],
+      "light-cotton-dress (Narlai Dress)": ["Pink/Orange Teardrop"]
+    },
+    "unexpected_email_to_order": [
+      {"handle": "light-cotton-dress", "variant": "Pink/Orange Teardrop", "reason": "Configured in /app/frontend/src/data/localAdditions.js LOCAL_VARIANT_ADDITIONS['light-cotton-dress'] with pending:true AND prepend:true — this variant is prepended to position 0, so the DEFAULT activeVariant on PDP landing is this pending one and the CTA renders as 'Email to Order' even though the other 3 Narlai Dress variants (Pink White, Blue Flower → Add to Bag, White Ditsy → Sold Out) are perfectly orderable."}
+    ],
+    "add_to_bag_per_product": {
+      "palazzo-trousers": "Teal Blue & White Flower / Pink & Blue Flower / Orange, Yellow & Gold Fleck → Add to Bag",
+      "light-cotton-dress": "Pink White, Blue Flower → Add to Bag; White Ditsy → Sold Out; Pink/Orange Teardrop → Email to Order",
+      "kerala-mens-shirt": "7 variants all Add to Bag",
+      "jungle-print-shirt": "1 variant Add to Bag",
+      "palm-dress": "5 variants all Add to Bag",
+      "palm-kaftan": "3 variants all Add to Bag",
+      "hampi-linen-shirt": "4 variants all Add to Bag",
+      "goa-mens-shirt": "5 variants all Add to Bag"
+    }
+  },
+  "mobile_evidence": {
+    "viewport": "375x812",
+    "home": {"horizontal_overflow_px": 0, "logo_height_px": 64, "header_height_px": 81, "no_layout_break": true},
+    "shop": {"horizontal_overflow_px": 0, "default_women_count": 6, "scarves_count": 4, "category_filter_buttons_clickable": true},
+    "about": {"horizontal_overflow_px": 0},
+    "mobile_nav_drawer": {"opens": true, "links": ["Home", "Shop", "Our Story", "@kaftan.queens (Instagram)"]},
+    "pdp_palazzo_trousers": {"colours": 4, "main_image_swap_on_swatch_click": true, "lightbox_opens_on_main_image_click": true},
+    "pdp_palm_kaftan_add_to_bag": {"drawer_auto_opens": true, "line_items": 1, "subtotal": "£75.00 GBP", "checkout_url": "https://kaftan-queens-3.myshopify.com/cart/c/hWNCc1jGghXIUyS2P2mVC7ow?key=...", "checkout_url_is_real_shopify": true, "checkout_navigation_status": 200, "checkout_final_url": "https://kaftan-queens-3.myshopify.com/password (store is in password-protected 'Opening soon' mode — Shopify-side config, NOT a bug)"}
+  },
+  "test_report_links": [],
+  "action_items": [
+    "DECISION NEEDED: Narlai Dress (light-cotton-dress) → 'Pink/Orange Teardrop' variant is configured as pending:true & prepend:true in localAdditions.js (lines 58-69). Because of prepend:true, this variant becomes activeVariant[0] on landing, so the default PDP CTA is 'Email to Order'. The problem statement says ONLY Butterfly Long Dress + Pink Tiedye Palazzo should show Email-to-Order. Either (a) un-mark this variant pending if stock is now available, or (b) remove prepend:true so a stockable variant is the default and Pink/Orange Teardrop is just one selectable option. Recommend (b) at minimum so the landing CTA on Narlai Dress is 'Add to Bag'.",
+    "Fix Radix a11y: add SheetTitle (or VisuallyHidden wrapper) to the Navbar mobile menu SheetContent (Navbar.jsx line 30) — currently throws 'DialogContent requires a DialogTitle' console error every time the drawer opens.",
+    "Fix React DOM warning: <img fetchpriority=\"...\"> → use camelCase fetchPriority. Likely in Lightbox.jsx or wherever images are rendered with that attribute.",
+    "(Carry over from iter-1, still unfixed) Update /app/frontend/public/index.html <title> from 'Emergent | Fullstack App' to a Kaftan Queens brand title."
+  ],
+  "critical_code_review_comments": [
+    "ProductDetail.jsx line 26: setColour(variants[0]?.colour) blindly selects index 0 — if a pending variant is prepended, it becomes the default and the user lands on an Email-to-Order CTA. Consider: setColour(variants.find(v => !v.pending && !v.soldOut)?.colour || variants[0]?.colour).",
+    "CartDrawer checkout anchor (line 71-78): if (!checkoutUrl) prevents default silently. Add a toast (matching Cart.jsx behavior) so user knows cart is still loading. UX consistency.",
+    "Navbar.jsx mobile SheetContent (line 30) is missing SheetTitle — produces Radix a11y error every drawer open. Wrap a title in VisuallyHidden.",
+    "localAdditions.js light-cotton-dress 'Pink/Orange Teardrop' has both pending:true and prepend:true — likely needs review now that photos/inventory are refreshed."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (not requested)", "frontend": "100% on every requested flow (mobile render, nav drawer, logo, swatch+lightbox, add-to-bag, Shopify checkout URL). 1 borderline finding flagged for product/inventory clarification."},
+  "test_credentials": "Not required — public storefront, no auth.",
+  "seed_data_creation": "None — used live Shopify products.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Mobile flows fully validated at 375x812. Shopify checkout URL pattern returned: https://kaftan-queens-3.myshopify.com/cart/c/<id>?key=...&_s=...&_y=...  — currently the store front-end is in 'Opening soon' password mode (final URL is /password), but the cart→checkout handoff itself is correct. All 9 product handles enumerate cleanly. Only 3 variants legitimately render Email-to-Order: butterfly-long-dress (all 4), palazzo-trousers Pink Tiedye, light-cotton-dress Pink/Orange Teardrop — last one is the 'unexpected' finding per the problem statement.",
+  "rca of the issue": "Narlai Dress default landing CTA is Email-to-Order because LOCAL_VARIANT_ADDITIONS['light-cotton-dress'] has prepend:true, which causes the pending Pink/Orange Teardrop variant to be inserted at index 0, and ProductDetail.jsx line 26 always initializes colour to variants[0].colour. Mitigation: either remove prepend:true, or change the init logic in ProductDetail.jsx to prefer the first NON-pending/NON-soldOut variant."
+}

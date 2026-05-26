@@ -15,20 +15,20 @@ BODY = "<p>New Palazzo trousers with a wide, comfortable stretch waist that sits
 
 VARIANTS = [
     ("Teal Blue & White Flower", [
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/d7oylynn_IMG_7390.jpeg",
         "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/60ickvjo_image3.jpg",
-        "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/40bg5a06_image0_20_281_29.jpg",
     ]),
     ("Pink & Blue Flower", [
-        "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/tuejngv9_image0.jpg",
-        "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/mkfwviik_image1.jpg",
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/y55peeo7_IMG_7388.jpeg",
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/n0q5jym0_IMG_7389.jpeg",
     ]),
-    ("Orange & Yellow Flower", [
-        "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/36vuwgr6_image1.jpg",
-        "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/urki5462_image0.jpg",
+    ("Orange, Yellow & Gold Fleck", [
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/kiy3fv41_IMG_7393.jpeg",
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/ksy8bvve_IMG_7392.jpeg",
     ]),
     ("Pink Tiedye", [
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/jnarnwb5_image0%20%281%29.jpeg",
-        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/j7emy92w_image1.jpeg",
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/mug96hpj_IMG_7395.jpeg",
+        "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/pgrv7vig_IMG_7394.jpeg",
     ]),
 ]
 SIZES = ["Short", "Long"]
@@ -98,7 +98,7 @@ def main():
             rows.append(ir)
             image_pos += 1
 
-    out = Path("/app/frontend/public/downloads/palazzo_trousers_pink_tiedye.csv")
+    out = Path("/app/frontend/public/downloads/palazzo_trousers_full_refresh.csv")
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=HEADERS)

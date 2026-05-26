@@ -92,6 +92,7 @@ export const VARIANT_IMAGE_REPLACEMENTS = {
   "palazzo-trousers": {
     "Teal Blue & White Flower": [
       "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/d7oylynn_IMG_7390.jpeg",
+      "https://cdn.shopify.com/s/files/1/0961/6064/5463/files/60ickvjo_image3.jpg",
     ],
     "Pink & Blue Flower": [
       "https://customer-assets.emergentagent.com/job_image-scraper-3/artifacts/y55peeo7_IMG_7388.jpeg",
