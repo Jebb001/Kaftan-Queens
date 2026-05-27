@@ -17,7 +17,20 @@ export const LOCAL_VARIANT_ADDITIONS = {
       imageFit: "contain",
     },
   ],
-  // palazzo-trousers Pink Tiedye removed — imported to Shopify 2026-02-26.
+  // Butterfly Long Dress — Ivory variant (was previously labeled "Bohemian"
+  // in Shopify; the white flowy dress photos). Will become a real Shopify
+  // variant once the next CSV is imported. Marked pending until then.
+  "butterfly-long-dress": [
+    {
+      colour: "Ivory",
+      images: [
+        "/products/butterfly-ivory-1.jpg",
+        "/products/butterfly-ivory-2.jpg",
+      ],
+      pending: true,
+      imageFit: "contain",
+    },
+  ],
 };
 
 // 3) Extra lifestyle images to append to existing colours
@@ -28,8 +41,17 @@ export const LOCAL_VARIANT_IMAGE_ADDITIONS = {
 // 3b) REPLACE the images of an existing Shopify variant entirely (frontend preview
 //     before re-importing the CSV to Shopify). Keys are Shopify's ORIGINAL colour
 //     names (pre any COLOUR_RENAMES).
-// (none — palazzo trousers full refresh was imported to Shopify on 2026-02-26)
-export const VARIANT_IMAGE_REPLACEMENTS = {};
+export const VARIANT_IMAGE_REPLACEMENTS = {
+  "butterfly-long-dress": {
+    "Antique Rose": [
+      "/products/butterfly-antique-rose-1.jpg",
+    ],
+    "Bohemian": [
+      "/products/butterfly-bohemian-1.jpg",
+      "/products/butterfly-bohemian-2.jpg",
+    ],
+  },
+};
 
 // 4) Per-product display overrides (renames without re-importing Shopify)
 export const TITLE_OVERRIDES = {

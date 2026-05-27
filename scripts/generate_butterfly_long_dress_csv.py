@@ -31,7 +31,6 @@ PRODUCT = {
             "Antique Rose",
             [
                 f"{PUBLIC_BASE}/products/butterfly-antique-rose-1.jpg",
-                f"{PUBLIC_BASE}/products/butterfly-antique-rose-2.jpg",
             ],
             None,
         ),
@@ -48,6 +47,14 @@ PRODUCT = {
             [
                 f"{PUBLIC_BASE}/products/butterfly-bohemian-1.jpg",
                 f"{PUBLIC_BASE}/products/butterfly-bohemian-2.jpg",
+            ],
+            None,
+        ),
+        (
+            "Ivory",
+            [
+                f"{PUBLIC_BASE}/products/butterfly-ivory-1.jpg",
+                f"{PUBLIC_BASE}/products/butterfly-ivory-2.jpg",
             ],
             None,
         ),
