@@ -20,7 +20,6 @@ export default function JournalGrid() {
                 <img src={post.image} alt={post.title} loading="lazy" decoding="async" style={{ objectPosition: post.pos || "center" }} className="w-full h-full object-cover" />
               </div>
               <h3 className="font-display text-2xl md:text-[26px] leading-snug mt-5">{post.title}</h3>
-              <p className="text-xs tracking-[0.2em] uppercase text-[hsl(var(--kq-accent-2))] mt-2">{post.author}</p>
               <p className="font-italic text-base md:text-lg text-[hsl(var(--kq-ink-soft))] mt-3 leading-relaxed">{post.excerpt}</p>
             </a>
           </article>

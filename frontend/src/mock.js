@@ -423,7 +423,6 @@ export const JOURNAL = [
     title: "The Best Sustainable Luxury Fashion Brands",
     excerpt:
       "Love luxury fashion? Care about sustainability? Our edit of the year’s best eco-luxe labels — plus tips to make the most of your purchasing power.",
-    author: "Maxime Ducker",
     image: "/journal/j1.jpg",
     pos: "center 35%",
   },
@@ -432,7 +431,6 @@ export const JOURNAL = [
     title: "Top Eco-Fabrics That Are Good For You And Your Skin",
     excerpt:
       "Shopping for natural, eco-fabrics brings a range of fantastic benefits — not least the kindness they show to your skin.",
-    author: "Laura Noble",
     image: "/journal/j2.jpg",
     pos: "center 40%",
   },
@@ -441,7 +439,6 @@ export const JOURNAL = [
     title: "Fast Vs. Slow Fashion: Can Fast Fashion Ever Be Slowed?",
     excerpt:
       "From ethical treatment of workers to sustainable materials and waste — the impact of fast fashion and whether it can ever truly slow down.",
-    author: "Rosalyn Bowen",
     image: "/journal/j3.jpg",
     pos: "center 30%",
   },
