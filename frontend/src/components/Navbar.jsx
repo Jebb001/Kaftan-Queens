@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from 
 
 export default function Navbar() {
   const { count, setIsOpen } = useCart();
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   return (
     <header className="sticky top-0 z-40 bg-[hsl(var(--kq-bg))] border-b border-[hsl(var(--kq-line))]">
@@ -23,8 +24,8 @@ export default function Navbar() {
 
           {/* Mobile menu */}
           <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger aria-label="Open menu" className="p-2 -ml-2">
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger aria-label="Open menu" className="p-2 -ml-2" data-testid="mobile-menu-trigger">
                 <Menu className="w-5 h-5" />
               </SheetTrigger>
               <SheetContent side="left" className="bg-[hsl(var(--kq-bg))] border-r border-[hsl(var(--kq-line))]">
@@ -32,11 +33,23 @@ export default function Navbar() {
                 <SheetDescription className="sr-only">Browse Kaftan Queens — Home, Shop, Our Story, and Instagram.</SheetDescription>
                 <div className="mt-10 flex flex-col gap-5">
                   {NAV.map((n) => (
-                    <Link key={n.label} to={n.to} className="font-display text-3xl">
+                    <Link
+                      key={n.label}
+                      to={n.to}
+                      className="font-display text-3xl"
+                      onClick={() => setMobileMenuOpen(false)}
+                      data-testid={`mobile-nav-link-${n.label.toLowerCase().replace(/\s+/g, '-')}`}
+                    >
                       {n.label}
                     </Link>
                   ))}
-                  <a href={SITE.instagram} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm">
+                  <a
+                    href={SITE.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-6 inline-flex items-center gap-2 text-sm"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
                     <Instagram className="w-4 h-4" /> @kaftan.queens
                   </a>
                 </div>

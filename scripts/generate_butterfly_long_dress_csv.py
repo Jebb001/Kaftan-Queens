@@ -12,7 +12,7 @@ PUBLIC_BASE = "https://image-scraper-3.preview.emergentagent.com"
 PRODUCT = {
     "handle": "butterfly-long-dress",
     "title": "Butterfly Long Dress",
-    "price": "95.00",
+    "price": "75.00",
     "type": "Dress",
     "tags": "women,dress,new",
     "body": (
