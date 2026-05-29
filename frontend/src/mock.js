@@ -395,6 +395,13 @@ export const PRODUCTS = [
 
 export const STORY_BLOCKS = [
   {
+    title: "Artisanal Luxury",
+    body:
+      "Handmade in small batches using heritage techniques and ethically sourced premium materials — each piece authentic, each piece scarce.",
+    image: "/values/v2.jpg",
+    pos: "center 70%",
+  },
+  {
     title: "Sustainably Crafted",
     body:
       "Responsibly sourced renewable and recycled materials, and low-impact manufacturing — to cut CO₂, water use and waste.",
@@ -406,13 +413,6 @@ export const STORY_BLOCKS = [
       email: "hello@kaftanqueens.co.uk",
       phone: "+44 7711 253286",
     },
-  },
-  {
-    title: "Artisanal Luxury",
-    body:
-      "Handmade in small batches using heritage techniques and ethically sourced premium materials — each piece authentic, each piece scarce.",
-    image: "/values/v2.jpg",
-    pos: "center 70%",
   },
   {
     title: "Bohemian Chic",

@@ -60,7 +60,7 @@ export default function Home() {
                 </p>
                 {s.contact && (
                   <div className="mt-6 pt-5 border-t border-[hsl(var(--kq-line))] max-w-xs mx-auto text-[12px] tracking-[0.04em] text-[hsl(var(--kq-ink))] space-y-1.5" data-testid="founder-contact">
-                    <p className="font-italic text-[hsl(var(--kq-accent-2))] text-[11px] tracking-[0.28em] uppercase">— {s.contact.role}</p>
+                    <p className="text-[hsl(var(--kq-accent-2))] text-[13px] tracking-[0.32em] uppercase font-semibold">— {s.contact.role}</p>
                     <p className="font-display text-lg">{s.contact.name}</p>
                     <p><a href={`mailto:${s.contact.email}`} className="kq-link">{s.contact.email}</a></p>
                     <p><a href={`tel:${s.contact.phone.replace(/\s+/g, '')}`} className="kq-link tabular-nums">{s.contact.phone}</a></p>
