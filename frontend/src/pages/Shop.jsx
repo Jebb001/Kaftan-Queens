@@ -91,8 +91,10 @@ export default function Shop() {
 
       {!loading && !error && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-7 md:gap-y-16" data-testid="shop-grid">
-          {filtered.map((p) => (
-            <ProductCard key={p.id} product={p} />
+          {filtered.map((p, i) => (
+            // First 4 cards (the lg desktop row above the fold) load eagerly +
+            // with high priority so they arrive ~100-200ms sooner.
+            <ProductCard key={p.id} product={p} priority={i < 4} />
           ))}
         </div>
       )}

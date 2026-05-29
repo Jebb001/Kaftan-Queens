@@ -6,7 +6,7 @@ import { buildSrcSet } from "../lib/shopify";
 // On lg: 4 cols (~340px each). srcset lets the browser pick the smallest match.
 const CARD_SIZES = "(min-width: 1024px) 340px, (min-width: 768px) 50vw, 100vw";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, priority = false }) {
   // Front: optional card-image override, else first variant's primary image.
   // Back: second variant's image, or second image of first variant.
   const variants = product.variants || [{ colour: "", images: product.images }];
@@ -27,7 +27,8 @@ export default function ProductCard({ product }) {
             alt={product.name}
             width="800"
             height="1067"
-            loading="lazy"
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
             decoding="async"
             style={{ objectPosition: frontPos }}
             className="kq-swap-front"
