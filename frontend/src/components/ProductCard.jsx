@@ -1,5 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { buildSrcSet } from "../lib/shopify";
+
+// On mobile: 1 col fills viewport (~390px). On md: 3 cols (~440px each).
+// On lg: 4 cols (~340px each). srcset lets the browser pick the smallest match.
+const CARD_SIZES = "(min-width: 1024px) 340px, (min-width: 768px) 50vw, 100vw";
 
 export default function ProductCard({ product }) {
   // Front: optional card-image override, else first variant's primary image.
@@ -8,6 +13,8 @@ export default function ProductCard({ product }) {
   const front = product.cardImage || variants[0].images[0];
   const back = variants[1]?.images?.[0] || variants[0].images[1] || front;
   const frontPos = product.cardImage ? "center 35%" : (product.pos || "center 25%");
+  const frontSrcSet = buildSrcSet(front);
+  const backSrcSet = buildSrcSet(back);
 
   return (
     <div className="group block">
@@ -15,7 +22,11 @@ export default function ProductCard({ product }) {
         <div className="relative aspect-[3/4] kq-swap bg-[hsl(var(--kq-bg-2))]">
           <img
             src={front}
+            srcSet={frontSrcSet || undefined}
+            sizes={frontSrcSet ? CARD_SIZES : undefined}
             alt={product.name}
+            width="800"
+            height="1067"
             loading="lazy"
             decoding="async"
             style={{ objectPosition: frontPos }}
@@ -23,7 +34,11 @@ export default function ProductCard({ product }) {
           />
           <img
             src={back}
+            srcSet={backSrcSet || undefined}
+            sizes={backSrcSet ? CARD_SIZES : undefined}
             alt={`${product.name} alternate`}
+            width="800"
+            height="1067"
             loading="lazy"
             decoding="async"
             style={{ objectPosition: product.pos || "center 25%" }}

@@ -18,6 +18,24 @@ function optimizeCdn(url, width = 1400) {
   return url + (url.includes("?") ? "&" : "?") + `width=${width}`;
 }
 
+// Force a specific width on a Shopify CDN URL (replaces any existing width param).
+// For non-Shopify URLs returns the original.
+export function cdnAtWidth(url, width) {
+  if (!url || typeof url !== "string" || !url.includes("cdn.shopify.com")) return url;
+  const [base, q = ""] = url.split("?");
+  const clean = q.replace(/(^|&)width=\d+(&|$)/, (m, a, b) => (a && b ? "&" : "")).replace(/^&|&$/g, "");
+  return `${base}?${clean ? clean + "&" : ""}width=${width}`;
+}
+
+// Build a responsive srcset for any URL we host. Shopify CDN supports ?width=
+// directly. Local /products/*.jpg files don't, so we just return null and let
+// the browser use the single src.
+export function buildSrcSet(url) {
+  if (!url || typeof url !== "string") return null;
+  if (!url.includes("cdn.shopify.com")) return null;
+  return [400, 600, 800, 1200, 1600].map((w) => `${cdnAtWidth(url, w)} ${w}w`).join(", ");
+}
+
 async function shopifyFetch(query, variables = {}) {
   const res = await fetch(ENDPOINT, {
     method: "POST",

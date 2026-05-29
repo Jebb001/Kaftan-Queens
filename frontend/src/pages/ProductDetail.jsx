@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useProduct } from "../hooks/useProducts";
-import { findVariantId } from "../lib/shopify";
+import { findVariantId, buildSrcSet, cdnAtWidth } from "../lib/shopify";
 import { ORDER_EMAIL, MATERIALS_BY_HANDLE, CARE_BY_CATEGORY } from "../data/localAdditions";
 import { useCart } from "../context/CartContext";
 import { toast } from "sonner";
@@ -104,7 +104,13 @@ export default function ProductDetail() {
             <img
               key={galleryImages[activeImg]}
               src={galleryImages[activeImg]}
+              srcSet={buildSrcSet(galleryImages[activeImg]) || undefined}
+              sizes={buildSrcSet(galleryImages[activeImg]) ? "(min-width: 768px) 50vw, 100vw" : undefined}
               alt={`${product.name} — ${colour}`}
+              width="1200"
+              height="1500"
+              fetchPriority="high"
+              decoding="async"
               style={{ objectPosition: useContain ? "center" : (product.pos || "center") }}
               className={`w-full h-full ${imgFitClass} kq-fade-up`}
               data-testid="pdp-main-image"
@@ -132,7 +138,16 @@ export default function ProductDetail() {
                   data-testid={`pdp-thumb-${i}`}
                   className={`aspect-[3/4] overflow-hidden border ${activeImg === i ? "border-[hsl(var(--kq-accent-2))]" : "border-transparent"}`}
                 >
-                  <img src={src} alt="" style={{ objectPosition: useContain ? "center" : (product.pos || "center") }} className={`w-full h-full ${imgFitClass}`} />
+                  <img
+                    src={cdnAtWidth(src, 300)}
+                    alt=""
+                    width="160"
+                    height="213"
+                    loading="lazy"
+                    decoding="async"
+                    style={{ objectPosition: useContain ? "center" : (product.pos || "center") }}
+                    className={`w-full h-full ${imgFitClass}`}
+                  />
                 </button>
               ))}
             </div>
