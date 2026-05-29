@@ -58,6 +58,10 @@ export const TITLE_OVERRIDES = {
   "kerala-mens-shirt": "Kerala Shirt",
   "jungle-print-shirt": "Jungle Shirt",
   "light-cotton-dress": "Narlai Dress",
+  // Pluralise scarf titles in product cards / PDP
+  "yak-wool-scarf": "Yak Wool Scarfs",
+  "agonda-scarf": "Agonda Scarfs",
+  "mariposa-scarf": "Mariposa Scarfs",
 };
 
 // 5) Colour swatch renames per product
@@ -111,6 +115,7 @@ export const CARE_BY_CATEGORY = {
 export const CARD_IMAGE_OVERRIDES = {
   "agonda-scarf": "/products/agonda-stack.jpg",
   "mariposa-scarf": "/products/mariposa-stack.jpg",
+  "yak-wool-scarf": "/products/yak-stack.jpg",
 };
 
 // 11) Per-product price overrides (display-only, until you re-import to Shopify)
