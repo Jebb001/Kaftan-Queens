@@ -23,13 +23,24 @@ HEADERS = [
 ]
 
 rows = []
-for colour in VARIANTS:
+for i, colour in enumerate(VARIANTS):
     row = {h: "" for h in HEADERS}
     row["Handle"] = HANDLE
+    # Shopify requires Title (and a few base fields) on the FIRST row per handle.
+    if i == 0:
+        row["Title"] = "Yak Wool Scarf"
+        row["Vendor"] = "Kaftan Queens"
+        row["Type"] = "Scarf"
+        row["Published"] = "TRUE"
+        row["Status"] = "active"
     row["Option1 Name"] = "Colour"
     row["Option1 Value"] = colour
     row["Variant SKU"] = f"KQ-{HANDLE}-{colour.lower()}"
     row["Variant Price"] = NEW_PRICE
+    row["Variant Inventory Policy"] = "deny"
+    row["Variant Fulfillment Service"] = "manual"
+    row["Variant Requires Shipping"] = "TRUE"
+    row["Variant Taxable"] = "TRUE"
     rows.append(row)
 
 out = Path("/app/frontend/public/downloads/yak_wool_scarf_price_update.csv")

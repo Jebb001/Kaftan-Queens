@@ -1,8 +1,8 @@
 Handle,Title,Body (HTML),Vendor,Product Category,Type,Tags,Published,Option1 Name,Option1 Value,Option2 Name,Option2 Value,Option3 Name,Option3 Value,Variant SKU,Variant Grams,Variant Inventory Tracker,Variant Inventory Qty,Variant Inventory Policy,Variant Fulfillment Service,Variant Price,Variant Compare At Price,Variant Requires Shipping,Variant Taxable,Variant Barcode,Image Src,Image Position,Image Alt Text,Gift Card,SEO Title,SEO Description,Variant Image,Variant Weight Unit,Variant Tax Code,Cost per item,Status
-yak-wool-scarf,,,,,,,,Colour,Turquoise,,,,,KQ-yak-wool-scarf-turquoise,,,,,,65.00,,,,,,,,,,,,,,,
-yak-wool-scarf,,,,,,,,Colour,Beige,,,,,KQ-yak-wool-scarf-beige,,,,,,65.00,,,,,,,,,,,,,,,
-yak-wool-scarf,,,,,,,,Colour,Black,,,,,KQ-yak-wool-scarf-black,,,,,,65.00,,,,,,,,,,,,,,,
-yak-wool-scarf,,,,,,,,Colour,Blue,,,,,KQ-yak-wool-scarf-blue,,,,,,65.00,,,,,,,,,,,,,,,
-yak-wool-scarf,,,,,,,,Colour,Green,,,,,KQ-yak-wool-scarf-green,,,,,,65.00,,,,,,,,,,,,,,,
-yak-wool-scarf,,,,,,,,Colour,Brown,,,,,KQ-yak-wool-scarf-brown,,,,,,65.00,,,,,,,,,,,,,,,
-yak-wool-scarf,,,,,,,,Colour,Purple,,,,,KQ-yak-wool-scarf-purple,,,,,,65.00,,,,,,,,,,,,,,,
+yak-wool-scarf,Yak Wool Scarf,,Kaftan Queens,,Scarf,,TRUE,Colour,Turquoise,,,,,KQ-yak-wool-scarf-turquoise,,,,deny,manual,65.00,,TRUE,TRUE,,,,,,,,,,,,active
+yak-wool-scarf,,,,,,,,Colour,Beige,,,,,KQ-yak-wool-scarf-beige,,,,deny,manual,65.00,,TRUE,TRUE,,,,,,,,,,,,
+yak-wool-scarf,,,,,,,,Colour,Black,,,,,KQ-yak-wool-scarf-black,,,,deny,manual,65.00,,TRUE,TRUE,,,,,,,,,,,,
+yak-wool-scarf,,,,,,,,Colour,Blue,,,,,KQ-yak-wool-scarf-blue,,,,deny,manual,65.00,,TRUE,TRUE,,,,,,,,,,,,
+yak-wool-scarf,,,,,,,,Colour,Green,,,,,KQ-yak-wool-scarf-green,,,,deny,manual,65.00,,TRUE,TRUE,,,,,,,,,,,,
+yak-wool-scarf,,,,,,,,Colour,Brown,,,,,KQ-yak-wool-scarf-brown,,,,deny,manual,65.00,,TRUE,TRUE,,,,,,,,,,,,
+yak-wool-scarf,,,,,,,,Colour,Purple,,,,,KQ-yak-wool-scarf-purple,,,,deny,manual,65.00,,TRUE,TRUE,,,,,,,,,,,,
