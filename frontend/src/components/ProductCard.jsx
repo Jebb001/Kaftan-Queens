@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function ProductCard({ product }) {
-  // Front: first variant's primary image. Back: second variant's image, or second image of first variant.
+  // Front: optional card-image override, else first variant's primary image.
+  // Back: second variant's image, or second image of first variant.
   const variants = product.variants || [{ colour: "", images: product.images }];
-  const front = variants[0].images[0];
+  const front = product.cardImage || variants[0].images[0];
   const back = variants[1]?.images?.[0] || variants[0].images[1] || front;
+  const frontPos = product.cardImage ? "center 35%" : (product.pos || "center 25%");
 
   return (
     <div className="group block">
@@ -16,7 +18,7 @@ export default function ProductCard({ product }) {
             alt={product.name}
             loading="lazy"
             decoding="async"
-            style={{ objectPosition: product.pos || "center 25%" }}
+            style={{ objectPosition: frontPos }}
             className="kq-swap-front"
           />
           <img

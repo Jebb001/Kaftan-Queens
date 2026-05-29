@@ -100,5 +100,12 @@ export const CARE_BY_CATEGORY = {
   accessories: "Hand wash cold. Do not tumble dry.",
 };
 
+// 10) Override the Shop-grid card image only (PDP variant photos untouched).
+// Use for hero/stack lifestyle shots that look better in the grid than a single
+// variant's flat product photo.
+export const CARD_IMAGE_OVERRIDES = {
+  "agonda-scarf": "/products/agonda-stack.jpg",
+};
+
 // Brand contact for "email to order" CTA on pending variants.
 export const ORDER_EMAIL = "hello@kaftanqueens.co.uk";
