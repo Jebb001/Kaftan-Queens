@@ -1,7 +1,7 @@
 // Shopify Storefront API client + product/cart helpers.
 // Token is public-safe (Storefront Public Access Token) so direct calls from browser are intentional.
 
-import { LOCAL_VARIANT_ADDITIONS, LOCAL_PRODUCT_ADDITIONS, LOCAL_VARIANT_IMAGE_ADDITIONS, VARIANT_IMAGE_REPLACEMENTS, TITLE_OVERRIDES, COLOUR_RENAMES, SOLD_OUT_VARIANTS, VARIANT_IMAGE_ORDER, CARD_IMAGE_OVERRIDES } from "../data/localAdditions";
+import { LOCAL_VARIANT_ADDITIONS, LOCAL_PRODUCT_ADDITIONS, LOCAL_VARIANT_IMAGE_ADDITIONS, VARIANT_IMAGE_REPLACEMENTS, TITLE_OVERRIDES, COLOUR_RENAMES, SOLD_OUT_VARIANTS, VARIANT_IMAGE_ORDER, CARD_IMAGE_OVERRIDES, PRICE_OVERRIDES } from "../data/localAdditions";
 
 const DOMAIN = process.env.REACT_APP_SHOPIFY_DOMAIN;
 const TOKEN = process.env.REACT_APP_SHOPIFY_STOREFRONT_TOKEN;
@@ -175,10 +175,12 @@ function badgeFromTags(tags) {
 function subFromProductType(productType, tags) {
   // Lightweight fallback subtitle derived from product type & material tags.
   if (!productType) return "";
+  // Display "Scarf" as "Scarfs" (brand preference).
+  const label = productType === "Scarf" ? "Scarfs" : productType;
   const lower = tags.map((t) => t.toLowerCase());
-  if (lower.includes("wool")) return `${productType} · Wool blend`;
-  if (lower.includes("yak-wool")) return `${productType} · Yak wool weave`;
-  return productType;
+  if (lower.includes("wool")) return `${label} · Wool blend`;
+  if (lower.includes("yak-wool")) return `${label} · Yak wool weave`;
+  return label;
 }
 
 // Per-product object-position overrides so portrait full-body photos
@@ -306,7 +308,7 @@ export function transformProduct(node) {
     handle: node.handle,
     shopifyId: node.id,
     name: TITLE_OVERRIDES[node.handle] || node.title,
-    price: Number(node.priceRange.minVariantPrice.amount),
+    price: PRICE_OVERRIDES[node.handle] ?? Number(node.priceRange.minVariantPrice.amount),
     currency: node.priceRange.minVariantPrice.currencyCode,
     category: categoryFromTags(tags),
     sub: subFromProductType(node.productType, tags),

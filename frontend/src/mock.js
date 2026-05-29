@@ -400,6 +400,12 @@ export const STORY_BLOCKS = [
       "Responsibly sourced renewable and recycled materials, and low-impact manufacturing — to cut CO₂, water use and waste.",
     image: "/values/v1.jpg",
     pos: "center 18%",
+    contact: {
+      role: "Founder",
+      name: "Philippa",
+      email: "hello@kaftanqueens.co.uk",
+      phone: "+44 7711 253286",
+    },
   },
   {
     title: "Artisanal Luxury",

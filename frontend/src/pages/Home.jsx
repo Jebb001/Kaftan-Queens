@@ -49,16 +49,23 @@ export default function Home() {
             <div className="mt-4 flex items-center justify-center"><span className="kq-thin-rule" /></div>
           </div>
           <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-            {STORY_BLOCKS.map((s, i) => (
+            {STORY_BLOCKS.map((s) => (
               <article key={s.title} className="text-center">
                 <div className="relative aspect-[4/5] kq-img-zoom mb-6">
                   <img src={s.image} alt={s.title} loading="lazy" decoding="async" style={{ objectPosition: s.pos || "center" }} className="w-full h-full object-cover" />
                 </div>
-                <span className="font-italic text-sm text-[hsl(var(--kq-accent-2))]">0{i + 1}</span>
                 <h3 className="font-display text-2xl md:text-3xl mt-2">{s.title}</h3>
                 <p className="font-italic text-base md:text-lg text-[hsl(var(--kq-ink-soft))] mt-3 leading-relaxed max-w-sm mx-auto">
                   {s.body}
                 </p>
+                {s.contact && (
+                  <div className="mt-6 pt-5 border-t border-[hsl(var(--kq-line))] max-w-xs mx-auto text-[12px] tracking-[0.04em] text-[hsl(var(--kq-ink))] space-y-1.5" data-testid="founder-contact">
+                    <p className="font-italic text-[hsl(var(--kq-accent-2))] text-[11px] tracking-[0.28em] uppercase">— {s.contact.role}</p>
+                    <p className="font-display text-lg">{s.contact.name}</p>
+                    <p><a href={`mailto:${s.contact.email}`} className="kq-link">{s.contact.email}</a></p>
+                    <p><a href={`tel:${s.contact.phone.replace(/\s+/g, '')}`} className="kq-link tabular-nums">{s.contact.phone}</a></p>
+                  </div>
+                )}
               </article>
             ))}
           </div>

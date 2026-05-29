@@ -78,6 +78,11 @@ export const VARIANT_IMAGE_ORDER = {
     // Move the front-facing 5654a25f image to position 0 for Pink White
     "Pink White": ["5654a25f"],
   },
+  "palazzo-trousers": {
+    // Show the original full-length hanging shot first (60ickvjo_image3) instead
+    // of the close-up IMG_7390.
+    "Teal Blue & White Flower": ["60ickvjo"],
+  },
 };
 
 // 8) Per-product materials (overrides Details accordion)
@@ -105,6 +110,12 @@ export const CARE_BY_CATEGORY = {
 // variant's flat product photo.
 export const CARD_IMAGE_OVERRIDES = {
   "agonda-scarf": "/products/agonda-stack.jpg",
+  "mariposa-scarf": "/products/mariposa-stack.jpg",
+};
+
+// 11) Per-product price overrides (display-only, until you re-import to Shopify)
+export const PRICE_OVERRIDES = {
+  "yak-wool-scarf": 65,
 };
 
 // Brand contact for "email to order" CTA on pending variants.
