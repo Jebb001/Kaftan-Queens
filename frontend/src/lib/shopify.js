@@ -213,6 +213,28 @@ export function transformProduct(node) {
   const allImages = node.images.edges.map((e) => ({ url: optimizeCdn(e.node.url), alt: e.node.altText || "" }));
   const variants = node.variants.edges.map((e) => e.node);
 
+  // All colour names present in this product (lowercased) — used to detect
+  // when a variant's featured image was misassigned in Shopify to a different
+  // colour's photo. Example: Python's featured image accidentally points to the
+  // Antique Rose photo. We strip those out so users see the correct colour.
+  const allColourNames = new Set(
+    variants
+      .map((v) => v.selectedOptions.find((o) => o.name === "Colour")?.value?.toLowerCase())
+      .filter(Boolean)
+  );
+
+  // Build a quick alt-text lookup so we can tell which colour each product
+  // image actually belongs to.
+  function altColourOf(url) {
+    const match = allImages.find((i) => i.url === url);
+    if (!match || !match.alt) return null;
+    const altLower = match.alt.toLowerCase();
+    for (const c of allColourNames) {
+      if (altLower.includes(c)) return c;
+    }
+    return null;
+  }
+
   // Group by Colour to mimic mock variant structure
   const byColour = new Map();
   for (const v of variants) {
@@ -220,7 +242,16 @@ export function transformProduct(node) {
     const img = optimizeCdn(v.image?.url);
     if (!byColour.has(colour)) byColour.set(colour, { colour, images: [], variantIds: [], sizes: [] });
     const entry = byColour.get(colour);
-    if (img && !entry.images.includes(img)) entry.images.push(img);
+    // Only adopt the variant's featured image if its alt-text matches THIS
+    // colour (or has no alt-text at all). Prevents Shopify mis-assignments
+    // from showing the wrong colour as the active thumbnail.
+    if (img) {
+      const imgColour = altColourOf(img);
+      const colourLower = colour.toLowerCase();
+      if (!imgColour || imgColour === colourLower) {
+        if (!entry.images.includes(img)) entry.images.push(img);
+      }
+    }
     entry.variantIds.push({
       id: v.id,
       size: v.selectedOptions.find((o) => o.name === "Size")?.value || null,
