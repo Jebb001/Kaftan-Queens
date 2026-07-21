@@ -262,13 +262,27 @@ export function transformProduct(node) {
   }
 
   // Distribute remaining product-level images to colours via alt text matching
+  // Distribute product-level images to colours via alt text matching.
+  // Images whose alt-text names a colour go ONLY to that colour.
+  // Images with no alt-text (or generic alt-text that doesn't mention any colour)
+  // are treated as GENERIC product photos and appear on EVERY variant. This lets
+  // shopkeepers upload multi-image products without hand-tagging alt text.
   for (const img of allImages) {
     const altLower = img.alt.toLowerCase();
-    if (!altLower) continue;
-    for (const entry of byColour.values()) {
-      if (entry.images.includes(img.url)) continue;
-      if (altLower.includes(entry.colour.toLowerCase())) {
-        entry.images.push(img.url);
+    let matched = false;
+    if (altLower) {
+      for (const entry of byColour.values()) {
+        if (altLower.includes(entry.colour.toLowerCase())) {
+          if (!entry.images.includes(img.url)) entry.images.push(img.url);
+          matched = true;
+        }
+      }
+    }
+    // Generic image (no alt text or alt text doesn't mention any colour) →
+    // show it on every variant so it isn't lost.
+    if (!matched) {
+      for (const entry of byColour.values()) {
+        if (!entry.images.includes(img.url)) entry.images.push(img.url);
       }
     }
   }

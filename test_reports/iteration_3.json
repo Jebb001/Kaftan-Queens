@@ -1,0 +1,52 @@
+{
+  "summary": "Verified the multi-image PDP fix in /app/frontend/src/lib/shopify.js (transformProduct: generic/untagged images now distributed to every variant). Tested all 5 required product handles on the LIVE preview URL at desktop 1400x900 across every colour variant. All acceptance criteria pass.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verification_results": {
+    "palazzo-trousers": {
+      "Teal Blue & White Flower": {"thumbnails": 2, "meets_>=2_requirement": true},
+      "Pink & Blue Flower": {"thumbnails": 2},
+      "Orange, Yellow & Gold Fleck": {"thumbnails": 2, "sold_out_badge": true},
+      "Pink Tiedye": {"thumbnails": 2}
+    },
+    "butterfly-long-dress": {
+      "Antique Rose": {"thumbnails": 0, "note": "variant has single image in Shopify; gallery hidden when length<=1"},
+      "Blue/White": {"thumbnails": 2},
+      "Bohemian": {"thumbnails": 2},
+      "Ivory": {"thumbnails": 2},
+      "Python": {"thumbnails": 0, "main_image_correct": true, "note": "Python main image = butterfly-python-2 (NOT antique rose) — earlier alt-text regression fix holds"}
+    },
+    "agonda-scarf": {"Pink": 2, "Blue": 2, "others": 0, "note": "Other colours only have 1 variant-specific image on Shopify"},
+    "mariposa-scarf": {"all_variants": 0, "note": "Each colour has a single variant-tagged image; no generic images exist for this product — gallery correctly hides when only 1 image"},
+    "light-cotton-dress": {
+      "Pink White": {"thumbnails": 3},
+      "White Ditsy": {"thumbnails": 2, "sold_out_badge": true},
+      "Blue Flower": {"thumbnails": 2},
+      "Pink/Orange Teardrop": {"thumbnails": 2}
+    }
+  },
+  "acceptance_criteria_status": {
+    "multiple_thumbnails_render_on_variants_with_multi_images": "PASS",
+    "palazzo Teal Blue & White Flower has >=2 thumbnails": "PASS (2)",
+    "Sold Out badge on Palazzo → Orange, Yellow & Gold Fleck": "PASS",
+    "Butterfly → Python does not show Antique Rose as first image": "PASS (main image = butterfly-python-2)",
+    "swatch clicks still switch main image": "PASS (verified across all products)"
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "shopify.js line 283-287: generic-image fan-out is O(images*variants). Acceptable for current catalog size but should be watched as catalog grows.",
+    "ProductDetail.jsx line 132 hides thumbnails when galleryImages.length<=1. This is correct behaviour; variants showing 0 thumbs simply have a single image on Shopify — not a bug."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Multi-image PDP fix verified live. Gallery thumbnails are conditionally rendered only when a variant has >1 image (ProductDetail.jsx:132). Do not misread '0 thumbnails' as a bug — check whether that variant actually has multiple images in Shopify first. Cart/checkout not re-tested per instructions.",
+  "rca of the issue": "Original bug: transformProduct dropped images whose alt-text didn't match any variant colour. Fix appends such generic images to every variant. Verified on 5 products x 26 variants."
+}
