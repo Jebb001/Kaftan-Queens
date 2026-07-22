@@ -261,12 +261,22 @@ export function transformProduct(node) {
     if (size && !entry.sizes.includes(size)) entry.sizes.push(size);
   }
 
-  // Distribute remaining product-level images to colours via alt text matching
+  // Build a set of URLs that are ALREADY assigned to a specific variant as its
+  // featured image. These are "owned" images and must never be fanned out to
+  // other variants — otherwise a photo you attached to a single variant would
+  // pollute every other colour swatch.
+  const ownedByVariant = new Set();
+  for (const v of variants) {
+    const url = optimizeCdn(v.image?.url);
+    if (url) ownedByVariant.add(url);
+  }
+
   // Distribute product-level images to colours via alt text matching.
-  // Images whose alt-text names a colour go ONLY to that colour.
-  // Images with no alt-text (or generic alt-text that doesn't mention any colour)
-  // are treated as GENERIC product photos and appear on EVERY variant. This lets
-  // shopkeepers upload multi-image products without hand-tagging alt text.
+  //  1. Alt-text names a colour → that colour gets it.
+  //  2. Alt-text is empty/generic AND the image is NOT already a variant's
+  //     featured image → treat as a GENERIC photo and show on every variant.
+  //  3. Alt-text is empty AND the image IS owned by a variant → leave alone.
+  //     (It's already attached to its specific variant above.)
   for (const img of allImages) {
     const altLower = img.alt.toLowerCase();
     let matched = false;
@@ -278,9 +288,7 @@ export function transformProduct(node) {
         }
       }
     }
-    // Generic image (no alt text or alt text doesn't mention any colour) →
-    // show it on every variant so it isn't lost.
-    if (!matched) {
+    if (!matched && !ownedByVariant.has(img.url)) {
       for (const entry of byColour.values()) {
         if (!entry.images.includes(img.url)) entry.images.push(img.url);
       }
