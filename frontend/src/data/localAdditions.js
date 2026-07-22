@@ -126,5 +126,11 @@ export const PRICE_OVERRIDES = {
   "yak-wool-scarf": 65,
 };
 
+// 12) Force-hide the "New In" / "Limited" badge on specific products even if
+// the Shopify product has the corresponding tag.
+export const HIDE_BADGE = new Set([
+  "palazzo-trousers",
+]);
+
 // Brand contact for "email to order" CTA on pending variants.
 export const ORDER_EMAIL = "hello@kaftanqueens.co.uk";
