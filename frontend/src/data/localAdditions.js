@@ -73,7 +73,7 @@ export const COLOUR_RENAMES = {
 
 // 6) Variants to display as Sold Out regardless of inventory
 export const SOLD_OUT_VARIANTS = {
-  "light-cotton-dress": ["White Ditsy"],
+  "light-cotton-dress": ["White Ditsy", "Pink/Orange Teardrop"],
   // NOTE: use the RENAMED colour (post COLOUR_RENAMES) since the sold-out
   // check runs after the rename step.
   "palazzo-trousers": ["Orange, Yellow & Gold Fleck"],

@@ -345,6 +345,16 @@ export function transformProduct(node) {
     if (colourRenames[v.colour]) v.colour = colourRenames[v.colour];
   }
 
+  // Auto-mark a colour as SOLD OUT when Shopify says every variantId under
+  // that colour is unavailable (inventory=0 with "deny" policy, or manually
+  // marked unavailable). This runs before the manual SOLD_OUT_VARIANTS
+  // override so admins can still force sold-out for pending variants.
+  for (const v of variantArray) {
+    if (v.variantIds.length && v.variantIds.every((vid) => vid.available === false)) {
+      v.soldOut = true;
+    }
+  }
+
   // Sold-out marker (overrides Shopify inventory for display purposes)
   const soldOutList = SOLD_OUT_VARIANTS[node.handle] || [];
   for (const v of variantArray) {
