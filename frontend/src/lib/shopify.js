@@ -1,7 +1,7 @@
 // Shopify Storefront API client + product/cart helpers.
 // Token is public-safe (Storefront Public Access Token) so direct calls from browser are intentional.
 
-import { LOCAL_VARIANT_ADDITIONS, LOCAL_PRODUCT_ADDITIONS, LOCAL_VARIANT_IMAGE_ADDITIONS, VARIANT_IMAGE_REPLACEMENTS, TITLE_OVERRIDES, COLOUR_RENAMES, SOLD_OUT_VARIANTS, VARIANT_IMAGE_ORDER, CARD_IMAGE_OVERRIDES, PRICE_OVERRIDES } from "../data/localAdditions";
+import { LOCAL_VARIANT_ADDITIONS, LOCAL_PRODUCT_ADDITIONS, LOCAL_VARIANT_IMAGE_ADDITIONS, VARIANT_IMAGE_REPLACEMENTS, TITLE_OVERRIDES, COLOUR_RENAMES, SOLD_OUT_VARIANTS, VARIANT_IMAGE_ORDER, CARD_IMAGE_OVERRIDES, PRICE_OVERRIDES, HIDE_BADGE } from "../data/localAdditions";
 
 const DOMAIN = process.env.REACT_APP_SHOPIFY_DOMAIN;
 const TOKEN = process.env.REACT_APP_SHOPIFY_STOREFRONT_TOKEN;
@@ -393,7 +393,7 @@ export function transformProduct(node) {
     currency: node.priceRange.minVariantPrice.currencyCode,
     category: categoryFromTags(tags),
     sub: subFromProductType(node.productType, tags),
-    badge: badgeFromTags(tags),
+    badge: HIDE_BADGE.has(node.handle) ? null : badgeFromTags(tags),
     description: node.description,
     descriptionHtml: node.descriptionHtml,
     tags,
